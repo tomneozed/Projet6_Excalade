@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <package name="default" extends="struts-default">
+        <!-- Action par defaut -->
+        <default-action-ref name="index" />
+
+        <!-- Action index -->
+        <action name="index">
+            <result>/jsp/index.jsp</result>
+        </action>
+
+        <!-- Action listant les commentaires-->
+        <action name="comment_list"
+                class="action.GestionCommentaireAction"
+                method="doList">
+            <result>/jsp/comment/list.jsp</result>
+        </action>
+
+        <!-- Action affichant les détails d'un commentaire -->
+        <action name="comment_detail"
+                class="action.GestionCommentaireAction"
+                method="doDetail">
+            <result name="success">/jsp/comment/detail.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+    </package>
+</struts>

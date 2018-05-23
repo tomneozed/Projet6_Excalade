@@ -1,0 +1,36 @@
+
+--===== ADD =====--
+INSERT INTO public.commentaires
+	(texte, utilisateur_id, secteur_id)
+VALUES
+	('Teste 879456123', 6, 6)
+;
+
+
+--===== DELETE =====--
+DELETE FROM public.commentaires
+WHERE id = 21;
+
+
+--===== UPDATE =====--
+
+UPDATE public.commentaires
+SET 
+	texte = 'Teste 5647845',
+	utilisateur_id = 5,
+	secteur_id = 5
+WHERE id = 21;
+
+
+--===== LIST =====--
+SELECT texte, utilisateur_id, secteur_id 
+FROM public.commentaires;
+
+
+--===== SEARCH =====--
+SELECT texte, utilisateur_id, secteur_id 
+FROM public.commentaires
+WHERE id = 21;
+
+
+

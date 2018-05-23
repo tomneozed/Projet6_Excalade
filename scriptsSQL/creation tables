@@ -1,0 +1,155 @@
+
+CREATE SEQUENCE public.site_id_seq;
+
+CREATE SEQUENCE public.site_proprietaire_id_seq;
+
+CREATE TABLE public.site (
+                id INTEGER NOT NULL DEFAULT nextval('public.site_id_seq'),
+                state VARCHAR(40) DEFAULT 'New state' NOT NULL,
+                region VARCHAR(40),
+                county VARCHAR(40),
+                name VARCHAR(100),
+                add_day DATE,
+                owner_id INTEGER NOT NULL DEFAULT nextval('public.site_proprietaire_id_seq'),
+                CONSTRAINT site_pk PRIMARY KEY (id)
+);
+
+
+ALTER SEQUENCE public.site_id_seq OWNED BY public.site.id;
+
+ALTER SEQUENCE public.site_proprietaire_id_seq OWNED BY public.site.owner_id;
+
+CREATE SEQUENCE public.area_id_seq;
+
+CREATE SEQUENCE public.area_site_id_seq;
+
+CREATE TABLE public.area (
+                id INTEGER NOT NULL DEFAULT nextval('public.area_id_seq'),
+                name VARCHAR(100) DEFAULT 'New name' NOT NULL,
+                route_count INTEGER DEFAULT 1 NOT NULL,
+                type VARCHAR(20),
+                description VARCHAR(1000),
+                site_id INTEGER NOT NULL DEFAULT nextval('public.area_site_id_seq'),
+                CONSTRAINT area_pk PRIMARY KEY (id)
+);
+
+
+ALTER SEQUENCE public.area_id_seq OWNED BY public.area.id;
+
+ALTER SEQUENCE public.area_site_id_seq OWNED BY public.area.site_id;
+
+CREATE SEQUENCE public.route_id_seq;
+
+CREATE SEQUENCE public.route_secteur_id_seq;
+
+CREATE TABLE public.route (
+                id INTEGER NOT NULL DEFAULT nextval('public.route_id_seq'),
+                route_number INTEGER DEFAULT 1 NOT NULL,
+                height REAL DEFAULT 0 NOT NULL,
+                grade VARCHAR(2) DEFAULT '3c' NOT NULL,
+                anchor_count INTEGER,
+                area_id INTEGER NOT NULL DEFAULT nextval('public.route_secteur_id_seq'),
+                CONSTRAINT route_pk PRIMARY KEY (id)
+);
+
+
+ALTER SEQUENCE public.route_id_seq OWNED BY public.route.id;
+
+ALTER SEQUENCE public.route_secteur_id_seq OWNED BY public.route.area_id;
+
+CREATE SEQUENCE public.person_id_seq;
+
+CREATE TABLE public.person (
+                id INTEGER NOT NULL DEFAULT nextval('public.person_id_seq'),
+                surname VARCHAR(40) DEFAULT 'New surname' NOT NULL,
+                first_name VARCHAR(40) DEFAULT 'New first name' NOT NULL,
+                CONSTRAINT person_pk PRIMARY KEY (id)
+);
+
+
+ALTER SEQUENCE public.person_id_seq OWNED BY public.person.id;
+
+CREATE SEQUENCE public.comment_id_seq;
+
+CREATE SEQUENCE public.comment_utilisateur_id_seq;
+
+CREATE SEQUENCE public.comment_secteur_id_seq;
+
+CREATE TABLE public.comment (
+                id INTEGER NOT NULL DEFAULT nextval('public.comment_id_seq'),
+                text VARCHAR(200),
+                user_id INTEGER NOT NULL DEFAULT nextval('public.comment_utilisateur_id_seq'),
+                area_id INTEGER NOT NULL DEFAULT nextval('public.comment_secteur_id_seq'),
+                CONSTRAINT comment_pk PRIMARY KEY (id)
+);
+
+
+ALTER SEQUENCE public.comment_id_seq OWNED BY public.comment.id;
+
+ALTER SEQUENCE public.comment_utilisateur_id_seq OWNED BY public.comment.user_id;
+
+ALTER SEQUENCE public.comment_secteur_id_seq OWNED BY public.comment.area_id;
+
+CREATE SEQUENCE public.reservations_guidebook_id_seq;
+
+CREATE SEQUENCE public.reservations_topos_locataire_id_seq;
+
+CREATE SEQUENCE public.reservations_guidebook_site_id_seq;
+
+CREATE TABLE public.reservations_guidebook (
+                id INTEGER NOT NULL DEFAULT nextval('public.reservations_guidebook_id_seq'),
+                reservation_day_start DATE NOT NULL,
+                reservation_day_end DATE NOT NULL,
+                tenant_id INTEGER NOT NULL DEFAULT nextval('public.reservations_topos_locataire_id_seq'),
+                site_id INTEGER NOT NULL DEFAULT nextval('public.reservations_guidebook_site_id_seq'),
+                CONSTRAINT reservations_guidebook_pk PRIMARY KEY (id)
+);
+
+
+ALTER SEQUENCE public.reservations_guidebook_id_seq OWNED BY public.reservations_guidebook.id;
+
+ALTER SEQUENCE public.reservations_topos_locataire_id_seq OWNED BY public.reservations_guidebook.tenant_id;
+
+ALTER SEQUENCE public.reservations_guidebook_site_id_seq OWNED BY public.reservations_guidebook.site_id;
+
+ALTER TABLE public.reservations_guidebook ADD CONSTRAINT site_reservations_topos_fk
+FOREIGN KEY (site_id)
+REFERENCES public.site (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.area ADD CONSTRAINT site_secteur_fk
+FOREIGN KEY (site_id)
+REFERENCES public.site (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.route ADD CONSTRAINT secteur_voie_fk
+FOREIGN KEY (area_id)
+REFERENCES public.area (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.comment ADD CONSTRAINT secteur_commentaires_fk
+FOREIGN KEY (area_id)
+REFERENCES public.area (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.reservations_guidebook ADD CONSTRAINT utilisateur_reservations_topos_fk
+FOREIGN KEY (tenant_id)
+REFERENCES public.person (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.comment ADD CONSTRAINT utilisateur_commentaires_fk
+FOREIGN KEY (user_id)
+REFERENCES public.person (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;

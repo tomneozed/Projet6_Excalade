@@ -1,0 +1,135 @@
+INSERT INTO public.person
+	(first_name, surname)
+VALUES
+	('Alain', 'Terrieur'),
+	('Alex', 'Terrieur'),
+	('Georges', 'Washington'),
+	('Marie', 'Curry'),
+	('Josephine', 'Langegardien'),
+	('Marilyn', 'Monroe'),
+	('Gaston', 'Lagaffe'),
+	('Shtroumpf', 'Farceur'),
+	('Gunter', 'Pauli'),
+	('Madame', 'Columbo')
+;
+
+INSERT INTO public.site
+	(owner_id, state, region, county, name, add_day)
+VALUES
+	(1, 'France', 'Auvergne', 'Ain', 'Site1', '20/05/2018'),
+	(2, 'France', 'Auvergne', 'Allier', 'Site2', '20/05/2018'),
+	(3, 'France', 'Occitanie', 'Ariège', 'Site3', '20/05/2018'),
+	(4, 'France', 'Occitanie', 'Aveyron', 'Site4', '20/05/2018'),
+	(5, 'France', 'Bretagne', 'Côtes d\''Armor', 'Site5', '20/05/2018'),  -- /!\ Double-cotter le ' : 'Côtes d\''Armor' /!\ --
+	(6, 'France', 'Normandie', 'Eure', 'Site6', '20/05/2018'),
+	(7, 'France', 'Occitanie', 'Haute-Garonne', 'Site7', '20/05/2018'),
+	(8, 'France', 'Pays de la Loire', 'Loire-Atlantique', 'Site8', '20/05/2018'),
+	(9, 'France', 'Normandie', 'Manche', 'Site9', '20/05/2018'),
+	(10, 'France', 'Grand-Est', 'Marne', 'Site10', '20/05/2018')
+;
+
+INSERT INTO public.area
+	(site_id, name, route_count, type, description)
+VALUES
+	(1, 'Secteur1', 3, 'Falaise', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(1, 'Secteur2', 3, 'Falaise', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(2, 'Secteur1', 3, 'Bloc', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(2, 'Secteur2', 3, 'Bloc', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(3, 'Secteur1', 3, 'Falaise', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(3, 'Secteur2', 3, 'Bloc', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(4, 'Secteur1', 3, 'Falaise', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(4, 'Secteur2', 3, 'Falaise', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(5, 'Secteur1', 3, 'Bloc', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(5, 'Secteur2', 3, 'Bloc', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(6, 'Secteur1', 3, 'Falaise', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(6, 'Secteur2', 3, 'Bloc', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(7, 'Secteur1', 3, 'Falaise', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(7, 'Secteur2', 3, 'Bloc', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(8, 'Secteur1', 3, 'Falaise', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(8, 'Secteur2', 3, 'Bloc', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(9, 'Secteur1', 3, 'Falaise', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(9, 'Secteur2', 3, 'Bloc', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(10, 'Secteur1', 3, 'Bloc', 'Très beau secteur mais pour grimpeur expérimenté'),
+	(10, 'Secteur2', 3, 'Falaise', 'Très beau secteur mais pour grimpeur expérimenté')
+;
+
+
+INSERT INTO public.route
+	(area_id, route_number, height, grade, anchor_count)
+VALUES
+	(1, 1, 15, '6b', 5),
+	(1, 2, 10, '3c', 3),
+	(1, 3, 20, '7a', 7),
+	(2, 1, 15, '6b', 5),
+	(2, 2, 10, '3c', 3),
+	(2, 3, 20, '7a', 7),
+	(3, 1, 15, '6b', 5),
+	(3, 2, 10, '3c', 3),
+	(3, 3, 20, '7a', 7),
+	(4, 1, 15, '6b', 5),
+	(4, 2, 10, '3c', 3),
+	(4, 3, 20, '7a', 7),
+	(5, 1, 15, '6b', 5),
+	(5, 2, 10, '3c', 3),
+	(5, 3, 20, '7a', 7),
+	(6, 1, 15, '6b', 5),
+	(6, 2, 10, '3c', 3),
+	(6, 3, 20, '7a', 7),
+	(7, 1, 15, '6b', 5),
+	(7, 2, 10, '3c', 3),
+	(7, 3, 20, '7a', 7),
+	(8, 1, 15, '6b', 5),
+	(8, 2, 10, '3c', 3),
+	(8, 3, 20, '7a', 7),
+	(9, 1, 15, '6b', 5),
+	(9, 2, 10, '3c', 3),
+	(9, 3, 20, '7a', 7),
+	(10, 1, 15, '6b', 5),
+	(10, 2, 10, '3c', 3),
+	(10, 3, 20, '7a', 7)
+;
+
+INSERT INTO public.comment
+	(user_id, area_id, text)
+VALUES
+	(1, 1, 'Bon secteur, pour tous types de grimpeurs'),
+	(2, 2, 'Bon secteur, pour tous types de grimpeurs'),
+	(3, 3, 'Bon secteur, pour tous types de grimpeurs'),
+	(4, 4, 'Bon secteur, pour tous types de grimpeurs'),
+	(5, 5, 'Bon secteur, pour tous types de grimpeurs'),
+	(6, 6, 'Bon secteur, pour tous types de grimpeurs'),
+	(7, 7, 'Bon secteur, pour tous types de grimpeurs'),
+	(8, 8, 'Bon secteur, pour tous types de grimpeurs'),
+	(9, 9, 'Bon secteur, pour tous types de grimpeurs'),
+	(10, 10, 'Bon secteur, pour tous types de grimpeurs'),
+	(1, 11, 'Bon secteur, pour tous types de grimpeurs'),
+	(2, 12, 'Bon secteur, pour tous types de grimpeurs'),
+	(3, 13, 'Bon secteur, pour tous types de grimpeurs'),
+	(4, 14, 'Bon secteur, pour tous types de grimpeurs'),
+	(5, 15, 'Bon secteur, pour tous types de grimpeurs'),
+	(6, 16, 'Bon secteur, pour tous types de grimpeurs'),
+	(7, 17, 'Bon secteur, pour tous types de grimpeurs'),
+	(8, 18, 'Bon secteur, pour tous types de grimpeurs'),
+	(9, 19, 'Bon secteur, pour tous types de grimpeurs'),
+	(10, 20, 'Bon secteur, pour tous types de grimpeurs')
+;
+
+INSERT INTO public.reservations_guidebook
+	(tenant_id, site_id, reservation_day_start, reservation_day_end)
+VALUES
+	(3, 1, '14/04/2018', '16/04/2018'),
+	(4, 2, '12/04/2018', '14/04/2018'),
+	(5, 3, '18/04/2018', '20/04/2018'),
+	(6, 4, '14/04/2018', '16/04/2018'),
+	(7, 5, '04/04/2018', '16/04/2018'),
+	(8, 6, '14/04/2018', '16/04/2018'),
+	(9, 7, '14/04/2018', '16/04/2018'),
+	(10, 8, '14/04/2018', '16/04/2018'),
+	(1, 9, '14/04/2018', '16/04/2018'),
+	(2, 10, '14/04/2018', '16/04/2018')
+;
+
+
+
+
+
