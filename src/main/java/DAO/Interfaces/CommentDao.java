@@ -10,7 +10,7 @@ public interface CommentDao
 
     void delete(int id);
 
-    void update(int id, Comment nouveauCom);
+    void update(int id, Comment newComment);
 
     List<Comment> list();
 

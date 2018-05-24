@@ -11,6 +11,7 @@ import java.util.List;
 public class CommentDaoImpl implements CommentDao
 {
     private DaoFactory daoFactory;
+    private Connection connexion;
 
     public CommentDaoImpl(DaoFactory daoFactory)
     {
@@ -19,7 +20,7 @@ public class CommentDaoImpl implements CommentDao
 
     public void add(Comment comment)
     {
-        Connection connexion;
+
         PreparedStatement preparedStatement;
 
         try
@@ -41,7 +42,6 @@ public class CommentDaoImpl implements CommentDao
 
     public void delete(int id)
     {
-        Connection connexion;
         PreparedStatement preparedStatement;
 
         try
@@ -60,7 +60,6 @@ public class CommentDaoImpl implements CommentDao
 
     public void update(int id, Comment newComment)
     {
-        Connection connexion;
         PreparedStatement preparedStatement;
 
         try
@@ -87,7 +86,6 @@ public class CommentDaoImpl implements CommentDao
     public List<Comment> list()
     {
         List<Comment> commentaires = new ArrayList<Comment>();
-        Connection connexion;
         Statement statement;
         ResultSet resultat;
 
@@ -118,7 +116,6 @@ public class CommentDaoImpl implements CommentDao
     public Comment find(int id)
     {
         Comment comment = new Comment();
-        Connection connexion;
         Statement statement;
         ResultSet resultat;
 
@@ -128,15 +125,17 @@ public class CommentDaoImpl implements CommentDao
             statement = connexion.createStatement();
             resultat = statement.executeQuery(
                     "SELECT text, user_id, area_id FROM public.comment WHERE id="+ id +";");
+            while (resultat.next())
+            {
+                String text = resultat.getString("text");
+                int user_id = resultat.getInt("user_id");
+                int area_id = resultat.getInt("area_id");
 
-            String text = resultat.getString("text");
-            int user_id = resultat.getInt("user_id");
-            int area_id = resultat.getInt("area_id");
-
-            comment.setId(id);
-            comment.setText(text);
-            comment.setUser_id(user_id);
-            comment.setArea_id(area_id);
+                comment.setId(id);
+                comment.setText(text);
+                comment.setUser_id(user_id);
+                comment.setArea_id(area_id);
+            }
 
         }catch(SQLException e)
         {

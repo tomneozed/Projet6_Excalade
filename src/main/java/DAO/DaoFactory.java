@@ -1,7 +1,9 @@
 package DAO;
 
 import DAO.Implementations.CommentDaoImpl;
+import DAO.Implementations.PersonDaoImpl;
 import DAO.Interfaces.CommentDao;
+import DAO.Interfaces.PersonDao;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -43,5 +45,10 @@ public class DaoFactory
     public CommentDao getCommentaireDao()
     {
         return new CommentDaoImpl(this);
+    }
+
+    public PersonDao getPersonDao()
+    {
+        return new PersonDaoImpl(this);
     }
 }
