@@ -5,8 +5,6 @@ import DAO.DaoFactory;
 import DAO.Interfaces.CommentDao;
 import beans.Comment;
 import com.opensymphony.xwork2.ActionSupport;
-import DAO.Implementations.CommentDaoImpl;
-import javassist.NotFoundException;
 
 import java.util.List;
 

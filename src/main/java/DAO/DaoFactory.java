@@ -1,9 +1,7 @@
 package DAO;
 
-import DAO.Implementations.CommentDaoImpl;
-import DAO.Implementations.PersonDaoImpl;
-import DAO.Interfaces.CommentDao;
-import DAO.Interfaces.PersonDao;
+import DAO.Implementations.*;
+import DAO.Interfaces.*;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -51,4 +49,15 @@ public class DaoFactory
     {
         return new PersonDaoImpl(this);
     }
+
+    public AreaDao getAreaDao() { return new AreaDaoImpl(this);
+    }
+
+    public ReservationsGuidebookDao getReservationDao() { return new ReservationsGuidebookDaoImpl(this);
+    }
+
+    public RouteDao getRouteDao() { return new RouteDaoImpl(this);
+    }
+
+    public SiteDao getSiteDao() { return  new SiteDaoImpl(this);}
 }
