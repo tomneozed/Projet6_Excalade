@@ -21,6 +21,16 @@ public class Route
         this.anchor_count = anchor_count;
     }
 
+    public String fullDescription() {
+        return "\n\n*** Route ***" +
+                "\n id :" + id +
+                "\n area_id :" + area_id +
+                "\n numéro de voie :" + route_number +
+                "\n hauteur : " + height +
+                "\n cotation : " + grade +
+                "\n nombre de splits : " + anchor_count;
+    }
+
     public int getId() {
         return id;
     }

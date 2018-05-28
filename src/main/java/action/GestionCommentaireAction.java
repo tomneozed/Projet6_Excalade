@@ -47,7 +47,7 @@ public class GestionCommentaireAction extends ActionSupport
         Comment comment;
 
         DaoFactory daoFactory = DaoFactory.getInstance();
-        commentDao = daoFactory.getCommentaireDao();
+        commentDao = daoFactory.getCommentDao();
         commentList = commentDao.list();
 
         return ActionSupport.SUCCESS;
@@ -59,7 +59,7 @@ public class GestionCommentaireAction extends ActionSupport
         Comment comment;
 
         DaoFactory daoFactory = DaoFactory.getInstance();
-        commentDao = daoFactory.getCommentaireDao();
+        commentDao = daoFactory.getCommentDao();
         commentList = commentDao.list();
 
         if(id == null)

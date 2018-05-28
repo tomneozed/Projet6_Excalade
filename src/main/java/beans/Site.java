@@ -25,6 +25,16 @@ public class Site
         this.add_day = add_day;
     }
 
+    public String fullDescription() {
+        return "\n\n******************** Site : "+ this.getName() + " ********************" +
+                " \nid : " + this.getId() +
+                " \nPropriétaire ID: " + this.getOwner_id() +
+                " \nPays : " + this.getState() +
+                " \nRegion : " + this.getRegion() +
+                " \nDepartement : " + this.getCounty() +
+                " \nDate d'ajout : " + this.getAdd_day();
+    }
+
     public int getId() {
         return id;
     }

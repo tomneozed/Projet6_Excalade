@@ -16,5 +16,6 @@
     <h1>Bienvenue !</h1>
 
     <s:a action="comment_list">Liste des commentaires</s:a>
+    <s:a action="site_list">Liste des sites</s:a>
 </body>
 </html>

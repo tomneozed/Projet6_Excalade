@@ -24,6 +24,15 @@ public class Area
         this.route_count = route_count;
     }
 
+
+    public String fullDescription() {
+        return "\n      ----- Secteur : "+ this.getName() + " -----"+
+                " \nid : " + this.getId() +
+                " \nNombre de voies: " + this.getRoute_count() +
+                " \nType : " + this.getType() +
+                " \nDescription : " + this.getDescription();
+    }
+
     public int getId() {
         return id;
     }

@@ -40,7 +40,7 @@ public class DaoFactory
         return DriverManager.getConnection(url, username, password);
     }
 
-    public CommentDao getCommentaireDao()
+    public CommentDao getCommentDao()
     {
         return new CommentDaoImpl(this);
     }

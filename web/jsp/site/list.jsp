@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: neonzed
@@ -13,7 +14,16 @@
 <body>
     <h2>Liste des sites</h2>
 
-
+    <ul>
+        <s:iterator value="siteList">
+            <li>
+                <s:a action="site_detail">
+                    <s:param name="id" value="id" />
+                    <s:property value="name"/>
+                </s:a>
+            </li>
+        </s:iterator>
+    </ul>
 
 </body>
 </html>
