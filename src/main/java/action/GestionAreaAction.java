@@ -15,32 +15,48 @@ public class GestionAreaAction extends ActionSupport
 
     //- - - - Elements en entrée - - - -
 
-    private Integer id;
+    private Integer areaId;
+    private Integer siteId;
 
     //- - - - Elements en sortie - - - -
 
     private List<Area> areaList;
     private Area area;
-    private List<Comment> commentList;
-    private Comment comment;
 
     //=========  GETTERS & SETTERS  =========
+
+    public Integer getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(Integer areaId) {
+        this.areaId = areaId;
+    }
+
+    public Integer getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(Integer siteId) {
+        this.siteId = siteId;
+    }
 
     public List<Area> getAreaList() {
         return areaList;
     }
 
-    public Area getComment() {
+    public void setAreaList(List<Area> areaList) {
+        this.areaList = areaList;
+    }
+
+    public Area getArea() {
         return area;
     }
 
-    public Integer getId() {
-        return id;
+    public void setArea(Area area) {
+        this.area = area;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     //=========  METHODES  =========
 
@@ -50,7 +66,7 @@ public class GestionAreaAction extends ActionSupport
 
         DaoFactory daoFactory = DaoFactory.getInstance();
         areaDao = daoFactory.getAreaDao();
-        areaList = areaDao.list();
+        this.areaList = areaDao.list();
 
         return ActionSupport.SUCCESS;
     }
@@ -59,23 +75,15 @@ public class GestionAreaAction extends ActionSupport
     {
         AreaDao areaDao;
 
-        CommentDao commentDao;
-
         DaoFactory daoFactory = DaoFactory.getInstance();
         areaDao = daoFactory.getAreaDao();
-        areaList = areaDao.list();
 
-        commentDao = daoFactory.getCommentDao();
-        commentList = commentDao.list();
-
-
-        if(id == null)
+        if(areaId == null)
         {
-            this.addActionError("Vous devez indiquer un id de commentaire");
+            this.addActionError("Vous devez indiquer un id de secteur");
         }else
         {
-            this.area = areaList.get(id);
-            this.comment = commentList.get(id);
+            this.area = areaDao.find(areaId);
         }
 
         return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;

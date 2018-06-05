@@ -1,5 +1,7 @@
 package beans;
 
+import java.util.List;
+
 public class Site
 {
     private int id;
@@ -9,13 +11,14 @@ public class Site
     private String region;
     private String name;
     private String add_day;
+    private List<Area> areaList;
 
     public Site()
     {
 
     }
 
-    public Site(int id, int owner_id, String state, String county, String region, String name, String add_day) {
+    public Site(int id, int owner_id, String state, String county, String region, String name, String add_day, List<Area> areaList) {
         this.id = id;
         this.owner_id = owner_id;
         this.state = state;
@@ -23,6 +26,7 @@ public class Site
         this.region = region;
         this.name = name;
         this.add_day = add_day;
+        this.areaList = areaList;
     }
 
     public String fullDescription() {
@@ -32,7 +36,20 @@ public class Site
                 " \nPays : " + this.getState() +
                 " \nRegion : " + this.getRegion() +
                 " \nDepartement : " + this.getCounty() +
-                " \nDate d'ajout : " + this.getAdd_day();
+                " \nDate d'ajout : " + this.getAdd_day() +
+                " \nListe des secteurs : \n" + this.areaDescription();
+    }
+
+    public String areaDescription()
+    {
+        String s =" ";
+
+        for(int i =0; i < this.areaList.size(); i++)
+        {
+            s +=this.getAreaList().get(i).fullDescription();
+            s += "\n";
+        }
+        return s;
     }
 
     public int getId() {
@@ -89,5 +106,13 @@ public class Site
 
     public void setAdd_day(String add_day) {
         this.add_day = add_day;
+    }
+
+    public List<Area> getAreaList() {
+        return areaList;
+    }
+
+    public void setAreaList(List<Area> areaList) {
+        this.areaList = areaList;
     }
 }

@@ -14,5 +14,7 @@ public interface AreaDao
 
     List<Area> list();
 
+    List<Area> listBySite(int siteId);
+
     Area find(int id);
 }

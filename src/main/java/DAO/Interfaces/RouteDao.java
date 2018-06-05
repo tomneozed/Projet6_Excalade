@@ -14,5 +14,7 @@ public interface RouteDao
 
     List<Route> list();
 
+    List<Route> listByArea(int areaId);
+
     Route find(int id);
 }

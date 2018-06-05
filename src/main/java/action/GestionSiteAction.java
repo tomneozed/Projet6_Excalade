@@ -1,6 +1,7 @@
 package action;
 
 import DAO.DaoFactory;
+import DAO.Interfaces.AreaDao;
 import DAO.Interfaces.CommentDao;
 import DAO.Interfaces.SiteDao;
 import beans.Site;
@@ -14,7 +15,7 @@ public class GestionSiteAction extends ActionSupport
 
     //- - - - Elements en entrée - - - -
 
-    private Integer id;
+    private Integer siteId;
 
     //- - - - Elements en sortie - - - -
 
@@ -23,12 +24,12 @@ public class GestionSiteAction extends ActionSupport
 
     //=========  GETTERS & SETTERS  =========
 
-    public Integer getId() {
-        return id;
+    public Integer getSiteId() {
+        return siteId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setSiteId(Integer siteId) {
+        this.siteId = siteId;
     }
 
     public List<Site> getSiteList() {
@@ -64,20 +65,18 @@ public class GestionSiteAction extends ActionSupport
     public String doDetail()
     {
         SiteDao siteDao;
-        Site site;
+        AreaDao areaDao;
 
         DaoFactory daoFactory = DaoFactory.getInstance();
         siteDao = daoFactory.getSiteDao();
-        siteList = siteDao.list();
 
-        if(id == null)
+        if(siteId == null)
         {
-            this.addActionError("Vous devez indiquer un id de commentaire");
+            this.addActionError("Vous devez indiquer un id de site");
         }else
         {
-            this.site = siteList.get(id);
+            this.site = siteDao.find(siteId);
         }
-
         return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
     }
 

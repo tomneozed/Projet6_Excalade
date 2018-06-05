@@ -1,7 +1,9 @@
 package DAO.Implementations;
 
 import DAO.DaoFactory;
+import DAO.Interfaces.AreaDao;
 import DAO.Interfaces.SiteDao;
+import beans.Area;
 import beans.Site;
 
 import java.sql.*;
@@ -94,6 +96,7 @@ public class SiteDaoImpl implements SiteDao
     public List<Site> list()
     {
         List<Site> siteList = new ArrayList<Site>();
+        AreaDao areaDao = daoFactory.getAreaDao();
         Statement statement;
         ResultSet resultat;
 
@@ -101,7 +104,7 @@ public class SiteDaoImpl implements SiteDao
         {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
-            resultat = statement.executeQuery("SELECT id, owner_id, state, county, region, name, add_day FROM public.site;");
+            resultat = statement.executeQuery("SELECT * FROM public.site;");
 
             while(resultat.next())
             {
@@ -113,9 +116,11 @@ public class SiteDaoImpl implements SiteDao
                 String name = resultat.getString("name");
                 String add_day = resultat.getString("add_day");
 
-                Site person = new Site(id, owner_id, state, county, region, name, add_day);
+                List<Area> areaListBySite = areaDao.listBySite(id);
 
-                siteList.add(person);
+                Site site = new Site(id, owner_id, state, county, region, name, add_day, areaListBySite);
+
+                siteList.add(site);
             }
         }catch(SQLException e)
         {
@@ -127,6 +132,7 @@ public class SiteDaoImpl implements SiteDao
     public Site find(int id)
     {
         Site site = new Site();
+        AreaDao areaDao = daoFactory.getAreaDao();
         Statement statement;
         ResultSet resultat;
 
@@ -135,7 +141,7 @@ public class SiteDaoImpl implements SiteDao
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
             resultat = statement.executeQuery(
-                    "SELECT owner_id, state, county, region, name, add_day FROM public.site WHERE id="+ id +";");
+                    "SELECT * FROM public.site WHERE id="+ id +";");
             while (resultat.next())
             {
                 int owner_id = resultat.getInt("owner_id");
@@ -152,6 +158,10 @@ public class SiteDaoImpl implements SiteDao
                 site.setRegion(region);
                 site.setName(name);
                 site.setAdd_day(add_day);
+
+                List<Area> areaListBySite = areaDao.listBySite(id);
+
+                site.setAreaList(areaListBySite);
             }
 
         }catch(SQLException e)

@@ -6,22 +6,22 @@
 
 <struts>
     <package name="default" extends="struts-default">
-        <!-- Action par defaut -->
+        <!-- default action-->
         <default-action-ref name="index" />
 
-        <!-- Action index -->
+        <!-- index action -->
         <action name="index">
             <result>/jsp/index.jsp</result>
         </action>
 
-        <!-- Action listant les commentaires-->
+        <!-- comment list action -->
         <action name="comment_list"
                 class="action.GestionCommentaireAction"
                 method="doList">
             <result>/jsp/comment/list.jsp</result>
         </action>
 
-        <!-- Action affichant les détails d'un commentaire -->
+        <!-- comment detail action  -->
         <action name="comment_detail"
                 class="action.GestionCommentaireAction"
                 method="doDetail">
@@ -29,14 +29,14 @@
             <result name="error">/jsp/error.jsp</result>
         </action>
 
-        <!-- Action listant les sites-->
+        <!-- site list action-->
         <action name="site_list"
                 class="action.GestionSiteAction"
                 method="doList">
             <result>/jsp/site/list.jsp</result>
         </action>
 
-        <!-- Action affichant les détails d'un commentaire -->
+        <!-- site detail action -->
         <action name="site_detail"
                 class="action.GestionSiteAction"
                 method="doDetail">
@@ -44,20 +44,34 @@
             <result name="error">/jsp/error.jsp</result>
         </action>
 
-        <!-- Action listant les secteurs-->
+        <!-- area list action -->
         <action name="area_list"
                 class="action.GestionAreaAction"
                 method="doList">
-            <result>/jsp/site/detail.jsp</result>
+            <result>/jsp/area/list.jsp</result>
         </action>
 
-        <!-- Action affichant les détails d'un secteur -->
+        <!-- area detail action -->
         <action name="area_detail"
                 class="action.GestionAreaAction"
                 method="doDetail">
-            <result name="success">/jsp/site/detail.jsp</result>
+            <result name="success">/jsp/area/detail.jsp</result>
             <result name="error">/jsp/error.jsp</result>
         </action>
 
+        <!-- route list action -->
+        <action name="route_list"
+                class="action.RouteActionManagement"
+                method="doList">
+            <result>/jsp/route/list.jsp</result>
+        </action>
+
+        <!-- route detail action -->
+        <action name="route_detail"
+                class="action.RouteActionManagement"
+                method="doDetail">
+            <result name="success">/jsp/route/detail.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
     </package>
 </struts>

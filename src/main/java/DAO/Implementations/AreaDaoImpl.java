@@ -2,7 +2,9 @@ package DAO.Implementations;
 
 import DAO.DaoFactory;
 import DAO.Interfaces.AreaDao;
+import DAO.Interfaces.RouteDao;
 import beans.Area;
+import beans.Route;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -92,6 +94,7 @@ public class AreaDaoImpl implements AreaDao
     public List<Area> list()
     {
         List<Area> areaList = new ArrayList<Area>();
+        RouteDao routeDao = daoFactory.getRouteDao();
         Statement statement;
         ResultSet resultat;
 
@@ -110,7 +113,9 @@ public class AreaDaoImpl implements AreaDao
                 String description = resultat.getString("description");
                 int site_id = resultat.getInt("site_id");
 
-                Area area = new Area(id, name, route_count, type, description, site_id);
+                List<Route> routeListByArea = routeDao.listByArea(id);
+
+                Area area = new Area(id, name, route_count, type, description, site_id, routeListByArea);
 
                 areaList.add(area);
             }
@@ -121,9 +126,46 @@ public class AreaDaoImpl implements AreaDao
         return areaList;
     }
 
+    public List<Area> listBySite(int siteId) {
+        List<Area> areaListBySite = new ArrayList<Area>();
+        RouteDao routeDao = daoFactory.getRouteDao();
+        Statement statement;
+        ResultSet resultat;
+
+        try
+        {
+            connexion = daoFactory.getConnection();
+            statement = connexion.createStatement();
+            resultat = statement.executeQuery("SELECT id, name, route_count, type, description, site_id " +
+                    "FROM public.area " +
+                    "WHERE site_id =" + siteId + ";");
+
+            while(resultat.next())
+            {
+                int id = resultat.getInt("id");
+                String name = resultat.getString("name");
+                int route_count = resultat.getInt("route_count");
+                String type = resultat.getString("type");
+                String description = resultat.getString("description");
+                int site_id = resultat.getInt("site_id");
+
+                List<Route> routeListByArea = routeDao.listByArea(id);
+
+                Area area = new Area(id, name, route_count, type, description, site_id, routeListByArea);
+
+                areaListBySite.add(area);
+            }
+        }catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return areaListBySite;
+    }
+
     public Area find(int id)
     {
         Area area = new Area();
+        RouteDao routeDao = daoFactory.getRouteDao();
         Statement statement;
         ResultSet resultat;
 
@@ -141,12 +183,11 @@ public class AreaDaoImpl implements AreaDao
                 String description = resultat.getString("description");
                 int site_id = resultat.getInt("site_id");
 
-                area.setId(id);
-                area.setName(name);
-                area.setRoute_count(route_count);
-                area.setType(type);
-                area.setDescription(description);
-                area.setSite_id(site_id);
+
+                List<Route> routeListByArea = routeDao.listByArea(id);
+
+                area = new Area(id, name, route_count, type, description, site_id, routeListByArea);
+
             }
 
         }catch(SQLException e)

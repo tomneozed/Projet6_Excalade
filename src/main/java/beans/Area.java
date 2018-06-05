@@ -1,5 +1,7 @@
 package beans;
 
+import java.util.List;
+
 public class Area
 {
     private int id;
@@ -8,13 +10,14 @@ public class Area
     private String description;
     private String type;
     private int route_count;
+    private List<Route> routeList;
 
     public Area()
     {
 
     }
 
-    public Area(int id, String name, int route_count, String type, String description, int site_id)
+    public Area(int id, String name, int route_count, String type, String description, int site_id, List<Route> routeList)
     {
         this.id = id;
         this.site_id = site_id;
@@ -22,6 +25,7 @@ public class Area
         this.description = description;
         this.type = type;
         this.route_count = route_count;
+        this. routeList = routeList;
     }
 
 
@@ -30,7 +34,30 @@ public class Area
                 " \nid : " + this.getId() +
                 " \nNombre de voies: " + this.getRoute_count() +
                 " \nType : " + this.getType() +
-                " \nDescription : " + this.getDescription();
+                " \nDescription : " + this.getDescription() +
+                " \nListe des routes : " + this.routeDescription();
+    }
+
+
+    public String routeDescription()
+    {
+        String s =" ";
+
+        for(int i =0; i < this.routeList.size(); i++)
+        {
+            s +=this.getRouteList().get(i).fullDescription();
+            s += "\n";
+        }
+        return s;
+    }
+
+
+    public List<Route> getRouteList() {
+        return routeList;
+    }
+
+    public void setRouteList(List<Route> routeList) {
+        this.routeList = routeList;
     }
 
     public int getId() {

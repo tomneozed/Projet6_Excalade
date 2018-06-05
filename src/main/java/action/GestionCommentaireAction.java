@@ -44,7 +44,6 @@ public class GestionCommentaireAction extends ActionSupport
     public String doList()
     {
         CommentDao commentDao;
-        Comment comment;
 
         DaoFactory daoFactory = DaoFactory.getInstance();
         commentDao = daoFactory.getCommentDao();
@@ -60,14 +59,14 @@ public class GestionCommentaireAction extends ActionSupport
 
         DaoFactory daoFactory = DaoFactory.getInstance();
         commentDao = daoFactory.getCommentDao();
-        commentList = commentDao.list();
+        comment = commentDao.find(id);
 
-        if(id == null)
+        if(comment == null)
         {
             this.addActionError("Vous devez indiquer un id de commentaire");
         }else
         {
-            this.comment = commentList.get(id);
+            this.comment = comment;
         }
 
         return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;

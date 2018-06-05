@@ -2,6 +2,7 @@ package DAO.Implementations;
 
 import DAO.DaoFactory;
 import DAO.Interfaces.RouteDao;
+import beans.Area;
 import beans.Route;
 
 import java.sql.*;
@@ -100,7 +101,7 @@ public class RouteDaoImpl implements RouteDao
         {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
-            resultat = statement.executeQuery("SELECT id, area_id, route_number, height, grade, anchor_count FROM public.route;");
+            resultat = statement.executeQuery("SELECT * FROM public.route;");
 
             while(resultat.next())
             {
@@ -122,6 +123,37 @@ public class RouteDaoImpl implements RouteDao
         return routeList;
     }
 
+    public List<Route> listByArea(int areaId) {
+        List<Route> routeListByArea = new ArrayList<Route>();
+        Statement statement;
+        ResultSet resultat;
+
+        try
+        {
+            connexion = daoFactory.getConnection();
+            statement = connexion.createStatement();
+            resultat = statement.executeQuery("SELECT * FROM route WHERE area_id = " + areaId + ";");
+
+            while(resultat.next())
+            {
+                int id = resultat.getInt("id");
+                int area_id = resultat.getInt("area_id");
+                int route_number = resultat.getInt("route_number");
+                float height = resultat.getFloat("height");
+                String grade = resultat.getString("grade");
+                int anchor_count = resultat.getInt("anchor_count");
+
+                Route route = new Route(id, area_id, route_number, height, grade, anchor_count);
+
+                routeListByArea.add(route);
+            }
+        }catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return routeListByArea;
+    }
+
     public Route find(int id)
     {
         Route route  = new Route();
@@ -133,7 +165,7 @@ public class RouteDaoImpl implements RouteDao
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
             resultat = statement.executeQuery(
-                    "SELECT area_id, route_number, height, grade, anchor_count FROM public.route WHERE id="+ id +";");
+                    "SELECT * FROM public.route WHERE id="+ id +";");
             while (resultat.next())
             {
                 int area_id = resultat.getInt("area_id");

@@ -107,54 +107,70 @@ public class App
 
         List<Route> routeList = routeDao.list();
 
-        for(int i = 0; i < siteList.size(); i++ )
-        {
-            site = siteList.get(i);
 
-            System.out.println(site.fullDescription());
+        site = siteList.get(3);
 
-            for (int j = 0; j < areaList.size(); j++)
-            {
-                area = areaList.get(j);
+        System.out.println(site.fullDescription());
 
-                if(area.getSite_id() == site.getId())
-                {
-                    System.out.println(area.fullDescription());
-                }
+//        for(int i = 0; i < siteList.size(); i++ )
+//        {
+//            site = siteList.get(i);
+//
+//            System.out.println(site.fullDescription());
+//
+//            for (int j = 0; j < areaList.size(); j++)
+//            {
+//                area = areaList.get(j);
+//
+//                if(area.getSite_id() == site.getId())
+//                {
+//                    System.out.println(area.fullDescription());
+//                }
+//
+//                for (int k = 0; k < routeList.size(); k++)
+//                {
+//                    route = routeList.get(k);
+//
+//                    if (route.getArea_id() == area.getId())
+//                    {
+//                        System.out.println(route.fullDescription());
+//                    }
+//                }
+//
+//                System.out.println("\n----- Commentaires -----");
+//
+//                for(int k = 0; k < commentList.size(); k++)
+//                {
+//                    comment = commentList.get(k);
+//
+//                    if(comment.getArea_id() == area.getId())
+//                    {
+//                        for(int l =0; l < personList.size(); l++)
+//                        {
+//                            person = personList.get(l);
+//
+//                            if(comment.getUser_id() == person.getId())
+//                            {
+//                                System.out.println(person.getFisrtName() + " " + person.getSurname());
+//                                System.out.println(comment.getText());
+//                            }
+//
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
-                for (int k = 0; k < routeList.size(); k++)
-                {
-                    route = routeList.get(k);
 
-                    if (route.getArea_id() == area.getId())
-                    {
-                        System.out.println(route.fullDescription());
-                    }
-                }
 
-                System.out.println("\n----- Commentaires -----");
-
-                for(int k = 0; k < commentList.size(); k++)
-                {
-                    comment = commentList.get(k);
-
-                    if(comment.getArea_id() == area.getId())
-                    {
-                        for(int l =0; l < personList.size(); l++)
-                        {
-                            person = personList.get(l);
-
-                            if(comment.getUser_id() == person.getId())
-                            {
-                                System.out.println(person.getFisrtName() + " " + person.getSurname());
-                                System.out.println(comment.getText());
-                            }
-
-                        }
-                    }
-                }
-            }
-        }
+//        System.out.println("*******************TEST AREA LIST BY SITE*******************");
+//
+//        List<Area> areaListBySite = areaDao.listBySite(3);
+//
+//        for(int i = 0; i < areaListBySite.size(); i++)
+//        {
+//            System.out.println(areaListBySite.get(i).fullDescription());
+//        }
 
 //        System.out.println("CommentList.size() : " + commentList.size());
 //

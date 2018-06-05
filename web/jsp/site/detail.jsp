@@ -25,14 +25,23 @@
         <li>Date d'ajout : <s:property value="site.add_day"/> </li>
     </ul>
 
-    <s:iterator value="areaList">
-        <li>
-            <s:a action="area_detail">
-                <s:param name="id" value="id" />
-                <s:property value="id"/>
-            </s:a>
-        </li>
-    </s:iterator>
-
+    <div>
+        <strong>Liste des secteurs :</strong>
+            <s:if test="site.areaList.size() == 0">
+                Pas de secteurs rattachés à ce site
+            </s:if>
+            <s:else>
+                <ul>
+                    <s:iterator value="site.areaList">
+                        <li>
+                            <s:a action="area_detail">
+                                <s:param name="areaId" value="id" />
+                                <s:property value="name"/>
+                            </s:a>
+                        </li>
+                    </s:iterator>
+                </ul>
+            </s:else>
+    </div>
 </body>
 </html>
