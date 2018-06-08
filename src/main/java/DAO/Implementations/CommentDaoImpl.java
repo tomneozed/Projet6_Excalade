@@ -20,9 +20,7 @@ public class CommentDaoImpl implements CommentDao
 
     public void add(Comment comment)
     {
-
         PreparedStatement preparedStatement;
-
         try
         {
             connexion = daoFactory.getConnection();
@@ -85,7 +83,7 @@ public class CommentDaoImpl implements CommentDao
 
     public List<Comment> list()
     {
-        List<Comment> commentaires = new ArrayList<Comment>();
+        List<Comment> comments = new ArrayList<Comment>();
         Statement statement;
         ResultSet resultat;
 
@@ -98,19 +96,49 @@ public class CommentDaoImpl implements CommentDao
             while(resultat.next())
             {
                 int id = resultat.getInt("id");
-                String texte = resultat.getString("text");
-                int utilisateur_id = resultat.getInt("user_id");
-                int secteur_id = resultat.getInt("area_id");
+                String text = resultat.getString("text");
+                int user_id = resultat.getInt("user_id");
+                int area_id = resultat.getInt("area_id");
 
-                Comment commentaire = new Comment(id, texte, utilisateur_id, secteur_id);
+                Comment comment = new Comment(id, text, user_id, area_id);
 
-                commentaires.add(commentaire);
+                comments.add(comment);
             }
         }catch(SQLException e)
         {
             e.printStackTrace();
         }
-        return commentaires;
+        return comments;
+    }
+
+    public List<Comment> listByArea(int areaId)
+    {
+        List<Comment> commentListByArea = new ArrayList<Comment>();
+        Statement statement;
+        ResultSet resultat;
+
+        try
+        {
+            connexion = daoFactory.getConnection();
+            statement = connexion.createStatement();
+            resultat = statement.executeQuery("SELECT * FROM comment WHERE area_id = " + areaId + ";");
+
+            while(resultat.next())
+            {
+                int id = resultat.getInt("id");
+                String text = resultat.getString("text");
+                int user_id = resultat.getInt("user_id");
+                int area_id = resultat.getInt("area_id");
+
+                Comment comment = new Comment(id, text, user_id, area_id);
+
+                commentListByArea.add(comment);
+            }
+        }catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return commentListByArea;
     }
 
     public Comment find(int id)

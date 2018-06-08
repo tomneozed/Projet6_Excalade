@@ -12,7 +12,7 @@
     <title>Title</title>
 </head>
 <body>
-    <h2></h2>
+    <h2>Detail du secteur</h2>
 <ul>
     <li>ID : <s:property value="area.id"/> </li>
     <li>Nom : <s:property value="area.name"/> </li>
@@ -39,6 +39,5 @@
         </ul>
     </s:else>
 </div>
-
 </body>
 </html>

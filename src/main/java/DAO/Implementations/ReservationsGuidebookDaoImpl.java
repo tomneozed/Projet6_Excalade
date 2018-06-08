@@ -96,7 +96,7 @@ public class ReservationsGuidebookDaoImpl implements ReservationsGuidebookDao
         {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
-            resultat = statement.executeQuery("SELECT id, tenant_id, site_id, reservation_day_start, reservation_day_end FROM public.reservations_guidebook;");
+            resultat = statement.executeQuery("SELECT * FROM public.reservations_guidebook;");
 
             while(resultat.next())
             {
@@ -129,7 +129,7 @@ public class ReservationsGuidebookDaoImpl implements ReservationsGuidebookDao
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
             resultat = statement.executeQuery(
-                    "SELECT tenant_id, site_id, reservation_day_start, reservation_day_end FROM public.reservations_guidebook WHERE id="+ id +";");
+                    "SELECT * FROM public.reservations_guidebook WHERE id="+ id +";");
             while (resultat.next())
             {
                 int tenant_id = resultat.getInt("tenant_id");
