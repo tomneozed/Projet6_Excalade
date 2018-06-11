@@ -16,14 +16,14 @@
 
         <!-- comment list action -->
         <action name="comment_list"
-                class="action.GestionCommentaireAction"
+                class="action.CommentActionManagement"
                 method="doList">
             <result>/jsp/comment/list.jsp</result>
         </action>
 
         <!-- comment detail action  -->
         <action name="comment_detail"
-                class="action.GestionCommentaireAction"
+                class="action.CommentActionManagement"
                 method="doDetail">
             <result name="success">/jsp/comment/detail.jsp</result>
             <result name="error">/jsp/error.jsp</result>
@@ -31,32 +31,66 @@
 
         <!-- site list action-->
         <action name="site_list"
-                class="action.GestionSiteAction"
+                class="action.SiteActionManagement"
                 method="doList">
             <result>/jsp/site/list.jsp</result>
         </action>
 
         <!-- site detail action -->
         <action name="site_detail"
-                class="action.GestionSiteAction"
+                class="action.SiteActionManagement"
                 method="doDetail">
             <result name="success">/jsp/site/detail.jsp</result>
             <result name="error">/jsp/error.jsp</result>
         </action>
 
+        <!-- new site action-->
+        <action name="site_new"
+                class="action.SiteActionManagement"
+                method="doCreate">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
+            <result name="input">/jsp/site/new.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">site_detail</param>
+                <param name="siteId">${site.id}</param>
+            </result>
+        </action>
+
         <!-- area list action -->
         <action name="area_list"
-                class="action.GestionAreaAction"
+                class="action.AreaActionManagement"
                 method="doList">
             <result>/jsp/area/list.jsp</result>
         </action>
 
         <!-- area detail action -->
         <action name="area_detail"
-                class="action.GestionAreaAction"
+                class="action.AreaActionManagement"
                 method="doDetail">
             <result name="success">/jsp/area/detail.jsp</result>
             <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <!-- new area action-->
+        <action name="area_new"
+                class="action.AreaActionManagement"
+                method="doCreate">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
+            <result name="input">/jsp/area/new.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">area_detail</param>
+                <param name="areaId">${area.id}</param>
+            </result>
         </action>
 
         <!-- route list action -->
@@ -70,8 +104,31 @@
         <action name="route_detail"
                 class="action.RouteActionManagement"
                 method="doDetail">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
             <result name="success">/jsp/route/detail.jsp</result>
             <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <!-- new route action-->
+        <action name="route_new"
+                class="action.RouteActionManagement"
+                method="doCreate">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
+            <result name="input">/jsp/route/new.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">area_detail</param>
+                <param name="routeId">${route.area_id}</param>
+            </result>
         </action>
     </package>
 </struts>

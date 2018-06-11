@@ -43,11 +43,17 @@ public class Site
     public String areaDescription()
     {
         String s =" ";
-
-        for(int i =0; i < this.areaList.size(); i++)
+        try
         {
-            s +=this.getAreaList().get(i).fullDescription();
-            s += "\n";
+            for(int i =0; i < this.areaList.size(); i++)
+            {
+                s +=this.getAreaList().get(i).fullDescription();
+                s += "\n";
+            }
+
+        }catch(NullPointerException e)
+        {
+            e.printStackTrace();
         }
         return s;
     }

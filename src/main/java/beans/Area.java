@@ -43,10 +43,16 @@ public class Area
     {
         String s =" ";
 
-        for(int i =0; i < this.routeList.size(); i++)
+        try
         {
-            s +=this.getRouteList().get(i).fullDescription();
-            s += "\n";
+            for(int i =0; i < this.routeList.size(); i++)
+            {
+                s +=this.getRouteList().get(i).fullDescription();
+                s += "\n";
+            }
+        }catch(NullPointerException e)
+        {
+            e.printStackTrace();
         }
         return s;
     }

@@ -13,9 +13,10 @@
     <title>titre</title>
 </head>
 <body>
-    <h1>Bienvenue !</h1>
-
+    <h1><s:text name="home.welcome" /> </h1>
     <s:a action="site_list">Liste des sites</s:a>
     <s:a action="area_list">Liste des secteurs</s:a>
+    <s:a action="area_new">Ajouter un secteur</s:a>
+    <s:a action="site_new">Ajouter un site</s:a>
 </body>
 </html>

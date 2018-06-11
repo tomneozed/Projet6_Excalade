@@ -13,6 +13,8 @@
 </head>
 <body>
 
+    <s:actionmessage />
+
     <h2>Detail du site</h2>
 
     <ul>
@@ -42,6 +44,8 @@
                     </s:iterator>
                 </ul>
             </s:else>
+
+        <s:a action="area_new">Ajouter un secteur</s:a>
     </div>
 </body>
 </html>

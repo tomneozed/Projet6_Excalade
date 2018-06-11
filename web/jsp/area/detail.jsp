@@ -24,7 +24,7 @@
 <div>
     <strong>Liste des voies :</strong>
     <s:if test="area.routeList.size() == 0">
-        Pas de voies rattachés à ce site
+        Pas de voies rattachées à ce site
     </s:if>
     <s:else>
         <ul>
@@ -38,6 +38,8 @@
             </s:iterator>
         </ul>
     </s:else>
+
+
 </div>
 </body>
 </html>
