@@ -118,7 +118,11 @@ public class SiteActionManagement extends ActionSupport
 
             if(!this.hasErrors())
             {
-                siteDao.add(this.site);
+                this.siteId = siteDao.add(this.site);
+
+                site.setId(siteId);
+
+                System.out.println(site.fullDescription());
 
                 vResult = ActionSupport.SUCCESS;
                 this.addActionMessage("success.site.added");

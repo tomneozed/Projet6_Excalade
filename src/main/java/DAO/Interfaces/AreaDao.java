@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AreaDao
 {
-    void add(Area area);
+    int add(Area area);
 
     void delete(int id);
 

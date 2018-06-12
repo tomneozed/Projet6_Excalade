@@ -5,11 +5,11 @@ import java.util.List;
 public class Area
 {
     private int id;
-    private int site_id;
+    private int siteId;
     private String name;
     private String description;
     private String type;
-    private int route_count;
+    private int routeCount;
     private List<Route> routeList;
 
     public Area()
@@ -17,22 +17,20 @@ public class Area
 
     }
 
-    public Area(int id, String name, int route_count, String type, String description, int site_id, List<Route> routeList)
-    {
+    public Area(int id, int siteId, String name, String description, String type, int routeCount, List<Route> routeList) {
         this.id = id;
-        this.site_id = site_id;
+        this.siteId = siteId;
         this.name = name;
         this.description = description;
         this.type = type;
-        this.route_count = route_count;
-        this. routeList = routeList;
+        this.routeCount = routeCount;
+        this.routeList = routeList;
     }
-
 
     public String fullDescription() {
         return "\n      ----- Secteur : "+ this.getName() + " -----"+
                 " \nid : " + this.getId() +
-                " \nNombre de voies: " + this.getRoute_count() +
+                " \nNombre de voies: " + this.getRouteCount() +
                 " \nType : " + this.getType() +
                 " \nDescription : " + this.getDescription() +
                 " \nListe des routes : " + this.routeDescription();
@@ -42,28 +40,25 @@ public class Area
     public String routeDescription()
     {
         String s =" ";
-
-        try
+        if(this.routeList != null)
         {
-            for(int i =0; i < this.routeList.size(); i++)
+            try
             {
-                s +=this.getRouteList().get(i).fullDescription();
-                s += "\n";
+                for(int i =0; i < this.routeList.size(); i++)
+                {
+                    s +=this.getRouteList().get(i).fullDescription();
+                    s += "\n";
+                }
+            }catch(NullPointerException e)
+            {
+                e.printStackTrace();
             }
-        }catch(NullPointerException e)
+        }else
         {
-            e.printStackTrace();
+            s = "Pas de routes associées";
         }
+
         return s;
-    }
-
-
-    public List<Route> getRouteList() {
-        return routeList;
-    }
-
-    public void setRouteList(List<Route> routeList) {
-        this.routeList = routeList;
     }
 
     public int getId() {
@@ -74,12 +69,12 @@ public class Area
         this.id = id;
     }
 
-    public int getSite_id() {
-        return site_id;
+    public int getSiteId() {
+        return siteId;
     }
 
-    public void setSite_id(int site_id) {
-        this.site_id = site_id;
+    public void setSiteId(int siteId) {
+        this.siteId = siteId;
     }
 
     public String getName() {
@@ -106,11 +101,19 @@ public class Area
         this.type = type;
     }
 
-    public int getRoute_count() {
-        return route_count;
+    public int getRouteCount() {
+        return routeCount;
     }
 
-    public void setRoute_count(int route_count) {
-        this.route_count = route_count;
+    public void setRouteCount(int routeCount) {
+        this.routeCount = routeCount;
+    }
+
+    public List<Route> getRouteList() {
+        return routeList;
+    }
+
+    public void setRouteList(List<Route> routeList) {
+        this.routeList = routeList;
     }
 }

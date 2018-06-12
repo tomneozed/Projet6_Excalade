@@ -3,32 +3,32 @@ package beans;
 public class Route
 {
     private int id;
-    private int area_id;
-    private int route_number;
+    private int areaId;
+    private int routeNumber;
     private float height;
     private String grade;
-    private int anchor_count;
+    private int anchorCount;
 
     public Route() {
     }
 
-    public Route(int id, int area_id, int route_number, float height, String grade, int anchor_count) {
+    public Route(int id, int areaId, int routeNumber, float height, String grade, int anchorCount) {
         this.id = id;
-        this.area_id = area_id;
-        this.route_number = route_number;
+        this.areaId = areaId;
+        this.routeNumber = routeNumber;
         this.height = height;
         this.grade = grade;
-        this.anchor_count = anchor_count;
+        this.anchorCount = anchorCount;
     }
 
     public String fullDescription() {
         return "\n\n*** Route ***" +
                 "\n id :" + id +
-                "\n area_id :" + area_id +
-                "\n numéro de voie :" + route_number +
+                "\n area_id :" + areaId +
+                "\n numéro de voie :" + routeNumber +
                 "\n hauteur : " + height +
                 "\n cotation : " + grade +
-                "\n nombre de splits : " + anchor_count;
+                "\n nombre de splits : " + anchorCount;
     }
 
     public int getId() {
@@ -39,20 +39,20 @@ public class Route
         this.id = id;
     }
 
-    public int getArea_id() {
-        return area_id;
+    public int getAreaId() {
+        return areaId;
     }
 
-    public void setArea_id(int area_id) {
-        this.area_id = area_id;
+    public void setAreaId(int areaId) {
+        this.areaId = areaId;
     }
 
-    public int getRoute_number() {
-        return route_number;
+    public int getRouteNumber() {
+        return routeNumber;
     }
 
-    public void setRoute_number(int route_number) {
-        this.route_number = route_number;
+    public void setRouteNumber(int routeNumber) {
+        this.routeNumber = routeNumber;
     }
 
     public float getHeight() {
@@ -71,11 +71,11 @@ public class Route
         this.grade = grade;
     }
 
-    public int getAnchor_count() {
-        return anchor_count;
+    public int getAnchorCount() {
+        return anchorCount;
     }
 
-    public void setAnchor_count(int anchor_count) {
-        this.anchor_count = anchor_count;
+    public void setAnchorCount(int anchorCount) {
+        this.anchorCount = anchorCount;
     }
 }

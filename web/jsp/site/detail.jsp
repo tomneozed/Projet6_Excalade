@@ -45,7 +45,9 @@
                 </ul>
             </s:else>
 
-        <s:a action="area_new">Ajouter un secteur</s:a>
+        <s:a action="area_new">Ajouter un secteur
+            <s:param name="siteId" value="%{site.id}"/>
+        </s:a>
     </div>
 </body>
 </html>

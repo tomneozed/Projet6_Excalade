@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SiteDao
 {
-    void add(Site site);
+    int add(Site site);
 
     void delete(int id);
 

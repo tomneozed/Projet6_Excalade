@@ -17,12 +17,12 @@
 
     <h2>Creation d'une voie</h2>
 
-    <s:form action="route_new">
-        <s:textfield name="route.route_number" key="route.number" requiredLabel="true" />
+    <s:form action="route_new" method="POST">
+        <s:textfield name="route.routeNumber" key="route.number" requiredLabel="true" />
         <s:textfield name="route.height" key="route.height" requiredLabel="true" />
         <s:textfield name="route.grade" key="route.grade" requiredLabel="true" />
-        <s:textfield name="route.anchor_count" key="route.anchor.count" requiredLabel="false" />
-        <s:submit name="OK"/>
+        <s:textfield name="route.anchorCount" key="route.anchor.count" requiredLabel="false" />
+        <s:submit value="OK"/>
     </s:form>
 
 </body>

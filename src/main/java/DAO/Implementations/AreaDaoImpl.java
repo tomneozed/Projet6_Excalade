@@ -20,27 +20,40 @@ public class AreaDaoImpl implements AreaDao
         this.daoFactory = daoFactory;
     }
 
-    public void add(Area area) {
+    public int add(Area area) {
         PreparedStatement preparedStatement;
+        int areaId = -1;
 
         try
         {
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement(
                     "INSERT INTO public.area(name, route_count, type, description, site_id) " +
-                            "VALUES(?,?,?,?,?);");
+                            "VALUES(?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setString(1, area.getName());
-            preparedStatement.setInt(2, area.getRoute_count());
+            preparedStatement.setInt(2, area.getRouteCount());
             preparedStatement.setString(3, area.getType());
             preparedStatement.setString(4, area.getDescription());
-            preparedStatement.setInt(5, area.getSite_id());
+            preparedStatement.setInt(5, area.getSiteId());
 
             preparedStatement.executeUpdate();
+
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+
+            if(rs.next())
+            {
+                areaId = rs.getInt(1);
+            }
+
+            System.out.println("[add] AreaId : " + areaId);
+
         }catch(SQLException e)
         {
             e.printStackTrace();
         }
+
+        return areaId;
     }
 
     public void delete(int id)
@@ -78,10 +91,10 @@ public class AreaDaoImpl implements AreaDao
                             "site_id = ?" +
                             "WHERE id = ?;");
             preparedStatement.setString(1, newArea.getName());
-            preparedStatement.setInt(2, newArea.getRoute_count());
+            preparedStatement.setInt(2, newArea.getRouteCount());
             preparedStatement.setString(3, newArea.getType());
             preparedStatement.setString(4, newArea.getDescription());
-            preparedStatement.setInt(5, newArea.getSite_id());
+            preparedStatement.setInt(5, newArea.getSiteId());
 
             preparedStatement.executeUpdate();
         }catch(SQLException e)
@@ -115,7 +128,7 @@ public class AreaDaoImpl implements AreaDao
 
                 List<Route> routeListByArea = routeDao.listByArea(id);
 
-                Area area = new Area(id, name, route_count, type, description, site_id, routeListByArea);
+                Area area = new Area(id, site_id, name, description, type, route_count, routeListByArea);
 
                 areaList.add(area);
             }
@@ -151,7 +164,7 @@ public class AreaDaoImpl implements AreaDao
 
                 List<Route> routeListByArea = routeDao.listByArea(id);
 
-                Area area = new Area(id, name, route_count, type, description, site_id, routeListByArea);
+                Area area = new Area(id, site_id, name, description, type, route_count, routeListByArea);
 
                 areaListBySite.add(area);
             }
@@ -186,7 +199,7 @@ public class AreaDaoImpl implements AreaDao
 
                 List<Route> routeListByArea = routeDao.listByArea(id);
 
-                area = new Area(id, name, route_count, type, description, site_id, routeListByArea);
+                area = new Area(id, site_id, name, description, type, route_count, routeListByArea);
 
             }
 

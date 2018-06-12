@@ -13,7 +13,7 @@
         <action name="index">
             <result>/jsp/index.jsp</result>
         </action>
-
+        <!--======================================== COMMENT ========================================-->
         <!-- comment list action -->
         <action name="comment_list"
                 class="action.CommentActionManagement"
@@ -28,6 +28,9 @@
             <result name="success">/jsp/comment/detail.jsp</result>
             <result name="error">/jsp/error.jsp</result>
         </action>
+
+
+        <!--======================================== SITE ========================================-->
 
         <!-- site list action-->
         <action name="site_list"
@@ -61,6 +64,8 @@
             </result>
         </action>
 
+        <!--======================================== AREA ========================================-->
+
         <!-- area list action -->
         <action name="area_list"
                 class="action.AreaActionManagement"
@@ -93,6 +98,8 @@
             </result>
         </action>
 
+        <!--======================================== ROUTE ========================================-->
+
         <!-- route list action -->
         <action name="route_list"
                 class="action.RouteActionManagement"
@@ -104,12 +111,6 @@
         <action name="route_detail"
                 class="action.RouteActionManagement"
                 method="doDetail">
-
-            <interceptor-ref name="store">
-                <param name="operationMode">RETRIEVE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack"/>
-
             <result name="success">/jsp/route/detail.jsp</result>
             <result name="error">/jsp/error.jsp</result>
         </action>
@@ -126,8 +127,8 @@
 
             <result name="input">/jsp/route/new.jsp</result>
             <result name="success" type="redirectAction">
-                <param name="actionName">area_detail</param>
-                <param name="routeId">${route.area_id}</param>
+                <param name="actionName">route_detail</param>
+                <param name="routeId">${route.id}</param>
             </result>
         </action>
     </package>

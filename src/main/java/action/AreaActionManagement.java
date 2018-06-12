@@ -41,6 +41,22 @@ public class AreaActionManagement extends ActionSupport
         this.typeList = typeList;
     }
 
+    public List<String> getTypeList() {
+        return typeList;
+    }
+
+    public Integer getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(Integer siteId) {
+        this.siteId = siteId;
+    }
+
+    public void setAreaList(List<Area> areaList) {
+        this.areaList = areaList;
+    }
+
     //=========  METHODES  =========
 
     public String doList()
@@ -95,14 +111,15 @@ public class AreaActionManagement extends ActionSupport
                 this.addFieldError("area.description", "error.area.description.size");
             }
 
-            this.area.setSite_id(1);
-
-            System.out.println(this.area.fullDescription());
-
+            this.area.setSiteId(1);
 
             if(!this.hasErrors())
             {
-                areaDao.add(this.area);
+                this.areaId = areaDao.add(this.area);
+
+                area.setId(areaId);
+
+                System.out.println(this.area.fullDescription());
 
                 vResult = ActionSupport.SUCCESS;
                 this.addActionMessage("success.area.added");

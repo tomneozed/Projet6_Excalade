@@ -193,7 +193,7 @@ public class App
 
         for(int i = 0; i < areaList.size(); i++)
         {
-            if(areaList.get(i).getSite_id() == site_id)
+            if(areaList.get(i).getSiteId() == site_id)
             {
                 number++;
             }

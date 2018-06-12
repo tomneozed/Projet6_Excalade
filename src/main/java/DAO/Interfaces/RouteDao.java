@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface RouteDao
 {
-    void add(Route route);
+    int add(Route route);
 
     void delete(int id);
 

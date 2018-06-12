@@ -20,28 +20,40 @@ public class SiteDaoImpl implements SiteDao
         this.daoFactory = daoFactory;
     }
 
-    public void add(Site site)
+    public int add(Site site)
     {
         PreparedStatement preparedStatement;
+        int siteId = -1;
 
         try
         {
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement(
                     "INSERT INTO public.site(owner_id, state, county, region, name, add_day)" +
-                            "VALUES(?,?,?,?,?,?);");
-            preparedStatement.setInt(1, site.getOwner_id());
+                            "VALUES(?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setInt(1, site.getOwnerId());
             preparedStatement.setString(2, site.getState());
             preparedStatement.setString(3, site.getCounty());
             preparedStatement.setString(4, site.getRegion());
             preparedStatement.setString(5, site.getName());
-            preparedStatement.setString(6, site.getAdd_day());
+            preparedStatement.setString(6, site.getAddDay());
 
             preparedStatement.executeUpdate();
+
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+
+            if(rs.next())
+            {
+                siteId = rs.getInt(1);
+            }
+
+            System.out.println("[add] SiteId : " + siteId);
+
         }catch(SQLException e)
         {
             e.printStackTrace();
         }
+        return siteId;
     }
 
     public void delete(int id)
@@ -79,12 +91,12 @@ public class SiteDaoImpl implements SiteDao
                             "add_day = ? " +
                             "WHERE id = ?;");
 
-            preparedStatement.setInt(1, newSite.getOwner_id());
+            preparedStatement.setInt(1, newSite.getOwnerId());
             preparedStatement.setString(2, newSite.getState());
             preparedStatement.setString(3, newSite.getCounty());
             preparedStatement.setString(4, newSite.getRegion());
             preparedStatement.setString(5, newSite.getName());
-            preparedStatement.setString(6, newSite.getAdd_day());
+            preparedStatement.setString(6, newSite.getAddDay());
 
             preparedStatement.executeUpdate();
         }catch(SQLException e)
@@ -152,12 +164,12 @@ public class SiteDaoImpl implements SiteDao
                 String add_day = resultat.getString("add_day");
 
                 site.setId(id);
-                site.setOwner_id(owner_id);
+                site.setOwnerId(owner_id);
                 site.setState(state);
                 site.setCounty(county);
                 site.setRegion(region);
                 site.setName(name);
-                site.setAdd_day(add_day);
+                site.setAddDay(add_day);
 
                 List<Area> areaListBySite = areaDao.listBySite(id);
 

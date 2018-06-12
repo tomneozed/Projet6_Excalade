@@ -5,12 +5,12 @@ import java.util.List;
 public class Site
 {
     private int id;
-    private int owner_id;
+    private int ownerId;
     private String state;
     private String county;
     private String region;
     private String name;
-    private String add_day;
+    private String addDay;
     private List<Area> areaList;
 
     public Site()
@@ -18,43 +18,47 @@ public class Site
 
     }
 
-    public Site(int id, int owner_id, String state, String county, String region, String name, String add_day, List<Area> areaList) {
+    public Site(int id, int ownerId, String state, String county, String region, String name, String addDay, List<Area> areaList) {
         this.id = id;
-        this.owner_id = owner_id;
+        this.ownerId = ownerId;
         this.state = state;
         this.county = county;
         this.region = region;
         this.name = name;
-        this.add_day = add_day;
+        this.addDay = addDay;
         this.areaList = areaList;
     }
 
     public String fullDescription() {
         return "\n\n******************** Site : "+ this.getName() + " ********************" +
                 " \nid : " + this.getId() +
-                " \nPropriétaire ID: " + this.getOwner_id() +
+                " \nPropriétaire ID: " + this.getOwnerId() +
                 " \nPays : " + this.getState() +
                 " \nRegion : " + this.getRegion() +
                 " \nDepartement : " + this.getCounty() +
-                " \nDate d'ajout : " + this.getAdd_day() +
+                " \nDate d'ajout : " + this.getAddDay() +
                 " \nListe des secteurs : \n" + this.areaDescription();
     }
 
     public String areaDescription()
     {
         String s =" ";
-        try
+        if(areaList != null)
         {
-            for(int i =0; i < this.areaList.size(); i++)
+            try
             {
-                s +=this.getAreaList().get(i).fullDescription();
-                s += "\n";
-            }
+                for(int i =0; i < this.areaList.size(); i++)
+                {
+                    s +=this.getAreaList().get(i).fullDescription();
+                    s += "\n";
+                }
 
-        }catch(NullPointerException e)
-        {
-            e.printStackTrace();
+            }catch(NullPointerException e)
+            {
+                e.printStackTrace();
+            }
         }
+
         return s;
     }
 
@@ -66,12 +70,12 @@ public class Site
         this.id = id;
     }
 
-    public int getOwner_id() {
-        return owner_id;
+    public int getOwnerId() {
+        return ownerId;
     }
 
-    public void setOwner_id(int owner_id) {
-        this.owner_id = owner_id;
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getState() {
@@ -106,12 +110,12 @@ public class Site
         this.name = name;
     }
 
-    public String getAdd_day() {
-        return add_day;
+    public String getAddDay() {
+        return addDay;
     }
 
-    public void setAdd_day(String add_day) {
-        this.add_day = add_day;
+    public void setAddDay(String addDay) {
+        this.addDay = addDay;
     }
 
     public List<Area> getAreaList() {

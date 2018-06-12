@@ -20,7 +20,7 @@
     <li>Numéro de voie : <s:property value="route.route_number"/> </li>
     <li>Hauteur : <s:property value="route.height"/> </li>
     <li>Cotation : <s:property value="route.grade"/> </li>
-    <li>Nombre de splits : <s:property value="route.anchor_count"/> </li>
+    <li>Nombre de splits : <s:property value="route.anchorCount"/> </li>
 </ul>
 
 </body>

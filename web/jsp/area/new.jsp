@@ -20,16 +20,13 @@
 
     <s:form action="area_new">
         <s:textfield name="area.name" key="area.name" requiredLabel="true" />
-        <s:textfield name="area.type" key="area.type" requiredLabel="true" />
         <s:select name="area.type" key="area.type"
                   list="typeList"
                   emptyOption="true"
                   requiredLabel="true"/>
         <s:textfield name="area.description" key="area.description" requiredLabel="false" />
-        <s:submit name="OK"/>
+        <s:submit value="OK"/>
     </s:form>
-
-    <s:a action="route_new">Ajouter une voie</s:a>
 
 </body>
 </html>

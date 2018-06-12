@@ -19,28 +19,40 @@ public class RouteDaoImpl implements RouteDao
         this.daoFactory = daoFactory;
     }
 
-    public void add(Route route)
+    public int add(Route route)
     {
         PreparedStatement preparedStatement;
+        int routeId = -1;
 
         try
         {
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement(
                     "INSERT INTO public.route(area_id, route_number, height, grade, anchor_count)" +
-                            "VALUES(?,?,?,?,?);");
-            preparedStatement.setInt(1, route.getArea_id());
-            preparedStatement.setInt(2, route.getRoute_number());
+                            "VALUES(?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setInt(1, route.getAreaId());
+            preparedStatement.setInt(2, route.getRouteNumber());
             preparedStatement.setFloat(3, route.getHeight());
             preparedStatement.setString(4, route.getGrade());
-            preparedStatement.setInt(5, route.getAnchor_count());
+            preparedStatement.setInt(5, route.getAnchorCount());
 
             preparedStatement.executeUpdate();
+
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+
+            if(rs.next())
+            {
+                routeId = rs.getInt(1);
+            }
+
+            System.out.println("[add] RouteId : " + routeId);
 
         }catch(SQLException e)
         {
             e.printStackTrace();
         }
+
+        return routeId;
     }
 
     public void delete(int id)
@@ -77,11 +89,11 @@ public class RouteDaoImpl implements RouteDao
                             "anchor_count = ? " +
                             "WHERE id = ?;");
 
-            preparedStatement.setInt(1, newRoute.getArea_id());
-            preparedStatement.setInt(2, newRoute.getRoute_number());
+            preparedStatement.setInt(1, newRoute.getAreaId());
+            preparedStatement.setInt(2, newRoute.getRouteNumber());
             preparedStatement.setFloat(3, newRoute.getHeight());
             preparedStatement.setString(4, newRoute.getGrade());
-            preparedStatement.setInt(5, newRoute.getAnchor_count());
+            preparedStatement.setInt(5, newRoute.getAnchorCount());
 
             preparedStatement.executeUpdate();
 
@@ -175,11 +187,11 @@ public class RouteDaoImpl implements RouteDao
                 int anchor_count = resultat.getInt("anchor_count");
 
                 route.setId(id);
-                route.setArea_id(area_id);
-                route.setRoute_number(route_number);
+                route.setAreaId(area_id);
+                route.setRouteNumber(route_number);
                 route.setHeight(height);
                 route.setGrade(grade);
-                route.setAnchor_count(anchor_count);
+                route.setAnchorCount(anchor_count);
             }
 
         }catch(SQLException e)

@@ -39,7 +39,11 @@
         </ul>
     </s:else>
 
-
+    <p>
+        <s:a action="route_new">Ajouter une voie
+            <s:param name="areaId" value="%{area.id}" />
+        </s:a>
+    </p>
 </div>
 </body>
 </html>
