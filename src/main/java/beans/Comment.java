@@ -20,6 +20,13 @@ public class Comment
         this.area_id = secteur_id;
     }
 
+    public String fullDescription() {
+        return "\n      ----- Secteur : "+ this.getId() + " -----"+
+                " \nText : " + this.getText() +
+                " \nUser ID : " + this.getUser_id() +
+                " \nArea ID : " + this.getArea_id();
+    }
+
     public String getText() {
         return text;
     }

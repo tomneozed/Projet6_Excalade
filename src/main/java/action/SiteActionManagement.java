@@ -64,7 +64,6 @@ public class SiteActionManagement extends ActionSupport implements SessionAware
     public String doList()
     {
         SiteDao siteDao;
-        Site site;
 
         DaoFactory daoFactory = DaoFactory.getInstance();
         siteDao = daoFactory.getSiteDao();
@@ -76,14 +75,13 @@ public class SiteActionManagement extends ActionSupport implements SessionAware
     public String doDetail()
     {
         SiteDao siteDao;
-        AreaDao areaDao;
 
         DaoFactory daoFactory = DaoFactory.getInstance();
         siteDao = daoFactory.getSiteDao();
 
         if(siteId == null)
         {
-            this.addActionError("Vous devez indiquer un id de site");
+            this.addActionError("error.site.missing.id");
         }else
         {
             this.site = siteDao.find(siteId);
@@ -136,9 +134,7 @@ public class SiteActionManagement extends ActionSupport implements SessionAware
             this.site.setAddDay(dateFormat.format(date));
             System.out.println(this.site.getAddDay()); //2016/11/16 12:08:43
 
-
             System.out.println(this.site.fullDescription());
-
 
             if(!this.hasErrors())
             {

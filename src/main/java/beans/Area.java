@@ -11,13 +11,14 @@ public class Area
     private String type;
     private int routeCount;
     private List<Route> routeList;
+    private List<Comment> commentList;
 
     public Area()
     {
 
     }
 
-    public Area(int id, int siteId, String name, String description, String type, int routeCount, List<Route> routeList) {
+    public Area(int id, int siteId, String name, String description, String type, int routeCount, List<Route> routeList, List<Comment> commentList) {
         this.id = id;
         this.siteId = siteId;
         this.name = name;
@@ -25,6 +26,7 @@ public class Area
         this.type = type;
         this.routeCount = routeCount;
         this.routeList = routeList;
+        this.commentList = commentList;
     }
 
     public String fullDescription() {
@@ -33,9 +35,9 @@ public class Area
                 " \nNombre de voies: " + this.getRouteCount() +
                 " \nType : " + this.getType() +
                 " \nDescription : " + this.getDescription() +
-                " \nListe des routes : " + this.routeDescription();
+                " \nListe des routes : " + this.routeDescription() +
+                " \nListe des commentaires : " + this.commentDescription();
     }
-
 
     public String routeDescription()
     {
@@ -56,6 +58,30 @@ public class Area
         }else
         {
             s = "Pas de routes associées";
+        }
+
+        return s;
+    }
+
+    public String commentDescription()
+    {
+        String s =" ";
+        if(this.commentList != null)
+        {
+            try
+            {
+                for(int i =0; i < this.commentList.size(); i++)
+                {
+                    s +=this.getCommentList().get(i).fullDescription();
+                    s += "\n";
+                }
+            }catch(NullPointerException e)
+            {
+                e.printStackTrace();
+            }
+        }else
+        {
+            s = "Pas de commentaire associées";
         }
 
         return s;
@@ -115,5 +141,13 @@ public class Area
 
     public void setRouteList(List<Route> routeList) {
         this.routeList = routeList;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
     }
 }

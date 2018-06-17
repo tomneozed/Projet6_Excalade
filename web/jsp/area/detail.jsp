@@ -52,7 +52,20 @@
         </div>
     </section>
     <section> <%-- Comments section --%>
-
+        <s:if test="area.commentList.size() == 0">
+            <s:text name="error.area.empty.comment.list" />
+        </s:if>
+        <s:else>
+            <ul>
+                <s:iterator value="area.commentList">
+                    <li>
+                        <s:include value="../comment/detail.jsp">
+                            <s:param name="areaId"/>
+                        </s:include>
+                    </li>
+                </s:iterator>
+            </ul>
+        </s:else>
     </section>
 </body>
 </html>

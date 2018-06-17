@@ -16,7 +16,7 @@
     <s:actionerror />
     <s:actionmessage />
 
-    <h2>Creation d'une voie</h2>
+    <h2><s:text name="title.route.new" /></h2>
 
     <s:form action="route_new" method="POST">
         <s:textfield name="route.routeNumber" key="route.number" requiredLabel="true" />

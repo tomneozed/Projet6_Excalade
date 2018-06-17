@@ -14,5 +14,7 @@ public interface CommentDao
 
     List<Comment> list();
 
+    List<Comment> listByArea(int areaId);
+
     Comment find(int id);
 }

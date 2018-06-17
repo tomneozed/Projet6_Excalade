@@ -40,6 +40,11 @@
             <s:text name="title.route.new"/>
         </s:a>
     </p>
+    <p>
+        <s:a action="comment_list">
+            <s:text name="title.comment.list"/>
+        </s:a>
+    </p>
 
 </body>
 

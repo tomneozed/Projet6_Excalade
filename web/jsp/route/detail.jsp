@@ -13,7 +13,7 @@
     <%@ include file="../_include/header.jsp"%>
 </head>
 <body>
-<h2>Detail des voies</h2>
+<h2><s:text name="title.route.detail" /></h2>
 
 <ul>
     <li><s:text name="route.id" /><s:property value="route.id"/> </li>

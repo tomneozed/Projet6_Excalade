@@ -2,8 +2,10 @@ package DAO.Implementations;
 
 import DAO.DaoFactory;
 import DAO.Interfaces.AreaDao;
+import DAO.Interfaces.CommentDao;
 import DAO.Interfaces.RouteDao;
 import beans.Area;
+import beans.Comment;
 import beans.Route;
 
 import java.sql.*;
@@ -108,6 +110,7 @@ public class AreaDaoImpl implements AreaDao
     {
         List<Area> areaList = new ArrayList<Area>();
         RouteDao routeDao = daoFactory.getRouteDao();
+        CommentDao commentDao = daoFactory.getCommentDao();
         Statement statement;
         ResultSet resultat;
 
@@ -128,7 +131,9 @@ public class AreaDaoImpl implements AreaDao
 
                 List<Route> routeListByArea = routeDao.listByArea(id);
 
-                Area area = new Area(id, site_id, name, description, type, route_count, routeListByArea);
+                List<Comment> commentListByArea = commentDao.listByArea(id);
+
+                Area area = new Area(id, site_id, name, description, type, route_count, routeListByArea, commentListByArea);
 
                 areaList.add(area);
             }
@@ -142,6 +147,7 @@ public class AreaDaoImpl implements AreaDao
     public List<Area> listBySite(int siteId) {
         List<Area> areaListBySite = new ArrayList<Area>();
         RouteDao routeDao = daoFactory.getRouteDao();
+        CommentDao commentDao = daoFactory.getCommentDao();
         Statement statement;
         ResultSet resultat;
 
@@ -164,7 +170,9 @@ public class AreaDaoImpl implements AreaDao
 
                 List<Route> routeListByArea = routeDao.listByArea(id);
 
-                Area area = new Area(id, site_id, name, description, type, route_count, routeListByArea);
+                List<Comment> commentListByArea = commentDao.listByArea(id);
+
+                Area area = new Area(id, site_id, name, description, type, route_count, routeListByArea, commentListByArea);
 
                 areaListBySite.add(area);
             }
@@ -179,6 +187,7 @@ public class AreaDaoImpl implements AreaDao
     {
         Area area = new Area();
         RouteDao routeDao = daoFactory.getRouteDao();
+        CommentDao commentDao = daoFactory.getCommentDao();
         Statement statement;
         ResultSet resultat;
 
@@ -199,8 +208,9 @@ public class AreaDaoImpl implements AreaDao
 
                 List<Route> routeListByArea = routeDao.listByArea(id);
 
-                area = new Area(id, site_id, name, description, type, route_count, routeListByArea);
+                List<Comment> commentListByArea = commentDao.listByArea(id);
 
+                area = new Area(id, site_id, name, description, type, route_count, routeListByArea, commentListByArea);
             }
 
         }catch(SQLException e)

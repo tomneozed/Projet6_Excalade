@@ -13,13 +13,13 @@
     <%@ include file="../_include/header.jsp"%>
 </head>
 <body>
-    <h2>Detail du commentaire</h2>
+    <h2><s:text name="title.comment.detail" /></h2>
 
     <ul>
-        <li><s:text name="comment.id" /> <s:property value="id"/> </li>
-        <li><s:text name="comment.text" /><s:property value="comment.text"/> </li>
-        <li><s:text name="comment.user.id" /><s:property value="comment.user_id"/> </li>
-        <li><s:text name="comment.area.id" /><s:property value="comment.area_id"/> </li>
+        <li><s:text name="comment.id" /> : <s:property value="comment.id"/> </li>
+        <li><s:text name="comment.text" /> : <s:property value="comment.text"/> </li>
+        <li><s:text name="comment.user.id" /> : <s:property value="comment.user_id"/> </li>
+        <li><s:text name="comment.area.id" /> : <s:property value="comment.area_id"/> </li>
     </ul>
 
 </body>

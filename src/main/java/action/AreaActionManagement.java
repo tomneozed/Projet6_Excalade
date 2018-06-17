@@ -79,7 +79,7 @@ public class AreaActionManagement extends ActionSupport
 
         if(areaId == null)
         {
-            this.addActionError("Vous devez indiquer un id de secteur");
+            this.addActionError("error.area.missing.id");
         }else
         {
             this.area = areaDao.find(areaId);

@@ -14,13 +14,13 @@
     <%@ include file="../_include/header.jsp"%>
 </head>
 <body>
-    <h2>Liste des commentaires</h2>
+    <h2><s:text name="title.comment.list" /></h2>
 
     <ul>
         <s:iterator value="commentList">
             <li>
                 <s:a action="comment_detail">
-                    <s:param name="id" value="id" />
+                    <s:param name="commentId" value="id" />
                     <s:property value="id"/>
                 </s:a>
             </li>

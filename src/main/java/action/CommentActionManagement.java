@@ -13,7 +13,7 @@ public class CommentActionManagement extends ActionSupport
 
     //- - - - Elements en entrée - - - -
 
-    private Integer id;
+    private Integer commentId;
 
     //- - - - Elements en sortie - - - -
 
@@ -22,17 +22,27 @@ public class CommentActionManagement extends ActionSupport
 
     //=========  GETTERS & SETTERS  =========
 
+
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
+
     public Comment getComment() {
         return comment;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getCommentId() {
+        return commentId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
     }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
 
     //=========  METHODES  =========
 
@@ -50,18 +60,16 @@ public class CommentActionManagement extends ActionSupport
     public String doDetail()
     {
         CommentDao commentDao;
-        Comment comment;
 
         DaoFactory daoFactory = DaoFactory.getInstance();
         commentDao = daoFactory.getCommentDao();
-        comment = commentDao.find(id);
 
-        if(comment == null)
+        if(commentId == null)
         {
-            this.addActionError("Vous devez indiquer un id de commentaire");
+            this.addActionError("error.comment.missing.id");
         }else
         {
-            this.comment = comment;
+            this.comment = commentDao.find(commentId);
         }
 
         return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
