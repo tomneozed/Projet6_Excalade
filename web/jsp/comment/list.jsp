@@ -10,7 +10,8 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title><s:text name="title.comment.list" /></title>
+    <%@ include file="../_include/header.jsp"%>
 </head>
 <body>
     <h2>Liste des commentaires</h2>

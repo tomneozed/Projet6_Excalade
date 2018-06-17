@@ -1,17 +1,18 @@
 INSERT INTO public.person
-	(first_name, surname)
+	(first_name, surname, email, password)
 VALUES
-	('Alain', 'Terrieur'),
-	('Alex', 'Terrieur'),
-	('Georges', 'Washington'),
-	('Marie', 'Curry'),
-	('Josephine', 'Langegardien'),
-	('Marilyn', 'Monroe'),
-	('Gaston', 'Lagaffe'),
-	('Shtroumpf', 'Farceur'),
-	('Gunter', 'Pauli'),
-	('Madame', 'Columbo')
+	('Alain', 'Terrieur', 'alainTerrieur@email.com', 'motDePasse'),
+	('Alex', 'Terrieur', 'alexTerrieur@email.com', 'motDePasse'),
+	('Georges', 'Washington', 'georgesWashington@email.com', 'motDePasse'),
+	('Marie', 'Curry', 'marieCurry@email.com', 'motDePasse'),
+	('Josephine', 'Langegardien', 'josephineLangegardien@email.com', 'motDePasse'),
+	('Marilyn', 'Monroe', 'marilynMonroe@email.com', 'motDePasse'),
+	('Gaston', 'Lagaffe', 'gastonLagaffe@email.com', 'motDePasse'),
+	('Shtroumpf', 'Farceur', 'shtroumpfFarceur@email.com', 'motDePasse'),
+	('Gunter', 'Pauli', 'gunterPauli@email.com', 'motDePasse'),
+	('Madame', 'Columbo', 'madameColumbo@email.com', 'motDePasse')
 ;
+
 
 INSERT INTO public.site
 	(owner_id, state, region, county, name, add_day)

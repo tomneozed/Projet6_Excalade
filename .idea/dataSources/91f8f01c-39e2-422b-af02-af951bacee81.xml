@@ -2,7 +2,7 @@
 <dataSource name="excalade@localhost [2]">
   <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.9">
     <root id="1">
-      <ServerVersion>9.5.12</ServerVersion>
+      <ServerVersion>9.5.13</ServerVersion>
     </root>
     <database id="2" parent="1" name="excalade">
       <ObjectId>16385</ObjectId>
@@ -53,8 +53,8 @@
     <schema id="11" parent="2" name="public">
       <ObjectId>2200</ObjectId>
       <Comment>standard public schema</Comment>
-      <IntrospectionTimestamp>2018-05-22.20:24:03.023</IntrospectionTimestamp>
-      <IntrospectionStateNumber>711</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2018-06-13.15:35:01.874</IntrospectionTimestamp>
+      <IntrospectionStateNumber>800</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -153,15 +153,15 @@
     </table>
     <table id="32" parent="11" name="comment">
       <ObjectId>16444</ObjectId>
-      <StateNumber>711</StateNumber>
+      <StateNumber>800</StateNumber>
     </table>
     <table id="33" parent="11" name="person">
       <ObjectId>16430</ObjectId>
-      <StateNumber>711</StateNumber>
+      <StateNumber>800</StateNumber>
     </table>
     <table id="34" parent="11" name="reservations_guidebook">
       <ObjectId>16458</ObjectId>
-      <StateNumber>710</StateNumber>
+      <StateNumber>800</StateNumber>
     </table>
     <table id="35" parent="11" name="route">
       <ObjectId>16418</ObjectId>
@@ -324,18 +324,30 @@
       <DefaultExpression>&apos;New first name&apos;::character varying</DefaultExpression>
       <TypeId>1043</TypeId>
     </column>
-    <index id="57" parent="33" name="person_pk">
+    <column id="57" parent="33" name="password">
+      <Position>4</Position>
+      <DataType>varchar(40)|0s</DataType>
+      <StateNumber>797</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="58" parent="33" name="email">
+      <Position>5</Position>
+      <DataType>varchar(40)|0s</DataType>
+      <StateNumber>798</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="59" parent="33" name="person_pk">
       <ObjectId>16436</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="58" parent="33" name="person_pk">
+    <key id="60" parent="33" name="person_pk">
       <ObjectId>16437</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>person_pk</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <column id="59" parent="34" name="id">
+    <column id="61" parent="34" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -344,21 +356,21 @@
       <TypeId>23</TypeId>
       <SequenceName>reservations_guidebook_id_seq</SequenceName>
     </column>
-    <column id="60" parent="34" name="reservation_day_start">
+    <column id="62" parent="34" name="reservation_day_start">
       <Position>2</Position>
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>702</StateNumber>
       <TypeId>1082</TypeId>
     </column>
-    <column id="61" parent="34" name="reservation_day_end">
+    <column id="63" parent="34" name="reservation_day_end">
       <Position>3</Position>
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>702</StateNumber>
       <TypeId>1082</TypeId>
     </column>
-    <column id="62" parent="34" name="tenant_id">
+    <column id="64" parent="34" name="tenant_id">
       <Position>4</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -367,7 +379,7 @@
       <TypeId>23</TypeId>
       <SequenceName>reservations_topos_locataire_id_seq</SequenceName>
     </column>
-    <column id="63" parent="34" name="site_id">
+    <column id="65" parent="34" name="site_id">
       <Position>5</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -376,18 +388,18 @@
       <TypeId>23</TypeId>
       <SequenceName>reservations_guidebook_site_id_seq</SequenceName>
     </column>
-    <index id="64" parent="34" name="reservations_guidebook_pk">
+    <index id="66" parent="34" name="reservations_guidebook_pk">
       <ObjectId>16464</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="65" parent="34" name="reservations_guidebook_pk">
+    <key id="67" parent="34" name="reservations_guidebook_pk">
       <ObjectId>16465</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>reservations_guidebook_pk</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="66" parent="34" name="utilisateur_reservations_topos_fk">
+    <foreign-key id="68" parent="34" name="utilisateur_reservations_topos_fk">
       <ObjectId>16486</ObjectId>
       <ColNames>tenant_id</ColNames>
       <RefTableId>16430</RefTableId>
@@ -396,7 +408,7 @@
       <RefKeyName>person_pk</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="67" parent="34" name="site_reservations_topos_fk">
+    <foreign-key id="69" parent="34" name="site_reservations_topos_fk">
       <ObjectId>16466</ObjectId>
       <ColNames>site_id</ColNames>
       <RefTableId>16390</RefTableId>
@@ -405,7 +417,7 @@
       <RefKeyName>site_pk</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="68" parent="35" name="id">
+    <column id="70" parent="35" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -414,7 +426,7 @@
       <TypeId>23</TypeId>
       <SequenceName>route_id_seq</SequenceName>
     </column>
-    <column id="69" parent="35" name="route_number">
+    <column id="71" parent="35" name="route_number">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -422,7 +434,7 @@
       <DefaultExpression>1</DefaultExpression>
       <TypeId>23</TypeId>
     </column>
-    <column id="70" parent="35" name="height">
+    <column id="72" parent="35" name="height">
       <Position>3</Position>
       <DataType>real|0s</DataType>
       <NotNull>1</NotNull>
@@ -430,7 +442,7 @@
       <DefaultExpression>0</DefaultExpression>
       <TypeId>700</TypeId>
     </column>
-    <column id="71" parent="35" name="grade">
+    <column id="73" parent="35" name="grade">
       <Position>4</Position>
       <DataType>varchar(2)|0s</DataType>
       <NotNull>1</NotNull>
@@ -438,13 +450,13 @@
       <DefaultExpression>&apos;3c&apos;::character varying</DefaultExpression>
       <TypeId>1043</TypeId>
     </column>
-    <column id="72" parent="35" name="anchor_count">
+    <column id="74" parent="35" name="anchor_count">
       <Position>5</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>686</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="73" parent="35" name="area_id">
+    <column id="75" parent="35" name="area_id">
       <Position>6</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -453,18 +465,18 @@
       <TypeId>23</TypeId>
       <SequenceName>route_secteur_id_seq</SequenceName>
     </column>
-    <index id="74" parent="35" name="route_pk">
+    <index id="76" parent="35" name="route_pk">
       <ObjectId>16426</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="75" parent="35" name="route_pk">
+    <key id="77" parent="35" name="route_pk">
       <ObjectId>16427</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>route_pk</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="76" parent="35" name="secteur_voie_fk">
+    <foreign-key id="78" parent="35" name="secteur_voie_fk">
       <ObjectId>16476</ObjectId>
       <ColNames>area_id</ColNames>
       <RefTableId>16402</RefTableId>
@@ -473,7 +485,7 @@
       <RefKeyName>area_pk</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="77" parent="36" name="id">
+    <column id="79" parent="36" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -482,7 +494,7 @@
       <TypeId>23</TypeId>
       <SequenceName>site_id_seq</SequenceName>
     </column>
-    <column id="78" parent="36" name="state">
+    <column id="80" parent="36" name="state">
       <Position>2</Position>
       <DataType>varchar(40)|0s</DataType>
       <NotNull>1</NotNull>
@@ -490,31 +502,31 @@
       <DefaultExpression>&apos;New state&apos;::character varying</DefaultExpression>
       <TypeId>1043</TypeId>
     </column>
-    <column id="79" parent="36" name="region">
+    <column id="81" parent="36" name="region">
       <Position>3</Position>
       <DataType>varchar(40)|0s</DataType>
       <StateNumber>676</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="80" parent="36" name="county">
+    <column id="82" parent="36" name="county">
       <Position>4</Position>
       <DataType>varchar(40)|0s</DataType>
       <StateNumber>676</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="81" parent="36" name="name">
+    <column id="83" parent="36" name="name">
       <Position>5</Position>
       <DataType>varchar(100)|0s</DataType>
       <StateNumber>676</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="82" parent="36" name="add_day">
+    <column id="84" parent="36" name="add_day">
       <Position>6</Position>
       <DataType>date|0s</DataType>
       <StateNumber>676</StateNumber>
       <TypeId>1082</TypeId>
     </column>
-    <column id="83" parent="36" name="owner_id">
+    <column id="85" parent="36" name="owner_id">
       <Position>7</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -523,12 +535,12 @@
       <TypeId>23</TypeId>
       <SequenceName>site_proprietaire_id_seq</SequenceName>
     </column>
-    <index id="84" parent="36" name="site_pk">
+    <index id="86" parent="36" name="site_pk">
       <ObjectId>16396</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="85" parent="36" name="site_pk">
+    <key id="87" parent="36" name="site_pk">
       <ObjectId>16397</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>site_pk</UnderlyingIndexName>

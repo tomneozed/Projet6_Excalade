@@ -9,7 +9,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>New Area</title>
+    <title><s:text name="title.area.new" /></title>
+    <%@ include file="../_include/header.jsp"%>
 </head>
 <body>
 
@@ -25,6 +26,7 @@
                   emptyOption="true"
                   requiredLabel="true"/>
         <s:textfield name="area.description" key="area.description" requiredLabel="false" />
+        <s:hidden name="siteId" />
         <s:submit value="OK"/>
     </s:form>
 

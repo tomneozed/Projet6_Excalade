@@ -107,8 +107,14 @@ public class App
 
         List<Route> routeList = routeDao.list();
 
+        person = personDao.findByEmailNPassword("marilynMonroe@email.com", "motDePasse");
+
+        System.out.println(person.fullDescription());
+
 
         site = siteList.get(3);
+
+        siteDao.delete(11);
 
         System.out.println(site.fullDescription());
 
@@ -185,19 +191,5 @@ public class App
 //        }
 
 
-    }
-
-    public static int countArea(int site_id, List<Area> areaList)
-    {
-        int number = 0;
-
-        for(int i = 0; i < areaList.size(); i++)
-        {
-            if(areaList.get(i).getSiteId() == site_id)
-            {
-                number++;
-            }
-        }
-        return number;
     }
 }

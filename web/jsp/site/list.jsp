@@ -9,10 +9,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Liste des sites</title>
+    <title><s:text name="title.site.list" /></title>
+    <%@ include file="../_include/header.jsp"%>
 </head>
 <body>
-    <h2>Liste des sites</h2>
+    <h2><s:text name="title.site.list" /></h2>
 
     <ul>
         <s:iterator value="siteList">

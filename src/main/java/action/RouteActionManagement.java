@@ -9,7 +9,7 @@ import java.util.List;
 
 public class RouteActionManagement extends ActionSupport
 {
-//=========  ATTRIBUTS  =========
+    //=========  ATTRIBUTS  =========
 
     //- - - - Elements en entrée - - - -
 
@@ -71,16 +71,13 @@ public class RouteActionManagement extends ActionSupport
         {
             this.route = routeDao.find(routeId);
         }
-        System.out.println("[doDetail] Area id : " + areaId);
+        System.out.println("[doDetail] route.areaId : " + route.getAreaId());
 
         return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
     }
 
     public String doCreate()
     {
-        //AreaId a une valeur puis devient null quand on appuie sur le bouton submit du formulaire
-        System.out.println("[doCreate : 1] Area id : " + areaId);
-
         RouteDao routeDao;
 
         DaoFactory daoFactory = DaoFactory.getInstance();
@@ -92,7 +89,7 @@ public class RouteActionManagement extends ActionSupport
         if(this.route != null) {
 
             this.route.setAreaId(areaId);
-            System.out.println(this.route.fullDescription());
+            System.out.println("doCreate : " + this.route.fullDescription());
 
             if(!this.hasErrors())
             {
@@ -105,7 +102,7 @@ public class RouteActionManagement extends ActionSupport
             }
         }
 
-        // route = null : initialisation of form : add of area_id
+        // route = null :
         if(vResult.equals(ActionSupport.INPUT))
         {
 

@@ -9,7 +9,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>New route</title>
+    <title><s:text name="title.route.new" /></title>
+    <%@ include file="../_include/header.jsp"%>
 </head>
 <body>
     <s:actionerror />
@@ -22,6 +23,7 @@
         <s:textfield name="route.height" key="route.height" requiredLabel="true" />
         <s:textfield name="route.grade" key="route.grade" requiredLabel="true" />
         <s:textfield name="route.anchorCount" key="route.anchor.count" requiredLabel="false" />
+        <s:hidden name="areaId" />
         <s:submit value="OK"/>
     </s:form>
 

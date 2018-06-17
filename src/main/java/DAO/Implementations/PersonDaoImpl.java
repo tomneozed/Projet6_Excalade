@@ -4,6 +4,7 @@ import DAO.DaoFactory;
 import DAO.Interfaces.PersonDao;
 import beans.Person;
 
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +27,13 @@ public class PersonDaoImpl implements PersonDao
         {
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement(
-                    "INSERT INTO public.person(surname, first_name)" +
-                            "VALUES(?,?);");
+                    "INSERT INTO public.person(surname, first_name, password, email)" +
+                            "VALUES(?,?,?);");
             preparedStatement.setString(1, person.getSurname());
             preparedStatement.setString(2, person.getFisrtName());
+            preparedStatement.setString(3, person.getPassword());
+            preparedStatement.setString(4, person.getEmail());
+
 
             preparedStatement.executeUpdate();
         }catch(SQLException e)
@@ -68,10 +72,14 @@ public class PersonDaoImpl implements PersonDao
                     "UPDATE public.person " +
                             "SET surname = ?, " +
                             "first_name = ? " +
+                            "password = ? " +
+                            "email = ? " +
                             "WHERE id = ?;");
             preparedStatement.setString(1, newPerson.getSurname());
             preparedStatement.setString(2, newPerson.getFisrtName());
-            preparedStatement.setInt(3, id);
+            preparedStatement.setString(3, newPerson.getPassword());
+            preparedStatement.setString(4, newPerson.getEmail());
+            preparedStatement.setInt(5, id);
 
             preparedStatement.executeUpdate();
         }catch(SQLException e)
@@ -90,16 +98,17 @@ public class PersonDaoImpl implements PersonDao
         {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
-            resultat = statement.executeQuery("SELECT id, surname, first_name FROM public.person;");
+            resultat = statement.executeQuery("SELECT * FROM public.person;");
 
             while(resultat.next())
             {
                 int id = resultat.getInt("id");
                 String surname = resultat.getString("surname");
                 String firstName = resultat.getString("first_name");
+                String password = resultat.getString("password");
+                String email = resultat.getString("email");
 
-
-                Person person = new Person(id, surname, firstName);
+                Person person = new Person(id, surname, firstName, password, email);
 
                 personList.add(person);
             }
@@ -120,15 +129,52 @@ public class PersonDaoImpl implements PersonDao
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
             resultat = statement.executeQuery(
-                    "SELECT surname, first_name FROM public.person WHERE id="+ id +";");
+                    "SELECT * FROM public.person WHERE id="+ id +";");
             while (resultat.next())
             {
+                String surname = resultat.getString("surname");
+                String firstName = resultat.getString("first_name");
+                String password = resultat.getString("password");
+                String email = resultat.getString("email");
+
+                person.setId(id);
+                person.setSurname(surname);
+                person.setFisrtName(firstName);
+                person.setPassword(password);
+                person.setEmail(email);
+            }
+
+        }catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return person;
+    }
+
+    public Person findByEmailNPassword(String email, String password)
+    {
+        Person person = new Person();
+        Statement statement;
+        ResultSet resultat;
+
+        try
+        {
+            connexion = daoFactory.getConnection();
+            statement = connexion.createStatement();
+            resultat = statement.executeQuery(
+                    "SELECT * FROM public.person " +
+                            "WHERE email='"+ email +"' AND password='" + password + "';");
+            while (resultat.next())
+            {
+                int id =resultat.getInt("id");
                 String surname = resultat.getString("surname");
                 String firstName = resultat.getString("first_name");
 
                 person.setId(id);
                 person.setSurname(surname);
                 person.setFisrtName(firstName);
+                person.setPassword(password);
+                person.setEmail(email);
             }
 
         }catch(SQLException e)

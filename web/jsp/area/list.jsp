@@ -9,7 +9,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title><s:text name="title.area.list" /></title>
+    <%@ include file="../_include/header.jsp"%>
 </head>
 <body>
     <h2>Liste des secteurs</h2>

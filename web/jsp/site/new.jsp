@@ -9,22 +9,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>New Site</title>
+    <title><s:text name="title.site.new" /></title>
+    <%@ include file="../_include/header.jsp"%>
 </head>
 <body>
     <s:actionerror />
     <s:actionmessage />
 
-    <h2>Creation d'un site</h2>
+    <s:if test="#session.user">
 
-    <s:form action="site_new">
-        <s:textfield name="site.state" key="site.state" requiredLabel="true" />
-        <s:textfield name="site.region" key="site.region" requiredLabel="true" />
-        <s:textfield name="site.county" key="site.county" requiredLabel="false" />
-        <s:textfield name="site.name" key="site.name" requiredLabel="true" />
-        <s:submit name="OK"/>
-    </s:form>
+        <h2><s:text name="title.site.new" /></h2>
 
-
+        <s:form action="site_new">
+            <s:textfield name="site.state" key="site.state" requiredLabel="true" />
+            <s:textfield name="site.region" key="site.region" requiredLabel="true" />
+            <s:textfield name="site.county" key="site.county" requiredLabel="false" />
+            <s:textfield name="site.name" key="site.name" requiredLabel="true" />
+            <s:hidden name="siteId" />
+            <s:submit value="OK"/>
+        </s:form>
+    </s:if>
+    <s:else>
+        <s:text name="error.not.logged"/>
+    </s:else>
 </body>
 </html>

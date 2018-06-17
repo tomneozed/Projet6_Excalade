@@ -10,25 +10,40 @@
 
 <html>
 <head>
-    <title>titre</title>
+    <title>Excalade</title>
+    <%@ include file="./_include/header.jsp"%>
 </head>
 <body>
     <h1><s:text name="home.welcome" /> </h1>
     <p>
-        <s:a action="site_list">Liste des sites</s:a>
+        <s:a action="site_list" >
+            <s:text name="title.site.list"/>
+        </s:a>
     </p>
     <p>
-        <s:a action="area_list">Liste des secteurs</s:a>
+        <s:a action="area_list">
+            <s:text name="title.area.list"/>
+        </s:a>
     </p>
     <p>
-        <s:a action="area_new">Ajouter un secteur</s:a>
+        <s:a action="area_new">
+            <s:text name="title.area.new"/>
+        </s:a>
     </p>
     <p>
-        <s:a action="site_new">Ajouter un site</s:a>
+        <s:a action="site_new">
+            <s:text name="title.site.new"/>
+        </s:a>
     </p>
     <p>
-        <s:a action="route_new">Ajouter une voie</s:a>
+        <s:a action="route_new">
+            <s:text name="title.route.new"/>
+        </s:a>
     </p>
 
 </body>
+
+<footer>
+    <%@ include file="./_include/footer.jsp"%>
+</footer>
 </html>

@@ -7,6 +7,8 @@ import beans.Area;
 import beans.Site;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,18 +27,25 @@ public class SiteDaoImpl implements SiteDao
         PreparedStatement preparedStatement;
         int siteId = -1;
 
+
+
         try
         {
+            //String to Date conversion
+            SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+            java.util.Date date = sdf1.parse(site.getAddDay());
+            java.sql.Date addDate = new java.sql.Date(date.getTime());
+
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement(
                     "INSERT INTO public.site(owner_id, state, county, region, name, add_day)" +
-                            "VALUES(?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
+                            "VALUES(?,?,?,?,?,?::date);", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, site.getOwnerId());
             preparedStatement.setString(2, site.getState());
             preparedStatement.setString(3, site.getCounty());
             preparedStatement.setString(4, site.getRegion());
             preparedStatement.setString(5, site.getName());
-            preparedStatement.setString(6, site.getAddDay());
+            preparedStatement.setDate(6, addDate);
 
             preparedStatement.executeUpdate();
 
@@ -51,6 +60,8 @@ public class SiteDaoImpl implements SiteDao
 
         }catch(SQLException e)
         {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return siteId;

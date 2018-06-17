@@ -111,7 +111,7 @@ public class AreaActionManagement extends ActionSupport
                 this.addFieldError("area.description", "error.area.description.size");
             }
 
-            this.area.setSiteId(1);
+            this.area.setSiteId(siteId);
 
             if(!this.hasErrors())
             {

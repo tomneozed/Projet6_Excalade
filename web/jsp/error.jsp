@@ -9,7 +9,8 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Error</title>
+    <%@ include file="./_include/header.jsp"%>
 </head>
 <body>
 

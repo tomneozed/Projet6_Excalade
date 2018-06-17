@@ -3,12 +3,19 @@ package action;
 import DAO.DaoFactory;
 import DAO.Interfaces.AreaDao;
 import DAO.Interfaces.SiteDao;
+import beans.Person;
 import beans.Site;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.interceptor.SessionAware;
 
+import java.security.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
-public class SiteActionManagement extends ActionSupport
+public class SiteActionManagement extends ActionSupport implements SessionAware
 {
     //=========  ATTRIBUTS  =========
 
@@ -20,6 +27,7 @@ public class SiteActionManagement extends ActionSupport
 
     private List<Site> siteList;
     private Site site;
+    private Map<String, Object> session;
 
     //=========  GETTERS & SETTERS  =========
 
@@ -45,6 +53,10 @@ public class SiteActionManagement extends ActionSupport
 
     public void setSite(Site site) {
         this.site = site;
+    }
+
+    public void setSession(Map<String, Object> pSession) {
+        this.session = pSession;
     }
 
     //=========  METHODES  =========
@@ -81,6 +93,7 @@ public class SiteActionManagement extends ActionSupport
 
     public String doCreate()
     {
+        Person user = new Person();
         SiteDao siteDao;
 
         DaoFactory daoFactory = DaoFactory.getInstance();
@@ -92,6 +105,14 @@ public class SiteActionManagement extends ActionSupport
         // site!= null : check for errors
         if(this.site != null)
         {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = new Date();
+
+            user = (Person)this.session.get("user");
+            System.out.println("User id : " + user.getId());
+
+            this.site.setOwnerId(user.getId());
+
             if(this.site.getState().length() < 2 && this.site.getState().length() > 40)
             {
                 this.addFieldError("site.state", "error.site.state.size");
@@ -111,6 +132,9 @@ public class SiteActionManagement extends ActionSupport
             {
                 this.addFieldError("site.name", "error.site.name.size");
             }
+
+            this.site.setAddDay(dateFormat.format(date));
+            System.out.println(this.site.getAddDay()); //2016/11/16 12:08:43
 
 
             System.out.println(this.site.fullDescription());
@@ -138,4 +162,6 @@ public class SiteActionManagement extends ActionSupport
 
         return vResult;
     }
+
+
 }

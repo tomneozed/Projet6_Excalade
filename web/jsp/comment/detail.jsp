@@ -9,16 +9,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title><s:text name="title.comment.detail" /></title>
+    <%@ include file="../_include/header.jsp"%>
 </head>
 <body>
     <h2>Detail du commentaire</h2>
 
     <ul>
-        <li>ID : <s:property value="id"/> </li>
-        <li>Texte : <s:property value="comment.text"/> </li>
-        <li>Utilisateur ID : <s:property value="comment.user_id"/> </li>
-        <li>Secteur ID : <s:property value="comment.area_id"/> </li>
+        <li><s:text name="comment.id" /> <s:property value="id"/> </li>
+        <li><s:text name="comment.text" /><s:property value="comment.text"/> </li>
+        <li><s:text name="comment.user.id" /><s:property value="comment.user_id"/> </li>
+        <li><s:text name="comment.area.id" /><s:property value="comment.area_id"/> </li>
     </ul>
 
 </body>

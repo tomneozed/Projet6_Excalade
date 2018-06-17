@@ -63,6 +63,8 @@ CREATE TABLE public.person (
                 id INTEGER NOT NULL DEFAULT nextval('public.person_id_seq'),
                 surname VARCHAR(40) DEFAULT 'New surname' NOT NULL,
                 first_name VARCHAR(40) DEFAULT 'New first name' NOT NULL,
+                password VARCHAR(40) DEFAULT 'pass' NOT NULL,
+                email VARCHAR(40) DEFAULT 'new email' NOT NULL,
                 CONSTRAINT person_pk PRIMARY KEY (id)
 );
 

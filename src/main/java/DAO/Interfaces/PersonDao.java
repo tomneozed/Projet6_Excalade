@@ -15,4 +15,6 @@ public interface PersonDao
     List<Person> list();
 
     Person find(int id);
+
+    Person findByEmailNPassword(String email, String password);
 }
