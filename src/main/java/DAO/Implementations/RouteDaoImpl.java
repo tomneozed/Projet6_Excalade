@@ -46,7 +46,7 @@ public class RouteDaoImpl implements RouteDao
             }
 
             System.out.println("[add] RouteId : " + routeId);
-
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -67,6 +67,7 @@ public class RouteDaoImpl implements RouteDao
             preparedStatement.setInt(1, id);
 
             preparedStatement.executeUpdate();
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -96,7 +97,7 @@ public class RouteDaoImpl implements RouteDao
             preparedStatement.setInt(5, newRoute.getAnchorCount());
 
             preparedStatement.executeUpdate();
-
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -128,6 +129,7 @@ public class RouteDaoImpl implements RouteDao
 
                 routeList.add(route);
             }
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -159,6 +161,7 @@ public class RouteDaoImpl implements RouteDao
 
                 routeListByArea.add(route);
             }
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -193,7 +196,7 @@ public class RouteDaoImpl implements RouteDao
                 route.setGrade(grade);
                 route.setAnchorCount(anchor_count);
             }
-
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();

@@ -12,6 +12,7 @@ public class Area
     private int routeCount;
     private List<Route> routeList;
     private List<Comment> commentList;
+    private int ownerId;
 
     public Area()
     {
@@ -149,5 +150,13 @@ public class Area
 
     public void setCommentList(List<Comment> commentList) {
         this.commentList = commentList;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 }

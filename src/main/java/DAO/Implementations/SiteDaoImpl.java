@@ -2,8 +2,10 @@ package DAO.Implementations;
 
 import DAO.DaoFactory;
 import DAO.Interfaces.AreaDao;
+import DAO.Interfaces.ReservationsGuidebookDao;
 import DAO.Interfaces.SiteDao;
 import beans.Area;
+import beans.ReservationsGuidebook;
 import beans.Site;
 
 import java.sql.*;
@@ -26,9 +28,6 @@ public class SiteDaoImpl implements SiteDao
     {
         PreparedStatement preparedStatement;
         int siteId = -1;
-
-
-
         try
         {
             //String to Date conversion
@@ -57,7 +56,7 @@ public class SiteDaoImpl implements SiteDao
             }
 
             System.out.println("[add] SiteId : " + siteId);
-
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -69,16 +68,37 @@ public class SiteDaoImpl implements SiteDao
 
     public void delete(int id)
     {
+        AreaDao areaDao = daoFactory.getAreaDao();
+        List<Area> areasToDelete = areaDao.listBySite(id);
+        ReservationsGuidebookDao reservationDao = daoFactory.getReservationDao();
+        List<ReservationsGuidebook> reservationsToDelete = reservationDao.listBySite(id);
         PreparedStatement preparedStatement;
 
         try
         {
+            if(!areasToDelete.isEmpty())
+            {
+                for(int i =0; i< areasToDelete.size(); i++)
+                {
+                    areaDao.delete(areasToDelete.get(i).getId());
+                }
+            }
+            if(!reservationsToDelete.isEmpty())
+            {
+                for(int i =0; i< reservationsToDelete.size(); i++)
+                {
+                    reservationDao.delete(reservationsToDelete.get(i).getId());
+                }
+            }
+
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement(
                     "DELETE FROM public.site WHERE id = ?;");
+
             preparedStatement.setInt(1, id);
 
             preparedStatement.executeUpdate();
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -110,6 +130,7 @@ public class SiteDaoImpl implements SiteDao
             preparedStatement.setString(6, newSite.getAddDay());
 
             preparedStatement.executeUpdate();
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -145,6 +166,7 @@ public class SiteDaoImpl implements SiteDao
 
                 siteList.add(site);
             }
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -186,7 +208,7 @@ public class SiteDaoImpl implements SiteDao
 
                 site.setAreaList(areaListBySite);
             }
-
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();

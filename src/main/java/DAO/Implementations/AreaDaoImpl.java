@@ -4,6 +4,7 @@ import DAO.DaoFactory;
 import DAO.Interfaces.AreaDao;
 import DAO.Interfaces.CommentDao;
 import DAO.Interfaces.RouteDao;
+import DAO.Interfaces.SiteDao;
 import beans.Area;
 import beans.Comment;
 import beans.Route;
@@ -49,7 +50,7 @@ public class AreaDaoImpl implements AreaDao
             }
 
             System.out.println("[add] AreaId : " + areaId);
-
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -60,16 +61,38 @@ public class AreaDaoImpl implements AreaDao
 
     public void delete(int id)
     {
+        RouteDao routeDao = daoFactory.getRouteDao();
+        List<Route> routesToDelete = routeDao.listByArea(id);
+        CommentDao commentDao = daoFactory.getCommentDao();
+        List<Comment> commentsToDelete = commentDao.listByArea(id);
+
         PreparedStatement preparedStatement;
 
         try
         {
+            if(!routesToDelete.isEmpty())
+            {
+                for(int i =0; i< routesToDelete.size(); i++)
+                {
+                    routeDao.delete(routesToDelete.get(i).getId());
+                }
+            }
+
+            if(!commentsToDelete.isEmpty())
+            {
+                for(int i =0; i< commentsToDelete.size(); i++)
+                {
+                    commentDao.delete(commentsToDelete.get(i).getId());
+                }
+            }
+
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement(
                     "DELETE FROM public.area WHERE id = ?;");
             preparedStatement.setInt(1, id);
 
             preparedStatement.executeUpdate();
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -99,6 +122,7 @@ public class AreaDaoImpl implements AreaDao
             preparedStatement.setInt(5, newArea.getSiteId());
 
             preparedStatement.executeUpdate();
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -124,7 +148,7 @@ public class AreaDaoImpl implements AreaDao
             {
                 int id = resultat.getInt("id");
                 String name = resultat.getString("name");
-                int route_count = resultat.getInt("route_count");
+
                 String type = resultat.getString("type");
                 String description = resultat.getString("description");
                 int site_id = resultat.getInt("site_id");
@@ -133,9 +157,13 @@ public class AreaDaoImpl implements AreaDao
 
                 List<Comment> commentListByArea = commentDao.listByArea(id);
 
-                Area area = new Area(id, site_id, name, description, type, route_count, routeListByArea, commentListByArea);
+                int route_count = routeListByArea.size();
+                System.out.println(route_count);
 
+                Area area = new Area(id, site_id, name, description, type, route_count, routeListByArea, commentListByArea);
+                setOwnerId(area);
                 areaList.add(area);
+                connexion.close();
             }
         }catch(SQLException e)
         {
@@ -171,15 +199,18 @@ public class AreaDaoImpl implements AreaDao
                 List<Route> routeListByArea = routeDao.listByArea(id);
 
                 List<Comment> commentListByArea = commentDao.listByArea(id);
+                route_count = routeListByArea.size();
 
                 Area area = new Area(id, site_id, name, description, type, route_count, routeListByArea, commentListByArea);
-
+                setOwnerId(area);
                 areaListBySite.add(area);
+                connexion.close();
             }
         }catch(SQLException e)
         {
             e.printStackTrace();
         }
+
         return areaListBySite;
     }
 
@@ -209,14 +240,33 @@ public class AreaDaoImpl implements AreaDao
                 List<Route> routeListByArea = routeDao.listByArea(id);
 
                 List<Comment> commentListByArea = commentDao.listByArea(id);
+                route_count = routeListByArea.size();
 
                 area = new Area(id, site_id, name, description, type, route_count, routeListByArea, commentListByArea);
+
+                setOwnerId(area);
+                connexion.close();
             }
 
         }catch(SQLException e)
         {
             e.printStackTrace();
         }
+        return area;
+    }
+
+    /*
+    Set the ownerId of the area
+     */
+    private Area setOwnerId(Area area)
+    {
+        DaoFactory daoFactory = DaoFactory.getInstance();
+        SiteDao siteDao = daoFactory.getSiteDao();
+
+        area.setOwnerId(siteDao.find(area.getSiteId()).getOwnerId());
+
+        //LOG System.out.println("[AreaDaoImpl] - setOwnerId() : Owner id : " + area.getOwnerId());
+
         return area;
     }
 }

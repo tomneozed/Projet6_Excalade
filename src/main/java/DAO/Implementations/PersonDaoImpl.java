@@ -28,14 +28,15 @@ public class PersonDaoImpl implements PersonDao
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement(
                     "INSERT INTO public.person(surname, first_name, password, email)" +
-                            "VALUES(?,?,?);");
+                            "VALUES(?,?,?,?);");
             preparedStatement.setString(1, person.getSurname());
-            preparedStatement.setString(2, person.getFisrtName());
+            preparedStatement.setString(2, person.getFirstName());
             preparedStatement.setString(3, person.getPassword());
             preparedStatement.setString(4, person.getEmail());
 
 
             preparedStatement.executeUpdate();
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -54,6 +55,7 @@ public class PersonDaoImpl implements PersonDao
             preparedStatement.setInt(1, id);
 
             preparedStatement.executeUpdate();
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -76,12 +78,13 @@ public class PersonDaoImpl implements PersonDao
                             "email = ? " +
                             "WHERE id = ?;");
             preparedStatement.setString(1, newPerson.getSurname());
-            preparedStatement.setString(2, newPerson.getFisrtName());
+            preparedStatement.setString(2, newPerson.getFirstName());
             preparedStatement.setString(3, newPerson.getPassword());
             preparedStatement.setString(4, newPerson.getEmail());
             preparedStatement.setInt(5, id);
 
             preparedStatement.executeUpdate();
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -112,6 +115,7 @@ public class PersonDaoImpl implements PersonDao
 
                 personList.add(person);
             }
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -139,11 +143,11 @@ public class PersonDaoImpl implements PersonDao
 
                 person.setId(id);
                 person.setSurname(surname);
-                person.setFisrtName(firstName);
+                person.setFirstName(firstName);
                 person.setPassword(password);
                 person.setEmail(email);
             }
-
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -166,17 +170,18 @@ public class PersonDaoImpl implements PersonDao
                             "WHERE email='"+ email +"' AND password='" + password + "';");
             while (resultat.next())
             {
-                int id =resultat.getInt("id");
+                int id = resultat.getInt("id");
                 String surname = resultat.getString("surname");
                 String firstName = resultat.getString("first_name");
 
                 person.setId(id);
                 person.setSurname(surname);
-                person.setFisrtName(firstName);
+                person.setFirstName(firstName);
                 person.setPassword(password);
                 person.setEmail(email);
-            }
 
+            }
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();

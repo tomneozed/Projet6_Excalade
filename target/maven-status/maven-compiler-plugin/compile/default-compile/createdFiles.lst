@@ -1,6 +1,5 @@
-action/GestionCommentaireAction.class
-DAO/Interfaces/CommentDao.class
-beans/Comment.class
 App.class
-DAO/DaoFactory.class
-DAO/Implementations/CommentDaoImpl.class
+DAO\DaoFactory.class
+DAO\Implementations\CommentDaoImpl.class
+DAO\Interfaces\CommentDao.class
+beans\Comment.class

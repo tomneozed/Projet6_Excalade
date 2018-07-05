@@ -6,7 +6,7 @@
         <s:text name="connected.user"/>
         :
         <s:property value="#session.user.firstName" />
-        <s:property value="#session.user.lastName" />
+        <s:property value="#session.user.surname" />
 
         <s:a action="logout">
             <s:text name="connexion.logout"/>
@@ -20,6 +20,19 @@
 </header>
 
 <nav>
+    <s:if test="#session.user">
+        <p>
+            <s:a action="reservation_list">
+                <s:text name="title.reservation.list"></s:text>
+            </s:a>
+
+        </p>
+    </s:if>
+
+    <s:a action="index">
+        <s:text name="home.nav" />
+    </s:a>
+
     <s:a action="site_list">
         <s:text name="title.site.list" />
     </s:a>
@@ -28,6 +41,3 @@
         <s:text name="title.site.new" />
     </s:a>
 </nav>
-
-<s:actionerror/>
-<s:actionmessage/>

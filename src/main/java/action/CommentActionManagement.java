@@ -2,7 +2,9 @@ package action;
 
 import DAO.DaoFactory;
 import DAO.Interfaces.CommentDao;
+import DAO.Interfaces.PersonDao;
 import beans.Comment;
+import beans.Person;
 import com.opensymphony.xwork2.ActionSupport;
 
 import java.util.List;
@@ -19,6 +21,7 @@ public class CommentActionManagement extends ActionSupport
 
     private List<Comment> commentList;
     private Comment comment;
+    private Person commentOwner;
 
     //=========  GETTERS & SETTERS  =========
 
@@ -43,6 +46,13 @@ public class CommentActionManagement extends ActionSupport
         return commentList;
     }
 
+    public Person getCommentOwner() {
+        return commentOwner;
+    }
+
+    public void setCommentOwner(Person commentOwner) {
+        this.commentOwner = commentOwner;
+    }
 
     //=========  METHODES  =========
 
@@ -60,9 +70,11 @@ public class CommentActionManagement extends ActionSupport
     public String doDetail()
     {
         CommentDao commentDao;
+        PersonDao personDao;
 
         DaoFactory daoFactory = DaoFactory.getInstance();
         commentDao = daoFactory.getCommentDao();
+        personDao = daoFactory.getPersonDao();
 
         if(commentId == null)
         {
@@ -70,8 +82,24 @@ public class CommentActionManagement extends ActionSupport
         }else
         {
             this.comment = commentDao.find(commentId);
+            commentOwner = personDao.find(this.comment.getUser_id());
+            System.out.println(this.comment.fullDescription());
         }
 
         return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+    }
+
+    public String doDelete()
+    {
+        CommentDao commentDao;
+        DaoFactory daoFactory = DaoFactory.getInstance();
+        commentDao = daoFactory.getCommentDao();
+        String vResult;
+
+        commentDao.delete(commentId);
+        this.addActionMessage("success.comment.deleted");
+        vResult= ActionSupport.SUCCESS;
+
+        return vResult;
     }
 }

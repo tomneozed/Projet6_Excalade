@@ -15,6 +15,7 @@ public class RouteActionManagement extends ActionSupport
 
     private Integer routeId;
     private Integer areaId;
+    private Integer siteId;
 
     //- - - - Elements en sortie - - - -
 
@@ -43,6 +44,25 @@ public class RouteActionManagement extends ActionSupport
         this.route = route;
     }
 
+    public Integer getRouteId() {
+        return routeId;
+    }
+
+    public List<Route> getRouteList() {
+        return routeList;
+    }
+
+    public void setRouteList(List<Route> routeList) {
+        this.routeList = routeList;
+    }
+
+    public Integer getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(Integer siteId) {
+        this.siteId = siteId;
+    }
 
     //=========  METHODES  =========
 
@@ -52,7 +72,7 @@ public class RouteActionManagement extends ActionSupport
 
         DaoFactory daoFactory = DaoFactory.getInstance();
         routeDao = daoFactory.getRouteDao();
-        this.routeList = routeDao.list();
+        this.routeList = routeDao.listByArea(areaId);
 
         return ActionSupport.SUCCESS;
     }
@@ -107,6 +127,23 @@ public class RouteActionManagement extends ActionSupport
         {
 
         }
+
+        return vResult;
+    }
+
+    public String doDelete()
+    {
+        RouteDao routeDao;
+        DaoFactory daoFactory = DaoFactory.getInstance();
+
+        routeDao = daoFactory.getRouteDao();
+        String vResult;
+
+
+        routeDao.delete(routeId);
+
+        this.addActionMessage("success.site.deleted");
+        vResult= ActionSupport.SUCCESS;
 
         return vResult;
     }

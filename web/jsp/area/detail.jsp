@@ -13,7 +13,14 @@
     <%@ include file="../_include/header.jsp"%>
 </head>
 <body>
-<h2><s:text name="title.area.detail" /></h2>
+    <h2><s:text name="title.area.detail" /></h2>
+    <%-- Delete option --%>
+    <s:if test="#session.user.id == area.ownerId">
+        <s:a action="area_delete">
+            <s:param name="areaId" value="%{area.id}" />
+            <s:text name="title.delete"/>
+        </s:a>
+    </s:if>
     <section> <%-- Details section --%>
         <ul>
             <li><s:text name="area.id" /> : <s:property value="area.id" /> </li>
@@ -28,10 +35,12 @@
         <p>
             <strong><s:text name="title.route.list" /></strong>
 
-            <s:a action="route_new">
-                <s:text name="title.route.new" />
-                <s:param name="areaId" value="%{area.id}" />
-            </s:a>
+            <s:if test="#session.user.id == area.ownerId">
+                <s:a action="route_new">
+                    <s:text name="title.route.new" />
+                    <s:param name="areaId" value="%{area.id}" />
+                </s:a>
+            </s:if>
         </p>
         <div>
             <s:if test="area.routeList.size() == 0">
@@ -41,8 +50,10 @@
                 <ul>
                     <s:iterator value="area.routeList">
                         <li>
-                            <s:a action="route_detail">
+                            <s:a action="route_list">
                                 <s:param name="routeId" value="id" />
+                                <s:param name="areaId" value="%{area.id}" />
+                                <s:param name="siteId" value="%{site.id}"/>
                                 <s:property value="routeNumber"/>
                             </s:a>
                         </li>
@@ -51,7 +62,9 @@
             </s:else>
         </div>
     </section>
+
     <section> <%-- Comments section --%>
+        <strong><s:text name="title.comment.list" /></strong>
         <s:if test="area.commentList.size() == 0">
             <s:text name="error.area.empty.comment.list" />
         </s:if>
@@ -59,13 +72,15 @@
             <ul>
                 <s:iterator value="area.commentList">
                     <li>
-                        <s:include value="../comment/detail.jsp">
-                            <s:param name="areaId"/>
-                        </s:include>
+                        <s:property value="commentOwnerList[0].surname" /> <s:property value="commentOwnerList[0].firstName" /> :
+                        <s:property value="area.commentList[0].text"/>
                     </li>
                 </s:iterator>
             </ul>
         </s:else>
     </section>
 </body>
+<footer>
+    <%@ include file="../_include/footer.jsp"%>
+</footer>
 </html>

@@ -19,5 +19,14 @@
 
     <s:submit value="Connexion"/>
 </s:form>
+
+<s:if test="hasActionErrors()">
+    <div class="errors">
+        <s:actionerror/>
+    </div>
+</s:if>
 </body>
+<footer>
+    <%@ include file="./_include/footer.jsp"%>
+</footer>
 </html>

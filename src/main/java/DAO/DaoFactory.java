@@ -21,18 +21,15 @@ public class DaoFactory
     }
     public static DaoFactory getInstance()
     {
-        try
-        {
+        try{
             Class.forName("org.postgresql.Driver");
         }catch(ClassNotFoundException e)
         {
             e.printStackTrace();
         }
-
         DaoFactory instance = new DaoFactory("jdbc:postgresql://localhost:5432/excalade", "postgres", "azertyuiop");
 
         return instance;
-
     }
 
     public Connection getConnection() throws SQLException

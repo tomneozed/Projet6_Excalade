@@ -32,6 +32,7 @@ public class CommentDaoImpl implements CommentDao
             preparedStatement.setInt(3, comment.getArea_id());
 
             preparedStatement.executeUpdate();
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -50,6 +51,7 @@ public class CommentDaoImpl implements CommentDao
             preparedStatement.setInt(1, id);
 
             preparedStatement.executeUpdate();
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -75,6 +77,7 @@ public class CommentDaoImpl implements CommentDao
             preparedStatement.setInt(4, id);
 
             preparedStatement.executeUpdate();
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -104,6 +107,7 @@ public class CommentDaoImpl implements CommentDao
 
                 comments.add(comment);
             }
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -134,6 +138,7 @@ public class CommentDaoImpl implements CommentDao
 
                 commentListByArea.add(comment);
             }
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -164,7 +169,7 @@ public class CommentDaoImpl implements CommentDao
                 comment.setUser_id(user_id);
                 comment.setArea_id(area_id);
             }
-
+            connexion.close();
         }catch(SQLException e)
         {
             e.printStackTrace();

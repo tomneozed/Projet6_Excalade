@@ -29,6 +29,21 @@
             <result name="error">/jsp/error.jsp</result>
         </action>
 
+        <action name="comment_area_display"
+                class="action.CommentActionManagement"
+                method="doDetail">
+            <result name="success">/jsp/comment/areaDisplay.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <!-- delete comment action-->
+        <action name="comment_delete"
+                class="action.CommentActionManagement"
+                method="doDelete">
+            <result name="success">/jsp/index.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
 
         <!--======================================== SITE ========================================-->
 
@@ -62,6 +77,14 @@
                 <param name="actionName">site_detail</param>
                 <param name="siteId">${site.id}</param>
             </result>
+        </action>
+
+        <!-- delete site action-->
+        <action name="site_delete"
+                class="action.SiteActionManagement"
+                method="doDelete">
+            <result name="success">/jsp/index.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
         </action>
 
         <!--======================================== AREA ========================================-->
@@ -98,6 +121,14 @@
             </result>
         </action>
 
+        <!-- delete area action-->
+        <action name="area_delete"
+                class="action.AreaActionManagement"
+                method="doDelete">
+            <result name="success">/jsp/index.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
         <!--======================================== ROUTE ========================================-->
 
         <!-- route list action -->
@@ -132,10 +163,62 @@
             </result>
         </action>
 
+        <!-- delete route action-->
+        <action name="route_delete"
+                class="action.RouteActionManagement"
+                method="doDelete">
+            <result name="success">/jsp/index.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <!--======================================== RESERVATION ========================================-->
+
+        <!-- reservation list action -->
+        <action name="reservation_list"
+                class="action.ReservationActionManagement"
+                method="doList">
+            <result>/jsp/reservation/list.jsp</result>
+        </action>
+
+        <!-- reservation detail action -->
+        <action name="reservation_detail"
+                class="action.ReservationActionManagement"
+                method="doDetail">
+            <result name="success">/jsp/reservation/detail.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <!-- new reservation action-->
+        <action name="reservation_new"
+                class="action.ReservationActionManagement"
+                method="doCreate">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
+            <result name="input">/jsp/reservation/new.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">reservation_detail</param>
+                <param name="reservationId">${reservation.id}</param>
+            </result>
+        </action>
+
+        <!-- delete reservation action-->
+        <action name="reservation_delete"
+                class="action.ReservationActionManagement"
+                method="doDelete">
+            <result name="success">/jsp/index.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
         <!--======================================== LOGIN / LOGOUT ========================================-->
+
         <action name="login" class="action.LoginAction" method="doLogin">
             <result name="input">/jsp/login.jsp</result>
             <result name="success" type="redirectAction">index</result>
+            <result name="error">/jsp/login.jsp</result>
         </action>
 
         <action name="logout" class="action.LoginAction" method="doLogout">

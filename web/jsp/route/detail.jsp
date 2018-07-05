@@ -15,14 +15,42 @@
 <body>
 <h2><s:text name="title.route.detail" /></h2>
 
-<ul>
-    <li><s:text name="route.id" /><s:property value="route.id"/> </li>
-    <li><s:text name="route.area.id" /><s:property value="route.areaId"/> </li>
-    <li><s:text name="route.number" /><s:property value="route.routeNumber"/> </li>
-    <li><s:text name="route.height" /><s:property value="route.height"/> </li>
-    <li><s:text name="route.grade" /><s:property value="route.grade"/> </li>
-    <li><s:text name="route.anchor.count" /><s:property value="route.anchorCount"/> </li>
-</ul>
+<section>
+    <s:if test="routeList.size() == 0">
+        <s:text name="error.area.empty.route.list" />
+    </s:if>
+    <s:else>
+        <table>
+            <tr>
+                <th><s:text name="route.id" /></th>
+                <th><s:text name="route.area.id" /></th>
+                <th><s:text name="route.number" /></th>
+                <th><s:text name="route.height" /></th>
+                <th><s:text name="route.grade" /></th>
+                <th><s:text name="route.anchor.count" /></th>
+                <th><s:text name="title.delete"/></th>
+            </tr>
+            <s:iterator value="routeList">
+                <tr>
+                    <td><s:property value="route.id"/></td>
+                    <td><s:property value="areaId"/></td>
+                    <td><s:property value="routeNumber"/></td>
+                    <td><s:property value="height"/></td>
+                    <td><s:property value="grade"/></td>
+                    <td><s:property value="anchorCount"/></td>
+                    <td><s:a action="route_delete" >
+                        <s:param name="routeId" value="id" />
+                        <s:text name="title.delete"></s:text>
+                    </s:a>
+                    </td>
+                </tr>
+            </s:iterator>
+        </table>
+    </s:else>
+</section>
 
 </body>
+<footer>
+    <%@ include file="../_include/footer.jsp"%>
+</footer>
 </html>

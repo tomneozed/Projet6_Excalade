@@ -84,32 +84,32 @@ public class App
 
         DaoFactory daoFactory3 = DaoFactory.getInstance();
         siteDao = daoFactory3.getSiteDao();
-
-        DaoFactory daoFactory4 = DaoFactory.getInstance();
-        areaDao = daoFactory4.getAreaDao();
-
-        DaoFactory daoFactory5 = DaoFactory.getInstance();
-        commentDao = daoFactory5.getCommentDao();
-
-        DaoFactory daoFactory6 = DaoFactory.getInstance();
-        personDao = daoFactory6.getPersonDao();
-
-        DaoFactory daoFactory7 = DaoFactory.getInstance();
-        routeDao = daoFactory7.getRouteDao();
+//
+//        DaoFactory daoFactory4 = DaoFactory.getInstance();
+//        areaDao = daoFactory4.getAreaDao();
+//
+//        DaoFactory daoFactory5 = DaoFactory.getInstance();
+//        commentDao = daoFactory5.getCommentDao();
+//
+//        DaoFactory daoFactory6 = DaoFactory.getInstance();
+//        personDao = daoFactory6.getPersonDao();
+//
+//        DaoFactory daoFactory7 = DaoFactory.getInstance();
+//        routeDao = daoFactory7.getRouteDao();
 
         List<Site> siteList = siteDao.list();
+//
+//        List<Area> areaList = areaDao.list();
+//
+//        List<Comment> commentList = commentDao.list();
+//
+//        List<Person> personList = personDao.list();
+//
+//        List<Route> routeList = routeDao.list();
 
-        List<Area> areaList = areaDao.list();
-
-        List<Comment> commentList = commentDao.list();
-
-        List<Person> personList = personDao.list();
-
-        List<Route> routeList = routeDao.list();
-
-        person = personDao.findByEmailNPassword("marilynMonroe@email.com", "motDePasse");
-
-        System.out.println(person.fullDescription());
+//        person = personDao.findByEmailNPassword("marilynMonroe@email.com", "motDePasse");
+//
+//        System.out.println(person.fullDescription());
 
 
         site = siteList.get(3);

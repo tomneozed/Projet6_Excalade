@@ -8,6 +8,7 @@ public class Route
     private float height;
     private String grade;
     private int anchorCount;
+    private int ownerId;
 
     public Route() {
     }
@@ -77,5 +78,13 @@ public class Route
 
     public void setAnchorCount(int anchorCount) {
         this.anchorCount = anchorCount;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 }

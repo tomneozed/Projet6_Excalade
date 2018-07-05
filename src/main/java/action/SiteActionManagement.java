@@ -8,12 +8,11 @@ import beans.Site;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.SessionAware;
 
+import javax.swing.*;
 import java.security.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SiteActionManagement extends ActionSupport implements SessionAware
 {
@@ -91,7 +90,7 @@ public class SiteActionManagement extends ActionSupport implements SessionAware
 
     public String doCreate()
     {
-        Person user = new Person();
+        Person user ;
         SiteDao siteDao;
 
         DaoFactory daoFactory = DaoFactory.getInstance();
@@ -111,27 +110,12 @@ public class SiteActionManagement extends ActionSupport implements SessionAware
 
             this.site.setOwnerId(user.getId());
 
-            if(this.site.getState().length() < 2 && this.site.getState().length() > 40)
-            {
-                this.addFieldError("site.state", "error.site.state.size");
-            }
+            formValidation(this.site);
 
-            if(this.site.getRegion().length() < 2 && this.site.getRegion().length() > 40)
-            {
-                this.addFieldError("site.region", "error.site.region.size");
-            }
-
-            if(this.site.getCounty().length() < 2 && this.site.getCounty().length() > 40)
-            {
-                this.addFieldError("site.county", "error.site.county.size");
-            }
-
-            if(this.site.getName().length() < 2 && this.site.getName().length() > 40)
-            {
-                this.addFieldError("site.name", "error.site.name.size");
-            }
-
+            //Adding of current date
             this.site.setAddDay(dateFormat.format(date));
+
+            //LOG
             System.out.println(this.site.getAddDay()); //2016/11/16 12:08:43
 
             System.out.println(this.site.fullDescription());
@@ -157,6 +141,54 @@ public class SiteActionManagement extends ActionSupport implements SessionAware
         }
 
         return vResult;
+    }
+
+    public String doDelete()
+    {
+        SiteDao siteDao;
+
+        DaoFactory daoFactory = DaoFactory.getInstance();
+        siteDao = daoFactory.getSiteDao();
+
+        String vResult;
+
+        siteDao.delete(siteId);
+        this.addActionMessage("success.site.deleted");
+        vResult= ActionSupport.SUCCESS;
+
+        return vResult;
+    }
+
+    private void formValidation(Site site)
+    {
+        ResourceBundle bundle;
+        if(session.get("WW_TRANS_I18N_LOCALE") == "en")
+        {
+            bundle = ResourceBundle.getBundle("messages_en");
+        }else
+        {
+            bundle = ResourceBundle.getBundle("messages");
+        }
+
+        if(site.getState().length() < 2 || site.getState().length() > 40)
+        {
+            this.addFieldError("site.state", bundle.getString("error.site.state.size"));
+        }
+
+        if(site.getRegion().length() < 2 || site.getRegion().length() > 40)
+        {
+            this.addFieldError("site.region", bundle.getString("error.site.region.size"));
+        }
+
+        if(site.getCounty().length() < 2 || site.getCounty().length() > 40)
+        {
+            this.addFieldError("site.county", bundle.getString("error.site.county.size"));
+        }
+
+        if(site.getName().length() < 2 || site.getName().length() > 40)
+        {
+            this.addFieldError("site.name", bundle.getString("error.site.name.size"));
+        }
     }
 
 

@@ -4,7 +4,7 @@ public class Person
 {
     private int id;
     private String surname;
-    private String fisrtName;
+    private String firstName;
     private String password;
     private String email;
 
@@ -13,10 +13,10 @@ public class Person
 
     }
 
-    public Person(int id, String surname, String fisrtName, String password, String email) {
+    public Person(int id, String surname, String firstName, String password, String email) {
         this.id = id;
         this.surname = surname;
-        this.fisrtName = fisrtName;
+        this.firstName = firstName;
         this.password = password;
         this.email = email;
     }
@@ -25,7 +25,7 @@ public class Person
         return "\n ----- Person -----" +
                 "\n id = " + id +
                 "\n surname = " + surname +
-                "\n fisrtName = " + fisrtName +
+                "\n firstName = " + firstName +
                 "\n password = " + password +
                 "\n email = " + email ;
     }
@@ -46,12 +46,12 @@ public class Person
         this.surname = surname;
     }
 
-    public String getFisrtName() {
-        return fisrtName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFisrtName(String fisrtName) {
-        this.fisrtName = fisrtName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getPassword() {

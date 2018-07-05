@@ -19,4 +19,7 @@
     <s:actionerror />
 
 </body>
+<footer>
+    <%@ include file="./_include/footer.jsp"%>
+</footer>
 </html>

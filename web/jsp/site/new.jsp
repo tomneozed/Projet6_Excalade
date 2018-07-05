@@ -33,4 +33,7 @@
         <s:text name="error.not.logged"/>
     </s:else>
 </body>
+<footer>
+    <%@ include file="../_include/footer.jsp"%>
+</footer>
 </html>
