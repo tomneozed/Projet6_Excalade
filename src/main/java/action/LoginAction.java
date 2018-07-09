@@ -5,21 +5,17 @@ import DAO.Interfaces.PersonDao;
 import beans.Person;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import javassist.NotFoundException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.interceptor.SessionAware;
 
-import java.util.Enumeration;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class LoginAction extends ActionSupport implements SessionAware
-{
+public class LoginAction extends ActionSupport implements SessionAware {
     //=========  ATTRIBUTS  =========
     //- - - - Elements en entrée - - - -
     private String login;
     private String password;
-
 
 
     //=========  GETTERS & SETTERS  =========
@@ -45,8 +41,7 @@ public class LoginAction extends ActionSupport implements SessionAware
 
     //=========  METHODES  =========
 
-    public String doLogin()
-    {
+    public String doLogin() {
         PersonDao personDao;
 
         ResourceBundle bundle = ResourceBundle.getBundle("messages");
@@ -55,19 +50,14 @@ public class LoginAction extends ActionSupport implements SessionAware
 
         String vResult = ActionSupport.INPUT;
 
-        if(!StringUtils.isAllEmpty(login, password))
-        {
-            try
-            {
+        if (!StringUtils.isAllEmpty(login, password)) {
+            try {
                 Person vPerson = personDao.findByEmailNPassword(login, password);
-                System.out.println(vPerson.fullDescription());
 
-                if(vPerson.getId() == 0 || vPerson.getFirstName() == null || vPerson.getSurname() == null)
-                {
-                    this.addActionError(bundle.getString("error.login.failed"));
+                if (vPerson.getId() == 0 || vPerson.getFirstName() == null || vPerson.getSurname() == null) {
+                    addActionError(bundle.getString("error.login.failed"));
                     vResult = ActionSupport.ERROR;
-                }else
-                {
+                } else {
                     Map session = ActionContext.getContext().getSession();
                     //User is added in session
                     session.put("user", vPerson);
@@ -75,16 +65,14 @@ public class LoginAction extends ActionSupport implements SessionAware
                     vResult = ActionSupport.SUCCESS;
                 }
 
-            }catch(NullPointerException pEx)
-            {
-                this.addActionError("error.login.failed");
+            } catch (NullPointerException pEx) {
+                addActionError("error.login.failed");
             }
         }
         return vResult;
     }
 
-    public String doLogout()
-    {
+    public String doLogout() {
         Map session = ActionContext.getContext().getSession();
 
         session.remove("user");

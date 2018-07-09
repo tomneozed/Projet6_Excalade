@@ -6,7 +6,6 @@ import DAO.Interfaces.PersonDao;
 import DAO.Interfaces.SiteDao;
 import beans.Area;
 import beans.Person;
-import beans.Site;
 import com.opensymphony.xwork2.ActionSupport;
 
 import java.util.ArrayList;
@@ -57,6 +56,7 @@ public class AreaActionManagement extends ActionSupport {
         this.siteId = siteId;
     }
 
+
     public void setAreaList(List<Area> areaList) {
         this.areaList = areaList;
     }
@@ -91,13 +91,11 @@ public class AreaActionManagement extends ActionSupport {
         personDao = daoFactory.getPersonDao();
         siteDao = daoFactory.getSiteDao();
 
-        Site site = siteDao.find(siteId);
-
-
         if (areaId == null) {
             addActionError("error.area.missing.id");
         } else {
             area = areaDao.find(areaId);
+            area.setOwnerId(siteDao.findOwnerId(area.getSiteId()));
             for (int i = 0; i < area.getCommentList().size(); i++) {
                 commentOwnerList.add(personDao.find(area.getCommentList().get(i).getUser_id()));
             }
@@ -108,11 +106,9 @@ public class AreaActionManagement extends ActionSupport {
 
     public String doCreate() {
         AreaDao areaDao;
-        SiteDao siteDao;
 
         DaoFactory daoFactory = DaoFactory.getInstance();
         areaDao = daoFactory.getAreaDao();
-        siteDao = daoFactory.getSiteDao();
 
         String vResult = ActionSupport.INPUT;
 
@@ -127,12 +123,10 @@ public class AreaActionManagement extends ActionSupport {
                 addFieldError("area.description", "error.area.description.size");
             }
 
-            Site site = siteDao.find(siteId);
             area.setSiteId(siteId);
-            area.setOwnerId(site.getOwnerId());
-            System.out.println("[doCreate] Owner id : " + area.getOwnerId());
 
             if (!hasErrors()) {
+
                 areaId = areaDao.add(area);
 
                 area.setId(areaId);

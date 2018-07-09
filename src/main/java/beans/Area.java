@@ -2,8 +2,7 @@ package beans;
 
 import java.util.List;
 
-public class Area
-{
+public class Area {
     private int id;
     private int siteId;
     private String name;
@@ -14,8 +13,7 @@ public class Area
     private List<Comment> commentList;
     private int ownerId;
 
-    public Area()
-    {
+    public Area() {
 
     }
 
@@ -31,57 +29,46 @@ public class Area
     }
 
     public String fullDescription() {
-        return "\n      ----- Secteur : "+ this.getName() + " -----"+
-                " \nid : " + this.getId() +
-                " \nNombre de voies: " + this.getRouteCount() +
-                " \nType : " + this.getType() +
-                " \nDescription : " + this.getDescription() +
-                " \nListe des routes : " + this.routeDescription() +
-                " \nListe des commentaires : " + this.commentDescription();
+        return "\n      ----- Secteur : " + getName() + " -----" +
+            " \nid : " + getId() +
+            " \nSiteId : " + getSiteId() +
+            " \nNombre de voies: " + getRouteCount() +
+            " \nType : " + getType() +
+            " \nDescription : " + getDescription() +
+            " \nListe des routes : " + routeDescription() +
+            " \nListe des commentaires : " + commentDescription();
     }
 
-    public String routeDescription()
-    {
-        String s =" ";
-        if(this.routeList != null)
-        {
-            try
-            {
-                for(int i =0; i < this.routeList.size(); i++)
-                {
-                    s +=this.getRouteList().get(i).fullDescription();
+    public String routeDescription() {
+        String s = " ";
+        if (routeList != null) {
+            try {
+                for (int i = 0; i < routeList.size(); i++) {
+                    s += getRouteList().get(i).fullDescription();
                     s += "\n";
                 }
-            }catch(NullPointerException e)
-            {
+            } catch (NullPointerException e) {
                 e.printStackTrace();
             }
-        }else
-        {
+        } else {
             s = "Pas de routes associées";
         }
 
         return s;
     }
 
-    public String commentDescription()
-    {
-        String s =" ";
-        if(this.commentList != null)
-        {
-            try
-            {
-                for(int i =0; i < this.commentList.size(); i++)
-                {
-                    s +=this.getCommentList().get(i).fullDescription();
+    public String commentDescription() {
+        String s = " ";
+        if (commentList != null) {
+            try {
+                for (int i = 0; i < commentList.size(); i++) {
+                    s += getCommentList().get(i).fullDescription();
                     s += "\n";
                 }
-            }catch(NullPointerException e)
-            {
+            } catch (NullPointerException e) {
                 e.printStackTrace();
             }
-        }else
-        {
+        } else {
             s = "Pas de commentaire associées";
         }
 

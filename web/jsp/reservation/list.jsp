@@ -6,46 +6,56 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-    <title>Title</title>
-    <%@ include file="../_include/header.jsp"%>
+    <title><s:text name="title.reservation.list"/></title>
+    <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet">
+
 </head>
 <body>
-    <h2><s:text name="title.reservation.list" /></h2>
-
-    <section>
-        <s:if test="reservationList.size() == 0">
-            <s:text name="error.reservation.empty.list" />
-        </s:if>
-        <s:else>
-            <table>
+<header>
+    <%@ include file="../_include/header.jsp" %>
+</header>
+<div class="container">
+    <s:if test="reservationList.size() == 0">
+        <s:text name="error.reservation.empty.list"/>
+    </s:if>
+    <s:else>
+        <table class="table table-bordered table-striped table-condensed">
+            <caption>
+                <h4><s:text name="title.reservation.list"/></h4>
+            </caption>
+            <thead>
+            <tr>
+                <th><s:text name="reservation.id"/></th>
+                <th><s:text name="reservation.site.id"/></th>
+                <th><s:text name="reservation.day.start"/></th>
+                <th><s:text name="reservation.day.end"/></th>
+                <th><s:text name="title.delete"/></th>
+            </tr>
+            </thead>
+            <tbody>
+            <s:iterator value="reservationList">
                 <tr>
-                    <th>ID</th>
-                    <th>Site ID</th>
-                    <th>Date de reservation (debut)</th>
-                    <th>Date de reservation (fin)</th>
-                    <th>Supprimer</th>
+                    <td><s:property value="id"/></td>
+                    <td><s:property value="site_id"/></td>
+                    <td><s:property value="reservation_day_start"/></td>
+                    <td><s:property value="reservation_day_end"/></td>
+                    <td><s:a action="reservation_delete">
+                        <s:param name="reservationId" value="id"/>
+                        <s:text name="title.delete"></s:text>
+                    </s:a>
+                    </td>
                 </tr>
-                    <s:iterator value="reservationList">
-                        <tr>
-                            <td><s:property value="id" /></td>
-                            <td><s:property value="site_id" /></td>
-                            <td><s:property value="reservation_day_start"/></td>
-                            <td><s:property value="reservation_day_end"/></td>
-                            <td><s:a action="reservation_delete" >
-                                <s:param name="reservationId" value="id" />
-                                <s:text name="title.delete"></s:text>
-                            </s:a>
-                            </td>
-                        </tr>
-                    </s:iterator>
-            </table>
-        </s:else>
-    </section>
+            </s:iterator>
+            </tbody>
+        </table>
+    </s:else>
+</div>
 
 </body>
 <footer>
-    <%@ include file="../_include/footer.jsp"%>
+    <%@ include file="../_include/footer.jsp" %>
 </footer>
 </html>

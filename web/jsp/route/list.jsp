@@ -9,23 +9,26 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-    <title><s:text name="title.route.list" /></title>
-    <%@ include file="../_include/header.jsp"%>
+    <title><s:text name="title.route.list"/></title>
+    <%@ include file="../_include/header.jsp" %>
 </head>
 <body>
+
+<h2><s:text name="title.route.list"/></h2>
+
 <section>
     <s:if test="routeList.size() == 0">
-        <s:text name="error.area.empty.route.list" />
+        <s:text name="error.area.empty.route.list"/>
     </s:if>
     <s:else>
         <table>
             <tr>
-                <th><s:text name="route.id" /></th>
-                <th><s:text name="route.area.id" /></th>
-                <th><s:text name="route.number" /></th>
-                <th><s:text name="route.height" /></th>
-                <th><s:text name="route.grade" /></th>
-                <th><s:text name="route.anchor.count" /></th>
+                <th><s:text name="route.id"/></th>
+                <th><s:text name="route.area.id"/></th>
+                <th><s:text name="route.number"/></th>
+                <th><s:text name="route.height"/></th>
+                <th><s:text name="route.grade"/></th>
+                <th><s:text name="route.anchor.count"/></th>
                 <th><s:text name="title.delete"/></th>
             </tr>
             <s:iterator value="routeList">
@@ -36,10 +39,16 @@
                     <td><s:property value="height"/></td>
                     <td><s:property value="grade"/></td>
                     <td><s:property value="anchorCount"/></td>
-                    <td><s:a action="route_delete" >
-                        <s:param name="routeId" value="id" />
-                        <s:text name="title.delete"></s:text>
-                    </s:a>
+                    <td>
+                        <s:if test="#session.user.id == ownerId">
+                            <s:a action="route_delete">
+                                <s:param name="routeId" value="id"/>
+                                <s:text name="title.delete"></s:text>
+                            </s:a>
+                        </s:if>
+                        <s:else>
+                            <s:text name="error.route.missing.log"/>
+                        </s:else>
                     </td>
                 </tr>
             </s:iterator>
@@ -49,6 +58,6 @@
 
 </body>
 <footer>
-    <%@ include file="../_include/footer.jsp"%>
+    <%@ include file="../_include/footer.jsp" %>
 </footer>
 </html>

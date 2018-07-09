@@ -1,14 +1,15 @@
 package action;
 
 import DAO.DaoFactory;
+import DAO.Interfaces.AreaDao;
 import DAO.Interfaces.RouteDao;
+import beans.Area;
 import beans.Route;
 import com.opensymphony.xwork2.ActionSupport;
 
 import java.util.List;
 
-public class RouteActionManagement extends ActionSupport
-{
+public class RouteActionManagement extends ActionSupport {
     //=========  ATTRIBUTS  =========
 
     //- - - - Elements en entrée - - - -
@@ -66,73 +67,66 @@ public class RouteActionManagement extends ActionSupport
 
     //=========  METHODES  =========
 
-    public String doList()
-    {
+    public String doList() {
         RouteDao routeDao;
+        AreaDao areaDao;
 
         DaoFactory daoFactory = DaoFactory.getInstance();
         routeDao = daoFactory.getRouteDao();
-        this.routeList = routeDao.listByArea(areaId);
+        areaDao = daoFactory.getAreaDao();
+
+        Area area = areaDao.find(areaId);
+        routeList = routeDao.listByArea(areaId, area.getOwnerId());
 
         return ActionSupport.SUCCESS;
     }
 
-    public String doDetail()
-    {
+    public String doDetail() {
         RouteDao routeDao;
-
         DaoFactory daoFactory = DaoFactory.getInstance();
         routeDao = daoFactory.getRouteDao();
 
-        if(routeId == null)
-        {
-            this.addActionError("Vous devez indiquer un id de voie");
-        }else
-        {
-            this.route = routeDao.find(routeId);
+        if (routeId == null) {
+            addActionError("Vous devez indiquer un id de voie");
+        } else {
+            route = routeDao.find(routeId);
         }
-        System.out.println("[doDetail] route.areaId : " + route.getAreaId());
 
-        return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+        return (hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
     }
 
-    public String doCreate()
-    {
+    public String doCreate() {
         RouteDao routeDao;
 
         DaoFactory daoFactory = DaoFactory.getInstance();
         routeDao = daoFactory.getRouteDao();
 
-        String vResult= ActionSupport.INPUT;
+        String vResult = ActionSupport.INPUT;
 
         // route!= null : check for errors
-        if(this.route != null) {
+        if (route != null) {
 
-            this.route.setAreaId(areaId);
-            System.out.println("doCreate : " + this.route.fullDescription());
+            route.setAreaId(areaId);
+            System.out.println("doCreate : " + route.fullDescription());
 
-            if(!this.hasErrors())
-            {
-                this.routeId = routeDao.add(this.route);
+            if (!hasErrors()) {
+                routeId = routeDao.add(route);
 
-                this.route.setId(routeId);
+                route.setId(routeId);
 
                 vResult = ActionSupport.SUCCESS;
-                this.addActionMessage("success.route.added");
+                addActionMessage("success.route.added");
             }
         }
 
         // route = null :
-        if(vResult.equals(ActionSupport.INPUT))
-        {
+        if (vResult.equals(ActionSupport.INPUT)) {
 
         }
-
         return vResult;
     }
 
-    public String doDelete()
-    {
+    public String doDelete() {
         RouteDao routeDao;
         DaoFactory daoFactory = DaoFactory.getInstance();
 
@@ -142,8 +136,8 @@ public class RouteActionManagement extends ActionSupport
 
         routeDao.delete(routeId);
 
-        this.addActionMessage("success.site.deleted");
-        vResult= ActionSupport.SUCCESS;
+        addActionMessage("success.site.deleted");
+        vResult = ActionSupport.SUCCESS;
 
         return vResult;
     }

@@ -9,29 +9,30 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title><s:text name="title.area.new" /></title>
-    <%@ include file="../_include/header.jsp"%>
+    <title><s:text name="title.area.new"/></title>
+    <%@ include file="../_include/header.jsp" %>
 </head>
 <body>
 
-    <s:actionerror />
-    <s:actionmessage />
+<s:actionerror/>
+<s:actionmessage/>
 
-    <h2>Creation d'un secteur</h2>
+<h2>Creation d'un secteur</h2>
 
-    <s:form action="area_new">
-        <s:textfield name="area.name" key="area.name" requiredLabel="true" />
-        <s:select name="area.type" key="area.type"
-                  list="typeList"
-                  emptyOption="true"
-                  requiredLabel="true"/>
-        <s:textfield name="area.description" key="area.description" requiredLabel="false" />
-        <s:hidden name="siteId" />
-        <s:submit value="OK"/>
-    </s:form>
+<s:form action="area_new">
+    <s:textfield name="area.name" key="area.name" requiredLabel="true"/>
+    <s:select name="area.type" key="area.type"
+              list="typeList"
+              emptyOption="true"
+              requiredLabel="true"/>
+    <s:textfield name="area.description" key="area.description" requiredLabel="false"/>
+    <s:hidden name="siteId"/>
+    <s:hidden name="areaId"/>
+    <s:submit value="OK"/>
+</s:form>
 
 </body>
 <footer>
-    <%@ include file="../_include/footer.jsp"%>
+    <%@ include file="../_include/footer.jsp" %>
 </footer>
 </html>

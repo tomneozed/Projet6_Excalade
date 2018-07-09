@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE struts PUBLIC
-        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
-        "http://struts.apache.org/dtds/struts-2.5.dtd">
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
     <package name="default" extends="struts-default">
         <!-- default action-->
-        <default-action-ref name="index" />
+        <default-action-ref name="index"/>
 
         <!-- index action -->
         <action name="index">
@@ -158,8 +158,8 @@
 
             <result name="input">/jsp/route/new.jsp</result>
             <result name="success" type="redirectAction">
-                <param name="actionName">route_detail</param>
-                <param name="routeId">${route.id}</param>
+                <param name="actionName">area_detail</param>
+                <param name="areaId">${areaId}</param>
             </result>
         </action>
 
@@ -223,6 +223,13 @@
 
         <action name="logout" class="action.LoginAction" method="doLogout">
             <result type="redirectAction">index</result>
+        </action>
+
+        <!--======================================== RESEARCH ========================================-->
+
+        <action name="research" class="action.ResearchAction" method="doList">
+            <result name="success">/jsp/research/list.jsp</result>
+            <result name="error">/jsp/index.jsp</result>
         </action>
 
     </package>

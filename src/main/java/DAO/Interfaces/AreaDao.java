@@ -4,8 +4,7 @@ import beans.Area;
 
 import java.util.List;
 
-public interface AreaDao
-{
+public interface AreaDao {
     int add(Area area);
 
     void delete(int id);

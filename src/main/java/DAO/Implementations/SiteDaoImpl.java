@@ -14,22 +14,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SiteDaoImpl implements SiteDao
-{
+public class SiteDaoImpl implements SiteDao {
     private DaoFactory daoFactory;
     Connection connexion;
 
-    public SiteDaoImpl(DaoFactory daoFactory)
-    {
+    public SiteDaoImpl(DaoFactory daoFactory) {
         this.daoFactory = daoFactory;
     }
 
-    public int add(Site site)
-    {
+    public int add(Site site) {
         PreparedStatement preparedStatement;
         int siteId = -1;
-        try
-        {
+        try {
             //String to Date conversion
             SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
             java.util.Date date = sdf1.parse(site.getAddDay());
@@ -37,8 +33,8 @@ public class SiteDaoImpl implements SiteDao
 
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement(
-                    "INSERT INTO public.site(owner_id, state, county, region, name, add_day)" +
-                            "VALUES(?,?,?,?,?,?::date);", Statement.RETURN_GENERATED_KEYS);
+                "INSERT INTO public.site(owner_id, state, county, region, name, add_day)" +
+                    "VALUES(?,?,?,?,?,?::date);", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, site.getOwnerId());
             preparedStatement.setString(2, site.getState());
             preparedStatement.setString(3, site.getCounty());
@@ -50,15 +46,13 @@ public class SiteDaoImpl implements SiteDao
 
             ResultSet rs = preparedStatement.getGeneratedKeys();
 
-            if(rs.next())
-            {
+            if (rs.next()) {
                 siteId = rs.getInt(1);
             }
 
             System.out.println("[add] SiteId : " + siteId);
             connexion.close();
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
@@ -66,61 +60,52 @@ public class SiteDaoImpl implements SiteDao
         return siteId;
     }
 
-    public void delete(int id)
-    {
+    public void delete(int id) {
         AreaDao areaDao = daoFactory.getAreaDao();
         List<Area> areasToDelete = areaDao.listBySite(id);
         ReservationsGuidebookDao reservationDao = daoFactory.getReservationDao();
         List<ReservationsGuidebook> reservationsToDelete = reservationDao.listBySite(id);
         PreparedStatement preparedStatement;
 
-        try
-        {
-            if(!areasToDelete.isEmpty())
-            {
-                for(int i =0; i< areasToDelete.size(); i++)
-                {
+        try {
+            if (!areasToDelete.isEmpty()) {
+                for (int i = 0; i < areasToDelete.size(); i++) {
                     areaDao.delete(areasToDelete.get(i).getId());
                 }
             }
-            if(!reservationsToDelete.isEmpty())
-            {
-                for(int i =0; i< reservationsToDelete.size(); i++)
-                {
+            if (!reservationsToDelete.isEmpty()) {
+                for (int i = 0; i < reservationsToDelete.size(); i++) {
                     reservationDao.delete(reservationsToDelete.get(i).getId());
                 }
             }
 
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement(
-                    "DELETE FROM public.site WHERE id = ?;");
+                "DELETE FROM public.site WHERE id = ?;");
 
             preparedStatement.setInt(1, id);
 
             preparedStatement.executeUpdate();
             connexion.close();
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void update(int id, Site newSite)
-    {
+    public void update(int id, Site newSite) {
         PreparedStatement preparedStatement;
 
-        try
-        {
+        try {
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement(
-                    "UPDATE public.site " +
-                            "SET owner_id = ?, " +
-                            "state = ?, " +
-                            "county = ?, " +
-                            "region = ?, " +
-                            "name = ?, " +
-                            "add_day = ? " +
-                            "WHERE id = ?;");
+                "UPDATE public.site " +
+                    "SET owner_id = ?, " +
+                    "state = ?, " +
+                    "county = ?, " +
+                    "region = ?, " +
+                    "name = ?, " +
+                    "add_day = ? " +
+                    "WHERE id = ?;");
 
             preparedStatement.setInt(1, newSite.getOwnerId());
             preparedStatement.setString(2, newSite.getState());
@@ -131,27 +116,24 @@ public class SiteDaoImpl implements SiteDao
 
             preparedStatement.executeUpdate();
             connexion.close();
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public List<Site> list()
-    {
+    public List<Site> list() {
         List<Site> siteList = new ArrayList<Site>();
+
         AreaDao areaDao = daoFactory.getAreaDao();
         Statement statement;
         ResultSet resultat;
 
-        try
-        {
+        try {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
             resultat = statement.executeQuery("SELECT * FROM public.site;");
 
-            while(resultat.next())
-            {
+            while (resultat.next()) {
                 int id = resultat.getInt("id");
                 int owner_id = resultat.getInt("owner_id");
                 String state = resultat.getString("state");
@@ -160,35 +142,87 @@ public class SiteDaoImpl implements SiteDao
                 String name = resultat.getString("name");
                 String add_day = resultat.getString("add_day");
 
+                Site site = new Site();
+                site.setId(id);
+                site.setOwnerId(owner_id);
+                site.setAddDay(add_day);
+                site.setCounty(county);
+                site.setName(name);
+                site.setRegion(region);
+                site.setState(state);
+
                 List<Area> areaListBySite = areaDao.listBySite(id);
 
-                Site site = new Site(id, owner_id, state, county, region, name, add_day, areaListBySite);
+                site.setAreaList(areaListBySite);
 
                 siteList.add(site);
             }
             connexion.close();
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return siteList;
     }
 
-    public Site find(int id)
-    {
+    public List<Site> researchList(String researchInput) {
+        List<Site> siteList = new ArrayList<Site>();
+
+        AreaDao areaDao = daoFactory.getAreaDao();
+        Statement statement;
+        ResultSet resultat;
+
+        try {
+            connexion = daoFactory.getConnection();
+            statement = connexion.createStatement();
+            resultat = statement.executeQuery("SELECT * FROM public.site WHERE " +
+                "(state LIKE '%" + researchInput + "%') OR" +
+                "(county LIKE '%" + researchInput + "%') OR" +
+                "(region LIKE '%" + researchInput + "%') OR" +
+                "(name LIKE '%" + researchInput + "%');");
+
+            while (resultat.next()) {
+                int id = resultat.getInt("id");
+                int owner_id = resultat.getInt("owner_id");
+                String state = resultat.getString("state");
+                String county = resultat.getString("county");
+                String region = resultat.getString("region");
+                String name = resultat.getString("name");
+                String add_day = resultat.getString("add_day");
+
+                Site site = new Site();
+                site.setId(id);
+                site.setOwnerId(owner_id);
+                site.setAddDay(add_day);
+                site.setCounty(county);
+                site.setName(name);
+                site.setRegion(region);
+                site.setState(state);
+
+                List<Area> areaListBySite = areaDao.listBySite(id);
+
+                site.setAreaList(areaListBySite);
+
+                siteList.add(site);
+            }
+            connexion.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return siteList;
+    }
+
+    public Site find(int id) {
         Site site = new Site();
         AreaDao areaDao = daoFactory.getAreaDao();
         Statement statement;
         ResultSet resultat;
 
-        try
-        {
+        try {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
             resultat = statement.executeQuery(
-                    "SELECT * FROM public.site WHERE id="+ id +";");
-            while (resultat.next())
-            {
+                "SELECT * FROM public.site WHERE id=" + id + ";");
+            while (resultat.next()) {
                 int owner_id = resultat.getInt("owner_id");
                 String state = resultat.getString("state");
                 String county = resultat.getString("county");
@@ -209,10 +243,28 @@ public class SiteDaoImpl implements SiteDao
                 site.setAreaList(areaListBySite);
             }
             connexion.close();
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return site;
+    }
+
+    public int findOwnerId(int siteId) {
+        int ownerId = -1;
+        Statement statement;
+        ResultSet resultat;
+        try {
+            connexion = daoFactory.getConnection();
+            statement = connexion.createStatement();
+            resultat = statement.executeQuery(
+                "SELECT owner_id FROM public.site WHERE id=" + siteId + ";");
+            while (resultat.next()) {
+                ownerId = resultat.getInt("owner_id");
+            }
+            connexion.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ownerId;
     }
 }

@@ -13,13 +13,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AreaDaoImpl implements AreaDao
-{
+public class AreaDaoImpl implements AreaDao {
     private DaoFactory daoFactory;
     private Connection connexion;
 
-    public AreaDaoImpl(DaoFactory daoFactory)
-    {
+    public AreaDaoImpl(DaoFactory daoFactory) {
         this.daoFactory = daoFactory;
     }
 
@@ -27,12 +25,11 @@ public class AreaDaoImpl implements AreaDao
         PreparedStatement preparedStatement;
         int areaId = -1;
 
-        try
-        {
+        try {
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement(
-                    "INSERT INTO public.area(name, route_count, type, description, site_id) " +
-                            "VALUES(?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
+                "INSERT INTO public.area(name, route_count, type, description, site_id) " +
+                    "VALUES(?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setString(1, area.getName());
             preparedStatement.setInt(2, area.getRouteCount());
@@ -40,27 +37,25 @@ public class AreaDaoImpl implements AreaDao
             preparedStatement.setString(4, area.getDescription());
             preparedStatement.setInt(5, area.getSiteId());
 
+            System.out.println("[AreaDaoImpl] - add() : " + area.fullDescription());
             preparedStatement.executeUpdate();
 
             ResultSet rs = preparedStatement.getGeneratedKeys();
 
-            if(rs.next())
-            {
+            if (rs.next()) {
                 areaId = rs.getInt(1);
             }
 
             System.out.println("[add] AreaId : " + areaId);
             connexion.close();
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return areaId;
     }
 
-    public void delete(int id)
-    {
+    public void delete(int id) {
         RouteDao routeDao = daoFactory.getRouteDao();
         List<Route> routesToDelete = routeDao.listByArea(id);
         CommentDao commentDao = daoFactory.getCommentDao();
@@ -68,53 +63,45 @@ public class AreaDaoImpl implements AreaDao
 
         PreparedStatement preparedStatement;
 
-        try
-        {
-            if(!routesToDelete.isEmpty())
-            {
-                for(int i =0; i< routesToDelete.size(); i++)
-                {
+        try {
+            if (!routesToDelete.isEmpty()) {
+                for (int i = 0; i < routesToDelete.size(); i++) {
                     routeDao.delete(routesToDelete.get(i).getId());
                 }
             }
 
-            if(!commentsToDelete.isEmpty())
-            {
-                for(int i =0; i< commentsToDelete.size(); i++)
-                {
+            if (!commentsToDelete.isEmpty()) {
+                for (int i = 0; i < commentsToDelete.size(); i++) {
                     commentDao.delete(commentsToDelete.get(i).getId());
                 }
             }
 
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement(
-                    "DELETE FROM public.area WHERE id = ?;");
+                "DELETE FROM public.area WHERE id = ?;");
             preparedStatement.setInt(1, id);
 
             preparedStatement.executeUpdate();
             connexion.close();
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
 
-    public void update(int id, Area newArea)
-    {
+    public void update(int id, Area newArea) {
         PreparedStatement preparedStatement;
 
-        try
-        {
+        try {
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement(
-                    "UPDATE public.area " +
-                            "SET name = ?, " +
-                            "route_count = ?, " +
-                            "type = ?," +
-                            "description = ?," +
-                            "site_id = ?" +
-                            "WHERE id = ?;");
+                "UPDATE public.area " +
+                    "SET name = ?, " +
+                    "route_count = ?, " +
+                    "type = ?," +
+                    "description = ?," +
+                    "site_id = ?" +
+                    "WHERE id = ?;");
             preparedStatement.setString(1, newArea.getName());
             preparedStatement.setInt(2, newArea.getRouteCount());
             preparedStatement.setString(3, newArea.getType());
@@ -123,32 +110,28 @@ public class AreaDaoImpl implements AreaDao
 
             preparedStatement.executeUpdate();
             connexion.close();
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
 
-    public List<Area> list()
-    {
+    public List<Area> list() {
         List<Area> areaList = new ArrayList<Area>();
         RouteDao routeDao = daoFactory.getRouteDao();
+        SiteDao siteDao = daoFactory.getSiteDao();
         CommentDao commentDao = daoFactory.getCommentDao();
         Statement statement;
         ResultSet resultat;
 
-        try
-        {
+        try {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
             resultat = statement.executeQuery("SELECT id, name, route_count, type, description, site_id FROM public.area;");
 
-            while(resultat.next())
-            {
+            while (resultat.next()) {
                 int id = resultat.getInt("id");
                 String name = resultat.getString("name");
-
                 String type = resultat.getString("type");
                 String description = resultat.getString("description");
                 int site_id = resultat.getInt("site_id");
@@ -161,12 +144,12 @@ public class AreaDaoImpl implements AreaDao
                 System.out.println(route_count);
 
                 Area area = new Area(id, site_id, name, description, type, route_count, routeListByArea, commentListByArea);
-                setOwnerId(area);
+                area.setOwnerId(siteDao.findOwnerId(site_id));
+
                 areaList.add(area);
                 connexion.close();
             }
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return areaList;
@@ -175,23 +158,21 @@ public class AreaDaoImpl implements AreaDao
     public List<Area> listBySite(int siteId) {
         List<Area> areaListBySite = new ArrayList<Area>();
         RouteDao routeDao = daoFactory.getRouteDao();
+        SiteDao siteDao = daoFactory.getSiteDao();
         CommentDao commentDao = daoFactory.getCommentDao();
         Statement statement;
         ResultSet resultat;
 
-        try
-        {
+        try {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
             resultat = statement.executeQuery("SELECT id, name, route_count, type, description, site_id " +
-                    "FROM public.area " +
-                    "WHERE site_id =" + siteId + ";");
+                "FROM public.area " +
+                "WHERE site_id =" + siteId + ";");
 
-            while(resultat.next())
-            {
+            while (resultat.next()) {
                 int id = resultat.getInt("id");
                 String name = resultat.getString("name");
-                int route_count = resultat.getInt("route_count");
                 String type = resultat.getString("type");
                 String description = resultat.getString("description");
                 int site_id = resultat.getInt("site_id");
@@ -199,74 +180,53 @@ public class AreaDaoImpl implements AreaDao
                 List<Route> routeListByArea = routeDao.listByArea(id);
 
                 List<Comment> commentListByArea = commentDao.listByArea(id);
-                route_count = routeListByArea.size();
+                int route_count = routeListByArea.size();
 
                 Area area = new Area(id, site_id, name, description, type, route_count, routeListByArea, commentListByArea);
-                setOwnerId(area);
+                area.setOwnerId(siteDao.findOwnerId(site_id));
                 areaListBySite.add(area);
                 connexion.close();
             }
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return areaListBySite;
     }
 
-    public Area find(int id)
-    {
+
+    public Area find(int id) {
         Area area = new Area();
         RouteDao routeDao = daoFactory.getRouteDao();
         CommentDao commentDao = daoFactory.getCommentDao();
+        SiteDao siteDao = daoFactory.getSiteDao();
         Statement statement;
         ResultSet resultat;
 
-        try
-        {
+        try {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
             resultat = statement.executeQuery(
-                    "SELECT name, route_count, type, description, site_id FROM public.area WHERE id="+ id +";");
-            while (resultat.next())
-            {
+                "SELECT name, route_count, type, description, site_id FROM public.area WHERE id=" + id + ";");
+            while (resultat.next()) {
                 String name = resultat.getString("name");
-                int route_count = resultat.getInt("route_count");
                 String type = resultat.getString("type");
                 String description = resultat.getString("description");
                 int site_id = resultat.getInt("site_id");
 
-
                 List<Route> routeListByArea = routeDao.listByArea(id);
 
                 List<Comment> commentListByArea = commentDao.listByArea(id);
-                route_count = routeListByArea.size();
+                int route_count = routeListByArea.size();
 
                 area = new Area(id, site_id, name, description, type, route_count, routeListByArea, commentListByArea);
-
-                setOwnerId(area);
+                area.setOwnerId(siteDao.findOwnerId(site_id));
                 connexion.close();
             }
 
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return area;
-    }
-
-    /*
-    Set the ownerId of the area
-     */
-    private Area setOwnerId(Area area)
-    {
-        DaoFactory daoFactory = DaoFactory.getInstance();
-        SiteDao siteDao = daoFactory.getSiteDao();
-
-        area.setOwnerId(siteDao.find(area.getSiteId()).getOwnerId());
-
-        //LOG System.out.println("[AreaDaoImpl] - setOwnerId() : Owner id : " + area.getOwnerId());
-
         return area;
     }
 }

@@ -4,8 +4,7 @@ import beans.Route;
 
 import java.util.List;
 
-public interface RouteDao
-{
+public interface RouteDao {
     int add(Route route);
 
     void delete(int id);
@@ -15,6 +14,8 @@ public interface RouteDao
     List<Route> list();
 
     List<Route> listByArea(int areaId);
+
+    List<Route> listByArea(int areaId, int ownerId);
 
     Route find(int id);
 }
