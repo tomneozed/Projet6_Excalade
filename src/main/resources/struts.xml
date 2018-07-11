@@ -29,11 +29,21 @@
             <result name="error">/jsp/error.jsp</result>
         </action>
 
-        <action name="comment_area_display"
+        <!-- new comment action-->
+        <action name="comment_new"
                 class="action.CommentActionManagement"
-                method="doDetail">
-            <result name="success">/jsp/comment/areaDisplay.jsp</result>
-            <result name="error">/jsp/error.jsp</result>
+                method="doCreate">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
+            <result name="input">/jsp/comment/new.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">area_detail</param>
+                <param name="areaId">${areaId}</param>
+            </result>
         </action>
 
         <!-- delete comment action-->
@@ -229,7 +239,7 @@
 
         <action name="research" class="action.ResearchAction" method="doList">
             <result name="success">/jsp/research/list.jsp</result>
-            <result name="error">/jsp/index.jsp</result>
+            <result name="input">/jsp/index.jsp</result>
         </action>
 
     </package>

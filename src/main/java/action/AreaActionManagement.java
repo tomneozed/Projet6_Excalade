@@ -154,12 +154,14 @@ public class AreaActionManagement extends ActionSupport {
         DaoFactory daoFactory = DaoFactory.getInstance();
         areaDao = daoFactory.getAreaDao();
 
-        areaDao.delete(areaId);
-
-        addActionMessage("success.area.deleted");
-
-        vResult = ActionSupport.SUCCESS;
-
+        if (areaId != null) {
+            areaDao.delete(areaId);
+            addActionMessage("success.area.deleted");
+            vResult = ActionSupport.SUCCESS;
+        } else {
+            addActionError("Error");
+            vResult = ActionSupport.ERROR;
+        }
         return vResult;
     }
 

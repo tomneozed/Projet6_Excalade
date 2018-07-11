@@ -9,13 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <footer>
-    <s:a name="index">
-        <s:param name="request_locale">en</s:param>
-        [English]
-    </s:a>
-    <s:a name="index">
-        <s:param name="request_locale">fr</s:param>
-        [Français]
-    </s:a>
+
+    <s:text name="title.footer"></s:text>
 </footer>
 </html>

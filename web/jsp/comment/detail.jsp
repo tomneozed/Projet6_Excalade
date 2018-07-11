@@ -9,21 +9,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title><s:text name="title.comment.detail" /></title>
-    <%@ include file="../_include/header.jsp"%>
+    <title><s:text name="title.comment.detail"/></title>
+    <%@ include file="../_include/bootstrap.jsp" %>
 </head>
 <body>
-    <h2><s:text name="title.comment.detail" /></h2>
+<header class="page-header">
+    <%@ include file="../_include/header.jsp" %>
+</header>
+<h2><s:text name="title.comment.detail"/></h2>
 
-    <ul>
-        <li><s:text name="comment.id" /> : <s:property value="comment.id"/> </li>
-        <li><s:text name="comment.text" /> : <s:property value="comment.text"/> </li>
-        <li><s:text name="comment.user.id" /> : <s:property value="comment.user_id"/> </li>
-        <li><s:text name="comment.area.id" /> : <s:property value="comment.area_id"/> </li>
-    </ul>
+<ul>
+    <li><s:text name="comment.id"/> : <s:property value="comment.id"/></li>
+    <li><s:text name="comment.text"/> : <s:property value="comment.text"/></li>
+    <li><s:text name="comment.user.id"/> : <s:property value="comment.user_id"/></li>
+    <li><s:text name="comment.area.id"/> : <s:property value="comment.area_id"/></li>
+</ul>
 
 </body>
 <footer>
-    <%@ include file="../_include/footer.jsp"%>
+    <%@ include file="../_include/footer.jsp" %>
 </footer>
 </html>

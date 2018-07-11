@@ -41,13 +41,23 @@ public class ResearchAction extends ActionSupport {
     //=========  METHODES  =========
 
     public String doList() {
-        SiteDao siteDao;
+        String as = ActionSupport.INPUT;
+        try {
+            if (researchInput.trim() == "") {
+                addActionError("Veuillez écrire quelque chose !");
+            } else {
+                SiteDao siteDao;
 
-        DaoFactory daoFactory = DaoFactory.getInstance();
-        siteDao = daoFactory.getSiteDao();
-        siteList = siteDao.researchList(researchInput);
+                DaoFactory daoFactory = DaoFactory.getInstance();
+                siteDao = daoFactory.getSiteDao();
+                siteList = siteDao.researchList(researchInput);
+                as = ActionSupport.SUCCESS;
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
-        return ActionSupport.SUCCESS;
+        return as;
     }
 
 

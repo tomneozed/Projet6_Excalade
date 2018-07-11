@@ -9,25 +9,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title><s:text name="title.area.list" /></title>
-    <%@ include file="../_include/header.jsp"%>
+    <title><s:text name="title.area.list"/></title>
+    <%@ include file="../_include/bootstrap.jsp" %>
 </head>
 <body>
-    <h2><s:text name="title.area.list" /></h2>
+<header class="page-header">
+    <%@ include file="../_include/header.jsp" %>
+</header>
+<h2><s:text name="title.area.list"/></h2>
 
-    <ul>
-        <s:iterator value="areaList">
-            <li>
-                <s:a action="area_detail">
-                    <s:param name="areaId" value="id" />
-                    <s:property value="name"/>
-                </s:a>
-            </li>
-        </s:iterator>
-    </ul>
+<ul>
+    <s:iterator value="areaList">
+        <li>
+            <s:a action="area_detail">
+                <s:param name="areaId" value="id"/>
+                <s:property value="name"/>
+            </s:a>
+        </li>
+    </s:iterator>
+</ul>
 
 </body>
 <footer>
-    <%@ include file="../_include/footer.jsp"%>
+    <%@ include file="../_include/footer.jsp" %>
 </footer>
 </html>

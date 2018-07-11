@@ -10,9 +10,12 @@
 <html>
 <head>
     <title><s:text name="title.area.new"/></title>
-    <%@ include file="../_include/header.jsp" %>
+    <%@ include file="../_include/bootstrap.jsp" %>
 </head>
 <body>
+<header class="page-header">
+    <%@ include file="../_include/header.jsp" %>
+</header>
 
 <s:actionerror/>
 <s:actionmessage/>

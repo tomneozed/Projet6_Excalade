@@ -1,30 +1,28 @@
 package beans;
 
-public class Comment
-{
+public class Comment {
     private String text;
     private int id;
     private int user_id;
     private int area_id;
+    private Person owner;
 
-    public Comment()
-    {
+    public Comment() {
 
     }
 
-    public Comment(int id, String text, int user_id, int secteur_id)
-    {
+    public Comment(int id, String text, int user_id, int secteur_id) {
         this.id = id;
         this.text = text;
         this.user_id = user_id;
-        this.area_id = secteur_id;
+        area_id = secteur_id;
     }
 
     public String fullDescription() {
-        return "\n      ----- Secteur : "+ this.getId() + " -----"+
-                " \nText : " + this.getText() +
-                " \nUser ID : " + this.getUser_id() +
-                " \nArea ID : " + this.getArea_id();
+        return "\n      ----- Secteur : " + getId() + " -----" +
+            " \nText : " + getText() +
+            " \nUser ID : " + getUser_id() +
+            " \nArea ID : " + getArea_id();
     }
 
     public String getText() {
@@ -57,5 +55,13 @@ public class Comment
 
     public void setArea_id(int area_id) {
         this.area_id = area_id;
+    }
+
+    public Person getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
     }
 }

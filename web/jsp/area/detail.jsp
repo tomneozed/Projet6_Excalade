@@ -10,9 +10,12 @@
 <html>
 <head>
     <title><s:text name="title.area.detail"/></title>
-    <%@ include file="../_include/header.jsp" %>
+    <%@ include file="../_include/bootstrap.jsp" %>
 </head>
 <body>
+<header class="page-header">
+    <%@ include file="../_include/header.jsp" %>
+</header>
 <h2><s:text name="title.area.detail"/></h2>
 <%-- Delete option --%>
 <s:if test="#session.user.id == area.ownerId">
@@ -56,22 +59,25 @@
 </section>
 
 <section> <%-- Comments section --%>
-    <strong><s:text name="title.comment.list"/></strong>
-    <s:if test="area.commentList.size() == 0">
-        <s:text name="error.area.empty.comment.list"/>
-    </s:if>
-    <s:else>
-        <ul>
-            <s:iterator value="area.commentList">
-                <li>
-                    <s:property value="commentOwnerList[0].surname"/> <s:property
-                    value="commentOwnerList[0].firstName"/> :
-                    <s:property value="area.commentList[0].text"/>
-
-                </li>
-            </s:iterator>
-        </ul>
-    </s:else>
+    <p>
+        <s:if test="area.commentList.size() == 0">
+            <s:text name="error.area.empty.comment.list"/>
+        </s:if>
+        <s:else>
+            <s:a action="comment_list">
+                <s:param name="areaId" value="%{area.id}"/>
+                <s:text name="title.comment.list"/>
+            </s:a>
+        </s:else>
+    </p>
+    <p>
+        <s:if test="#session.user">
+            <s:a action="comment_new">
+                <s:text name="title.comment.new"/>
+                <s:param name="areaId" value="%{area.id}"/>
+            </s:a>
+        </s:if>
+    </p>
 </section>
 </body>
 <footer>

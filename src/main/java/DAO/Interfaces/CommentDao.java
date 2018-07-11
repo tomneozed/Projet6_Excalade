@@ -4,9 +4,8 @@ import beans.Comment;
 
 import java.util.List;
 
-public interface CommentDao
-{
-    void add(Comment commentaire);
+public interface CommentDao {
+    int add(Comment commentaire);
 
     void delete(int id);
 

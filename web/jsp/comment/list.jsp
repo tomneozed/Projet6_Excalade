@@ -6,29 +6,53 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="s" uri="/struts-tags"%>
+<%@taglib prefix="s" uri="/struts-tags" %>
 
 <html>
 <head>
-    <title><s:text name="title.comment.list" /></title>
-    <%@ include file="../_include/header.jsp"%>
+    <title><s:text name="title.comment.list"/></title>
+    <%@ include file="../_include/bootstrap.jsp" %>
 </head>
 <body>
-    <h2><s:text name="title.comment.list" /></h2>
+<header class="page-header">
+    <%@ include file="../_include/header.jsp" %>
+</header>
+<h2><s:text name="title.comment.list"/></h2>
 
-    <ul>
-        <s:iterator value="commentList">
-            <li>
-                <s:a action="comment_detail">
-                    <s:param name="commentId" value="id" />
-                    <s:property value="id"/>
-                </s:a>
-            </li>
-        </s:iterator>
-    </ul>
+<section>
+    <s:if test="commentList.size() == 0">
+        <s:text name="error.area.empty.route.list"/>
+    </s:if>
+    <s:else>
+        <table>
+            <tr>
+                <th><s:text name="object.name"/></th>
+                <th><s:text name="comment.text"/></th>
+                <th><s:text name="title.delete"/></th>
+            </tr>
+            <s:iterator value="commentList">
+                <tr>
+                    <td><s:property value="owner.surname"/> <s:property value="owner.firstName"/></td>
+                    <td><s:property value="text"/></td>
+                    <td>
+                        <s:if test="#session.user.id == owner.id">
+                            <s:a action="comment_delete">
+                                <s:param name="commentId" value="id"/>
+                                <s:text name="title.delete"></s:text>
+                            </s:a>
+                        </s:if>
+                        <s:else>
+                            <s:text name="error.route.missing.log"/>
+                        </s:else>
+                    </td>
+                </tr>
+            </s:iterator>
+        </table>
+    </s:else>
+</section>
 
 </body>
 <footer>
-    <%@ include file="../_include/footer.jsp"%>
+    <%@ include file="../_include/footer.jsp" %>
 </footer>
 </html>

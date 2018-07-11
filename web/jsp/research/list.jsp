@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Research List</title>
+    <%@ include file="../_include/bootstrap.jsp" %>
 </head>
 <body>
 <header>

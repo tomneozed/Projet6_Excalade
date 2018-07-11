@@ -6,16 +6,20 @@
 
 <head>
     <title><s:text name="title.log"/></title>
-    <%@ include file="./_include/header.jsp"%>
+    <%@ include file="./_include/bootstrap.jsp" %>
+
 </head>
 
 <body>
+<header class="page-header">
+    <%@ include file="./_include/header.jsp" %>
+</header>
 
 <h2><s:text name="title.log"/></h2>
 
 <s:form action="login">
-    <s:textfield name="login" label="Adresse Email" requiredLabel="true" />
-    <s:password name="password" label="Mot de passe" requiredLabel="true" />
+    <s:textfield name="login" label="Adresse Email" requiredLabel="true"/>
+    <s:password name="password" label="Mot de passe" requiredLabel="true"/>
 
     <s:submit value="Connexion"/>
 </s:form>
@@ -27,6 +31,6 @@
 </s:if>
 </body>
 <footer>
-    <%@ include file="./_include/footer.jsp"%>
+    <%@ include file="./_include/footer.jsp" %>
 </footer>
 </html>

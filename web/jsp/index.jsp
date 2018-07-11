@@ -5,12 +5,14 @@
   Time: 14:24
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@taglib prefix="s" uri="/struts-tags" %>
+
 
 <html>
 <head>
     <title>Excalade</title>
+    <%@ include file="./_include/bootstrap.jsp" %>
 </head>
 <body>
 <header class="page-header">
@@ -23,10 +25,10 @@
     </div>
 
     <div class="row">
-        <s:include value="research/form.jsp"></s:include>
+        <s:include value="research/form.jsp"> </s:include>
     </div>
 
-    <div>
+    <div class="row">
         <p>
             <s:a action="site_list">
                 <s:text name="title.site.list"/>
@@ -73,12 +75,18 @@
             </s:a>
         </div>
     </div>
-
 </div>
-
 </body>
 
 <footer>
+    <s:a name="index">
+        <s:param name="request_locale">en</s:param>
+        [English]
+    </s:a>
+    <s:a name="index">
+        <s:param name="request_locale">fr</s:param>
+        [Français]
+    </s:a>
     <%@ include file="./_include/footer.jsp" %>
 </footer>
 </html>

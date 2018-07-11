@@ -10,7 +10,7 @@
 <html>
 <head>
     <title><s:text name="title.reservation.list"/></title>
-    <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet">
+    <%@ include file="../_include/bootstrap.jsp" %>
 
 </head>
 <body>

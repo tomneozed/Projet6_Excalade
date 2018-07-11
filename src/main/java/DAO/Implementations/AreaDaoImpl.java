@@ -37,7 +37,6 @@ public class AreaDaoImpl implements AreaDao {
             preparedStatement.setString(4, area.getDescription());
             preparedStatement.setInt(5, area.getSiteId());
 
-            System.out.println("[AreaDaoImpl] - add() : " + area.fullDescription());
             preparedStatement.executeUpdate();
 
             ResultSet rs = preparedStatement.getGeneratedKeys();

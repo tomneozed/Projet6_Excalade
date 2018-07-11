@@ -10,10 +10,12 @@
 <html>
 <head>
     <title><s:text name="title.route.list"/></title>
-    <%@ include file="../_include/header.jsp" %>
+    <%@ include file="../_include/bootstrap.jsp" %>
 </head>
 <body>
-
+<header class="page-header">
+    <%@ include file="../_include/header.jsp" %>
+</header>
 <h2><s:text name="title.route.list"/></h2>
 
 <section>

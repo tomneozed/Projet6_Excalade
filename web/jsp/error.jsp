@@ -10,16 +10,19 @@
 <html>
 <head>
     <title>Error</title>
-    <%@ include file="./_include/header.jsp"%>
+    <%@ include file="./_include/bootstrap.jsp" %>
 </head>
 <body>
+<header class="page-header">
+    <%@ include file="./_include/header.jsp" %>
+</header>
 
-    <h2>Une erreur s'est produite</h2>
+<h2>Une erreur s'est produite</h2>
 
-    <s:actionerror />
+<s:actionerror/>
 
 </body>
 <footer>
-    <%@ include file="./_include/footer.jsp"%>
+    <%@ include file="./_include/footer.jsp" %>
 </footer>
 </html>
