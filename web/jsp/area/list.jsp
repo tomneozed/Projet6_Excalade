@@ -16,18 +16,21 @@
 <header class="page-header">
     <%@ include file="../_include/header.jsp" %>
 </header>
-<h2><s:text name="title.area.list"/></h2>
 
-<ul>
-    <s:iterator value="areaList">
-        <li>
-            <s:a action="area_detail">
-                <s:param name="areaId" value="id"/>
-                <s:property value="name"/>
-            </s:a>
-        </li>
-    </s:iterator>
-</ul>
+<div class="container">
+    <h2><s:text name="title.area.list"/></h2>
+    <ul>
+        <s:iterator value="areaList">
+            <li>
+                <s:a action="area_detail">
+                    <s:param name="areaId" value="id"/>
+                    <s:property value="name"/>
+                </s:a>
+            </li>
+        </s:iterator>
+    </ul>
+</div>
+
 
 </body>
 <footer>

@@ -1,0 +1,17 @@
+.errorMessage {
+    width: 400px;
+    margin: auto;
+    color: red;
+}
+
+.label {
+    color: #000;
+}
+
+ul {
+    list-style-type: none;
+}
+
+tr {
+    display: inline-block;
+}

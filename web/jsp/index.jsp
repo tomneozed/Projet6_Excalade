@@ -15,70 +15,25 @@
     <%@ include file="./_include/bootstrap.jsp" %>
 </head>
 <body>
-<header class="page-header">
+<header class="page-header text-center">
     <%@ include file="./_include/header.jsp" %>
+    
 </header>
 <div class="container">
 
-    <div class="row">
+    <div class="row text-center">
         <h1><s:text name="home.welcome"/></h1>
     </div>
 
     <div class="row">
-        <s:include value="research/form.jsp"> </s:include>
-    </div>
-
-    <div class="row">
-        <p>
-            <s:a action="site_list">
-                <s:text name="title.site.list"/>
-            </s:a>
-        </p>
-    </div>
-
-    <div class="row">
-        <p>
-            <s:a action="area_list">
-                <s:text name="title.area.list"/>
-            </s:a>
-        </p>
-    </div>
-
-    <div class="row">
-        <p>
-            <s:a action="area_new">
-                <s:text name="title.area.new"/>
-            </s:a>
-        </p>
-    </div>
-
-    <div class="row">
-        <p>
-            <s:a action="site_new">
-                <s:text name="title.site.new"/>
-            </s:a>
-        </p>
-    </div>
-
-    <div class="row">
-        <p>
-            <s:a action="route_new">
-                <s:text name="title.route.new"/>
-            </s:a>
-        </p>
-    </div>
-
-    <div class="row">
-        <div class="col-lg12">
-            <s:a action="comment_list">
-                <s:text name="title.comment.list"/>
-            </s:a>
+        <div class="align-center">
+            <s:include value="research/form.jsp"> </s:include>
         </div>
     </div>
 </div>
 </body>
 
-<footer>
+<footer class="text-center">
     <s:a name="index">
         <s:param name="request_locale">en</s:param>
         [English]

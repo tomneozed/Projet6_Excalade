@@ -4,8 +4,10 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
     "http://struts.apache.org/dtds/struts-2.5.dtd">
 
+
 <struts>
     <package name="default" extends="struts-default">
+
         <!-- default action-->
         <default-action-ref name="index"/>
 
@@ -50,7 +52,16 @@
         <action name="comment_delete"
                 class="action.CommentActionManagement"
                 method="doDelete">
-            <result name="success">/jsp/index.jsp</result>
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
+            <result name="success" type="redirectAction">
+                <param name="actionName">area_detail</param>
+                <param name="areaId">${areaId}</param>
+            </result>
             <result name="error">/jsp/error.jsp</result>
         </action>
 
@@ -177,7 +188,16 @@
         <action name="route_delete"
                 class="action.RouteActionManagement"
                 method="doDelete">
-            <result name="success">/jsp/index.jsp</result>
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
+            <result name="success" type="redirectAction">
+                <param name="actionName">area_detail</param>
+                <param name="areaId">${areaId}</param>
+            </result>
             <result name="error">/jsp/error.jsp</result>
         </action>
 

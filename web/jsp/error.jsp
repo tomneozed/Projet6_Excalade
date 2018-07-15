@@ -16,10 +16,11 @@
 <header class="page-header">
     <%@ include file="./_include/header.jsp" %>
 </header>
+<div class="container text-center">
+    <h2>Une erreur s'est produite</h2>
 
-<h2>Une erreur s'est produite</h2>
-
-<s:actionerror/>
+    <s:actionerror/>
+</div>
 
 </body>
 <footer>

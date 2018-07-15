@@ -16,20 +16,22 @@
 <header class="page-header">
     <%@ include file="../_include/header.jsp" %>
 </header>
-<s:actionerror/>
-<s:actionmessage/>
+<div class="container">
+    <s:actionerror/>
+    <s:actionmessage/>
 
-<h2><s:text name="title.route.new"/></h2>
+    <h2><s:text name="title.route.new"/></h2>
 
-<s:form action="route_new" method="POST">
-    <s:textfield name="route.routeNumber" key="route.number" requiredLabel="true"/>
-    <s:textfield name="route.height" key="route.height" requiredLabel="true"/>
-    <s:textfield name="route.grade" key="route.grade" requiredLabel="true"/>
-    <s:textfield name="route.anchorCount" key="route.anchor.count" requiredLabel="false"/>
-    <s:hidden name="areaId"/>
-    <s:submit value="OK"/>
-</s:form>
+    <s:form action="route_new" method="POST">
+        <s:textfield name="route.routeNumber" key="route.number" requiredLabel="true"/>
+        <s:textfield name="route.height" key="route.height" requiredLabel="true"/>
+        <s:textfield name="route.grade" key="route.grade" requiredLabel="true"/>
+        <s:textfield name="route.anchorCount" key="route.anchor.count" requiredLabel="false"/>
+        <s:hidden name="areaId"/>
+        <s:submit value="OK"/>
+    </s:form>
 
+</div>
 </body>
 <footer>
     <%@ include file="../_include/footer.jsp" %>

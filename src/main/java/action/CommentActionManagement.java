@@ -137,7 +137,7 @@ public class CommentActionManagement extends ActionSupport {
             comment.setArea_id(areaId);
             comment.setUser_id(user.getId());
 
-            System.out.println("CommentActionManagment : doCreate : " + comment.fullDescription());
+//            System.out.println("CommentActionManagment : doCreate : " + comment.fullDescription());
 
             if (!hasErrors()) {
                 commentId = commentDao.add(comment);

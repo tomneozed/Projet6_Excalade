@@ -8,8 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<footer>
-
+<footer class="text-center">
     <s:text name="title.footer"></s:text>
 </footer>
 </html>

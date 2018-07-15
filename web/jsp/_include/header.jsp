@@ -3,47 +3,53 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <head>
-    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+
 </head>
 
-
-<header>
-    <s:if test="#session.user">
-        <s:text name="connected.user"/>
-        :
-        <s:property value="#session.user.firstName"/>
-        <s:property value="#session.user.surname"/>
-
-        <s:a action="logout">
-            <s:text name="connexion.logout"/>
-        </s:a>
-    </s:if>
-    <s:else>
-        <s:a action="login">
-            <s:text name="connexion.login"/>
-        </s:a>
-    </s:else>
-</header>
-
-<nav>
-    <s:if test="#session.user">
-        <p>
-            <s:a action="reservation_list">
-                <s:text name="title.reservation.list"></s:text>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header navbar-brand">
+            <s:text name="title.excalade"></s:text>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><s:a action="index">
+                <s:text name="home.nav"/>
             </s:a>
+            </li>
 
-        </p>
-    </s:if>
-
-    <s:a action="index">
-        <s:text name="home.nav"/>
-    </s:a>
-
-    <s:a action="site_list">
-        <s:text name="title.site.list"/>
-    </s:a>
-
-    <s:a action="site_new">
-        <s:text name="title.site.new"/>
-    </s:a>
+            <li><s:a action="site_list">
+                <s:text name="title.site.list"/>
+            </s:a>
+            </li>
+            <s:if test="#session.user">
+                <li><s:a action="site_new">
+                    <s:text name="title.site.new"/>
+                </s:a>
+                </li>
+                <li>
+                    <s:a action="reservation_list">
+                        <s:text name="title.reservation.list"></s:text>
+                    </s:a>
+                </li>
+            </s:if>
+            <s:if test="#session.user">
+                <li class="navbar-brand">
+                    <s:property value="#session.user.firstName"/>
+                    <s:property value="#session.user.surname"/>
+                </li>
+                <li>
+                    <s:a action="logout">
+                        <s:text name="connexion.logout"/>
+                    </s:a>
+                </li>
+            </s:if>
+            <s:else>
+                <li>
+                    <s:a action="login">
+                        <s:text name="connexion.login"/>
+                    </s:a>
+                </li>
+            </s:else>
+        </ul>
+    </div>
 </nav>

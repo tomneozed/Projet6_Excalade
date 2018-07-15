@@ -10,54 +10,33 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReservationsGuidebookDaoImpl implements ReservationsGuidebookDao
-{
+public class ReservationsGuidebookDaoImpl implements ReservationsGuidebookDao {
     private DaoFactory daoFactory;
     Connection connexion;
 
-    public ReservationsGuidebookDaoImpl(DaoFactory daoFactory)
-    {
+    public ReservationsGuidebookDaoImpl(DaoFactory daoFactory) {
         this.daoFactory = daoFactory;
     }
 
-    public int add(ReservationsGuidebook reservation)
-    {
+    public int add(ReservationsGuidebook reservation) {
         PreparedStatement preparedStatement;
         int reservationId = -1;
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        try
-        {
-            //Date translation : String --> Date
-            //Date dateStart = (Date) formatter.parse(reservation.getReservation_day_start());
-//            Date dateEnd = (Date) formatter.parse(reservation.getReservation_day_end());
-//
-//            SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
-//            java.util.Date date = sdf1.parse(reservation.getReservation_day_start());
-//            java.sql.Date dateStart = new java.sql.Date(date.);
-            String dateDebut="";
-            String dateFin="";
+        try {
+            System.out.println("[ReservationImpl] add() : date debut : " + reservation.getReservation_day_start());
+            System.out.println("[ReservationImpl] add() : date fin : " + reservation.getReservation_day_end());
 
-            for(int i=0; i <10 ; i++)
-            {
-                dateDebut += reservation.getReservation_day_start().charAt(i);
-                dateFin += reservation.getReservation_day_end().charAt(i);
-            }
-
-            System.out.println("date debut : " + dateDebut);
-            System.out.println("date fin : " + dateFin);
-
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date parsed = format.parse(dateDebut);
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            java.util.Date parsed = format.parse(reservation.getReservation_day_start());
             java.sql.Date dateStart = new java.sql.Date(parsed.getTime());
 
-            java.util.Date parsedFin = format.parse(dateFin);
+            java.util.Date parsedFin = format.parse(reservation.getReservation_day_end());
             java.sql.Date dateEnd = new java.sql.Date(parsedFin.getTime());
 
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement(
-                    "INSERT INTO public.reservations_guidebook(tenant_id, site_id, reservation_day_start, reservation_day_end)" +
-                            "VALUES(?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
+                "INSERT INTO public.reservations_guidebook(tenant_id, site_id, reservation_day_start, reservation_day_end)" +
+                    "VALUES(?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, reservation.getTenant_id());
             preparedStatement.setInt(2, reservation.getSite_id());
             preparedStatement.setDate(3, dateStart);
@@ -67,15 +46,13 @@ public class ReservationsGuidebookDaoImpl implements ReservationsGuidebookDao
 
             ResultSet rs = preparedStatement.getGeneratedKeys();
 
-            if(rs.next())
-            {
+            if (rs.next()) {
                 reservationId = rs.getInt(1);
             }
 
             System.out.println("[add] reservationId : " + reservationId);
             connexion.close();
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
@@ -83,21 +60,18 @@ public class ReservationsGuidebookDaoImpl implements ReservationsGuidebookDao
         return reservationId;
     }
 
-    public void delete(int id)
-    {
+    public void delete(int id) {
         PreparedStatement preparedStatement;
 
-        try
-        {
+        try {
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement(
-                    "DELETE FROM public.reservations_guidebook WHERE id = ?;");
+                "DELETE FROM public.reservations_guidebook WHERE id = ?;");
             preparedStatement.setInt(1, id);
 
             preparedStatement.executeUpdate();
             connexion.close();
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -106,16 +80,15 @@ public class ReservationsGuidebookDaoImpl implements ReservationsGuidebookDao
     public void update(int id, ReservationsGuidebook newReservation) {
         PreparedStatement preparedStatement;
 
-        try
-        {
+        try {
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement(
-                    "UPDATE public.reservations_guidebook " +
-                            "SET tenant_id = ?, " +
-                            "site_id = ?, " +
-                            "reservation_day_start = ?, " +
-                            "reservation_day_end = ? " +
-                            "WHERE id = ?;");
+                "UPDATE public.reservations_guidebook " +
+                    "SET tenant_id = ?, " +
+                    "site_id = ?, " +
+                    "reservation_day_start = ?, " +
+                    "reservation_day_end = ? " +
+                    "WHERE id = ?;");
             preparedStatement.setInt(1, newReservation.getTenant_id());
             preparedStatement.setInt(2, newReservation.getSite_id());
             preparedStatement.setString(3, newReservation.getReservation_day_start());
@@ -124,26 +97,22 @@ public class ReservationsGuidebookDaoImpl implements ReservationsGuidebookDao
 
             preparedStatement.executeUpdate();
             connexion.close();
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public List<ReservationsGuidebook> list()
-    {
+    public List<ReservationsGuidebook> list() {
         List<ReservationsGuidebook> reservationsList = new ArrayList<ReservationsGuidebook>();
         Statement statement;
         ResultSet resultat;
 
-        try
-        {
+        try {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
             resultat = statement.executeQuery("SELECT * FROM public.reservations_guidebook;");
 
-            while(resultat.next())
-            {
+            while (resultat.next()) {
                 int id = resultat.getInt("id");
                 int tenant_id = resultat.getInt("tenant_id");
                 int site_id = resultat.getInt("site_id");
@@ -156,8 +125,7 @@ public class ReservationsGuidebookDaoImpl implements ReservationsGuidebookDao
                 reservationsList.add(reservation);
             }
             connexion.close();
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return reservationsList;
@@ -169,15 +137,13 @@ public class ReservationsGuidebookDaoImpl implements ReservationsGuidebookDao
         Statement statement;
         ResultSet resultat;
 
-        try
-        {
+        try {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
             resultat = statement.executeQuery("SELECT * FROM public.reservations_guidebook " +
-                    "WHERE site_id =" + siteId + ";");
+                "WHERE site_id =" + siteId + ";");
 
-            while(resultat.next())
-            {
+            while (resultat.next()) {
                 int id = resultat.getInt("id");
                 int tenant_id = resultat.getInt("tenant_id");
                 int site_id = resultat.getInt("site_id");
@@ -189,8 +155,7 @@ public class ReservationsGuidebookDaoImpl implements ReservationsGuidebookDao
                 reservationListBySite.add(reservation);
             }
             connexion.close();
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -203,15 +168,13 @@ public class ReservationsGuidebookDaoImpl implements ReservationsGuidebookDao
         Statement statement;
         ResultSet resultat;
 
-        try
-        {
+        try {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
             resultat = statement.executeQuery("SELECT * FROM public.reservations_guidebook " +
-                    "WHERE tenant_id =" + tenantId + ";");
+                "WHERE tenant_id =" + tenantId + ";");
 
-            while(resultat.next())
-            {
+            while (resultat.next()) {
                 int id = resultat.getInt("id");
                 int tenant_id = resultat.getInt("tenant_id");
                 int site_id = resultat.getInt("site_id");
@@ -223,28 +186,24 @@ public class ReservationsGuidebookDaoImpl implements ReservationsGuidebookDao
                 reservationListByTenant.add(reservation);
             }
             connexion.close();
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return reservationListByTenant;
     }
 
-    public ReservationsGuidebook find(int id)
-    {
-       ReservationsGuidebook reservation = new ReservationsGuidebook();
+    public ReservationsGuidebook find(int id) {
+        ReservationsGuidebook reservation = new ReservationsGuidebook();
         Statement statement;
         ResultSet resultat;
 
-        try
-        {
+        try {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
             resultat = statement.executeQuery(
-                    "SELECT * FROM public.reservations_guidebook WHERE id="+ id +";");
-            while (resultat.next())
-            {
+                "SELECT * FROM public.reservations_guidebook WHERE id=" + id + ";");
+            while (resultat.next()) {
                 int tenant_id = resultat.getInt("tenant_id");
                 int site_id = resultat.getInt("site_id");
                 String reservation_day_start = resultat.getString("reservation_day_start");
@@ -257,8 +216,7 @@ public class ReservationsGuidebookDaoImpl implements ReservationsGuidebookDao
                 reservation.setReservation_day_end(reservation_day_end);
             }
             connexion.close();
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return reservation;

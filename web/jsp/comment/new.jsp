@@ -17,11 +17,14 @@
     <%@ include file="../_include/header.jsp" %>
 </header>
 
-<h2><s:text name="title.comment.new"/></h2>
+<div class="container">
+    <h2><s:text name="title.comment.new"/></h2>
 
-<s:form action="comment_new">
-    <s:textfield name="comment.text" key="comment.text" requiredLabel="true"/>
-    <s:hidden name="areaId"/>
-    <s:submit value="OK"/>
-</s:form>
+    <s:form action="comment_new">
+        <s:textfield name="comment.text" key="comment.text" requiredLabel="true"/>
+        <s:hidden name="areaId"/>
+        <s:submit value="OK"/>
+    </s:form>
+</div>
+</body>
 </html>

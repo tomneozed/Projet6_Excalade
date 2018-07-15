@@ -44,7 +44,7 @@ public class ResearchAction extends ActionSupport {
         String as = ActionSupport.INPUT;
         try {
             if (researchInput.trim() == "") {
-                addActionError("Veuillez écrire quelque chose !");
+                addActionError("Veuillez ecrire quelque chose !");
             } else {
                 SiteDao siteDao;
 

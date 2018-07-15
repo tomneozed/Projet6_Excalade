@@ -16,18 +16,26 @@
 <header class="page-header">
     <%@ include file="../_include/header.jsp" %>
 </header>
-<h2><s:text name="title.site.list"/></h2>
 
-<ul>
-    <s:iterator value="siteList">
-        <li>
-            <s:a action="site_detail">
-                <s:param name="siteId" value="id"/>
-                <s:property value="name"/>
-            </s:a>
-        </li>
-    </s:iterator>
-</ul>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-offset-1">
+            <h2><s:text name="title.site.list"/></h2>
+
+            <ul>
+                <s:iterator value="siteList">
+                    <li>
+                        <s:a action="site_detail">
+                            <s:param name="siteId" value="id"/>
+                            <s:property value="name"/>
+                        </s:a>
+                    </li>
+                </s:iterator>
+            </ul>
+        </div>
+    </div>
+</div>
+
 </body>
 <footer>
     <%@ include file="../_include/footer.jsp" %>

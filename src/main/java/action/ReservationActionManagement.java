@@ -8,8 +8,8 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.SessionAware;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -80,7 +80,7 @@ public class ReservationActionManagement extends ActionSupport implements Sessio
         Map session = ActionContext.getContext().getSession();
 
         //Session user
-        user = (Person)session.get("user");
+        user = (Person) session.get("user");
 
         reservationList = reservationDao.listByTenant(user.getId());
 
@@ -93,14 +93,12 @@ public class ReservationActionManagement extends ActionSupport implements Sessio
         DaoFactory daoFactory = DaoFactory.getInstance();
         reservationDao = daoFactory.getReservationDao();
 
-        if(reservationId == null)
-        {
-            this.addActionError("error.reservation.missing.id");
-        }else
-        {
-            this.reservation = reservationDao.find(reservationId);
+        if (reservationId == null) {
+            addActionError("error.reservation.missing.id");
+        } else {
+            reservation = reservationDao.find(reservationId);
         }
-        return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+        return (hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
     }
 
     public String doCreate() {
@@ -110,47 +108,54 @@ public class ReservationActionManagement extends ActionSupport implements Sessio
         DaoFactory daoFactory = DaoFactory.getInstance();
         reservationDao = daoFactory.getReservationDao();
 
-        String vResult= ActionSupport.INPUT;
+        String vResult = ActionSupport.INPUT;
 
         // site!= null : check for errors
-        if(this.reservation != null)
-        {
+        if (reservation != null) {
             Map session = ActionContext.getContext().getSession();
 
             //Session user
-            user = (Person)session.get("user");
+            user = (Person) session.get("user");
 
             //Set tenant_id as user_id
-            this.reservation.setTenant_id(user.getId());
+            reservation.setTenant_id(user.getId());
 
             //Set site_id
-            this.reservation.setSite_id(siteId);
+            reservation.setSite_id(siteId);
 
-            //LOG
-            System.out.println(this.reservation.toString());
+            //Verify dates
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                java.util.Date dayStart = format.parse(reservation.getReservation_day_start());
+                java.util.Date dayEnd = format.parse(reservation.getReservation_day_end());
+                System.out.println("[reservationAction] doCreate() : dayStart : " + dayStart.toString());
+                if (dayStart.after(dayEnd)) {
+                    addActionError("Day start must be lower than Day End");
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
-            if(!this.hasErrors())
-            {
-                this.reservationId = reservationDao.add(this.reservation);
+
+            if (!hasErrors()) {
+                reservationId = reservationDao.add(reservation);
 
                 reservation.setId(reservationId);
 
                 System.out.println(reservation.toString());
 
                 vResult = ActionSupport.SUCCESS;
-                this.addActionMessage("success.reservation.added");
+                addActionMessage("success.reservation.added");
             }
         }
 
-        if (vResult.equals(ActionSupport.INPUT))
-        {
+        if (vResult.equals(ActionSupport.INPUT)) {
 
         }
         return vResult;
     }
 
-    public String doDelete()
-    {
+    public String doDelete() {
         String vResult;
         ReservationsGuidebookDao reservationDao;
 
@@ -158,19 +163,16 @@ public class ReservationActionManagement extends ActionSupport implements Sessio
         reservationDao = daoFactory.getReservationDao();
         ResourceBundle bundle = ResourceBundle.getBundle("messages");
 
-        if(session != null)
-        {
-            if(session.get("WW_TRANS_I18N_LOCALE") == "en")
-            {
+        if (session != null) {
+            if (session.get("WW_TRANS_I18N_LOCALE") == "en") {
                 bundle = ResourceBundle.getBundle("messages_en");
-            }else
-            {
+            } else {
                 bundle = ResourceBundle.getBundle("messages");
             }
         }
         reservationDao.delete(reservationId);
-        this.addActionMessage(bundle.getString("success.reservation.deleted"));
-        vResult= ActionSupport.SUCCESS;
+        addActionMessage(bundle.getString("success.reservation.deleted"));
+        vResult = ActionSupport.SUCCESS;
 
         return vResult;
     }

@@ -16,25 +16,28 @@
 <header class="page-header">
     <%@ include file="../_include/header.jsp" %>
 </header>
-<s:actionerror/>
-<s:actionmessage/>
+<div class="container">
+    <s:actionerror/>
+    <s:actionmessage/>
 
-<s:if test="#session.user">
+    <s:if test="#session.user">
 
-    <h2><s:text name="title.site.new"/></h2>
+        <h2><s:text name="title.site.new"/></h2>
 
-    <s:form action="site_new">
-        <s:textfield name="site.state" key="site.state" requiredLabel="true"/>
-        <s:textfield name="site.region" key="site.region" requiredLabel="true"/>
-        <s:textfield name="site.county" key="site.county" requiredLabel="false"/>
-        <s:textfield name="site.name" key="site.name" requiredLabel="true"/>
-        <s:hidden name="siteId"/>
-        <s:submit value="OK"/>
-    </s:form>
-</s:if>
-<s:else>
-    <s:text name="error.not.logged"/>
-</s:else>
+        <s:form action="site_new">
+            <s:textfield name="site.state" key="site.state" requiredLabel="true"/>
+            <s:textfield name="site.region" key="site.region" requiredLabel="true"/>
+            <s:textfield name="site.county" key="site.county" requiredLabel="false"/>
+            <s:textfield name="site.name" key="site.name" requiredLabel="true"/>
+            <s:hidden name="siteId"/>
+            <s:submit value="OK"/>
+        </s:form>
+    </s:if>
+    <s:else>
+        <s:text name="error.not.logged"/>
+    </s:else>
+</div>
+
 </body>
 <footer>
     <%@ include file="../_include/footer.jsp" %>

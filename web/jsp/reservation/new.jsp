@@ -7,10 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<%@ taglib prefix="sx" uri="/struts-dojo-tags" %>
 <html>
 <head>
-    <sx:head/>
     <title><s:text name="title.reservation.new"/></title>
     <%@ include file="../_include/bootstrap.jsp" %>
 </head>
@@ -18,17 +16,30 @@
 <header class="page-header">
     <%@ include file="../_include/header.jsp" %>
 </header>
-<h2><s:text name="title.reservation.new"/></h2>
+<div class="container">
+    <h2><s:text name="title.reservation.new"/></h2>
+    <div class="row">
+        <div class="col-lg-5">
+            <s:form action="reservation_new">
+                <s:textfield name="reservation.reservation_day_start" key="reservation.day.start" requiredLabel="true"/>
+                <s:textfield name="reservation.reservation_day_end" key="reservation.day.end" requiredLabel="true"/>
 
-<s:form action="reservation_new">
-    <sx:datetimepicker name="reservation.reservation_day_start" key="reservation.day.start" displayFormat="dd-MM-yyyy"
-                       value="" requiredLabel="true"/>
-    <sx:datetimepicker name="reservation.reservation_day_end" key="reservation.day.end" displayFormat="dd-MM-yyyy"
-                       value="" requiredLabel="true"/>
-    <s:hidden name="siteId"/>
-    <s:hidden name="reservation.id"/>
-    <s:submit value="OK"/>
-</s:form>
+                <s:hidden name="siteId"/>
+                <s:hidden name="reservation.id"/>
+                <s:submit value="OK"/>
+            </s:form>
+        </div>
+        <div class="col-lg-4">
+            <s:if test="hasActionErrors()">
+                <div class="errors">
+                    <s:actionerror/>
+                </div>
+            </s:if>
+        </div>
+    </div>
+
+
+</div>
 
 </body>
 <footer>
