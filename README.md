@@ -34,7 +34,7 @@ Le projet comprend un dossier scriptsSQL comprenant :
   
   - Lancer tomcat
   
-  - Adresse sur navigateur : http://localhost:8080/excalade
+  - Adresse sur navigateur : http://localhost:8080
   
 (pour tester les sessions utilisateurs, on peut utiliser : marieCurry@email.com    mdp: motDePasse)
       
