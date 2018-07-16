@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+
+<struts>
+    <package name="default" extends="struts-default">
+
+        <!-- default action-->
+        <default-action-ref name="index"/>
+
+        <!-- index action -->
+        <action name="index">
+            <result>/jsp/index.jsp</result>
+        </action>
+        <!--======================================== COMMENT ========================================-->
+        <!-- comment list action -->
+        <action name="comment_list"
+                class="action.CommentActionManagement"
+                method="doList">
+            <result>/jsp/comment/list.jsp</result>
+        </action>
+
+        <!-- comment detail action  -->
+        <action name="comment_detail"
+                class="action.CommentActionManagement"
+                method="doDetail">
+            <result name="success">/jsp/comment/detail.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <!-- new comment action-->
+        <action name="comment_new"
+                class="action.CommentActionManagement"
+                method="doCreate">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
+            <result name="input">/jsp/comment/new.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">area_detail</param>
+                <param name="areaId">${areaId}</param>
+            </result>
+        </action>
+
+        <!-- delete comment action-->
+        <action name="comment_delete"
+                class="action.CommentActionManagement"
+                method="doDelete">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
+            <result name="success" type="redirectAction">
+                <param name="actionName">area_detail</param>
+                <param name="areaId">${areaId}</param>
+            </result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+
+        <!--======================================== SITE ========================================-->
+
+        <!-- site list action-->
+        <action name="site_list"
+                class="action.SiteActionManagement"
+                method="doList">
+            <result>/jsp/site/list.jsp</result>
+        </action>
+
+        <!-- site detail action -->
+        <action name="site_detail"
+                class="action.SiteActionManagement"
+                method="doDetail">
+            <result name="success">/jsp/site/detail.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <!-- new site action-->
+        <action name="site_new"
+                class="action.SiteActionManagement"
+                method="doCreate">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
+            <result name="input">/jsp/site/new.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">site_detail</param>
+                <param name="siteId">${site.id}</param>
+            </result>
+        </action>
+
+        <!-- delete site action-->
+        <action name="site_delete"
+                class="action.SiteActionManagement"
+                method="doDelete">
+            <result name="success">/jsp/index.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <!--======================================== AREA ========================================-->
+
+        <!-- area list action -->
+        <action name="area_list"
+                class="action.AreaActionManagement"
+                method="doList">
+            <result>/jsp/area/list.jsp</result>
+        </action>
+
+        <!-- area detail action -->
+        <action name="area_detail"
+                class="action.AreaActionManagement"
+                method="doDetail">
+            <result name="success">/jsp/area/detail.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <!-- new area action-->
+        <action name="area_new"
+                class="action.AreaActionManagement"
+                method="doCreate">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
+            <result name="input">/jsp/area/new.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">area_detail</param>
+                <param name="areaId">${area.id}</param>
+            </result>
+        </action>
+
+        <!-- delete area action-->
+        <action name="area_delete"
+                class="action.AreaActionManagement"
+                method="doDelete">
+            <result name="success">/jsp/index.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <!--======================================== ROUTE ========================================-->
+
+        <!-- route list action -->
+        <action name="route_list"
+                class="action.RouteActionManagement"
+                method="doList">
+            <result>/jsp/route/list.jsp</result>
+        </action>
+
+        <!-- route detail action -->
+        <action name="route_detail"
+                class="action.RouteActionManagement"
+                method="doDetail">
+            <result name="success">/jsp/route/detail.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <!-- new route action-->
+        <action name="route_new"
+                class="action.RouteActionManagement"
+                method="doCreate">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
+            <result name="input">/jsp/route/new.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">area_detail</param>
+                <param name="areaId">${areaId}</param>
+            </result>
+        </action>
+
+        <!-- delete route action-->
+        <action name="route_delete"
+                class="action.RouteActionManagement"
+                method="doDelete">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
+            <result name="success" type="redirectAction">
+                <param name="actionName">area_detail</param>
+                <param name="areaId">${areaId}</param>
+            </result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <!--======================================== RESERVATION ========================================-->
+
+        <!-- reservation list action -->
+        <action name="reservation_list"
+                class="action.ReservationActionManagement"
+                method="doList">
+            <result>/jsp/reservation/list.jsp</result>
+        </action>
+
+        <!-- reservation detail action -->
+        <action name="reservation_detail"
+                class="action.ReservationActionManagement"
+                method="doDetail">
+            <result name="success">/jsp/reservation/detail.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <!-- new reservation action-->
+        <action name="reservation_new"
+                class="action.ReservationActionManagement"
+                method="doCreate">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
+            <result name="input">/jsp/reservation/new.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">reservation_detail</param>
+                <param name="reservationId">${reservation.id}</param>
+            </result>
+        </action>
+
+        <!-- delete reservation action-->
+        <action name="reservation_delete"
+                class="action.ReservationActionManagement"
+                method="doDelete">
+            <result name="success">/jsp/index.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <!--======================================== LOGIN / LOGOUT ========================================-->
+
+        <action name="login" class="action.LoginAction" method="doLogin">
+            <result name="input">/jsp/login.jsp</result>
+            <result name="success" type="redirectAction">index</result>
+            <result name="error">/jsp/login.jsp</result>
+        </action>
+
+        <action name="logout" class="action.LoginAction" method="doLogout">
+            <result type="redirectAction">index</result>
+        </action>
+
+        <!--======================================== RESEARCH ========================================-->
+
+        <action name="research" class="action.ResearchAction" method="doList">
+            <result name="success">/jsp/research/list.jsp</result>
+            <result name="input">/jsp/index.jsp</result>
+        </action>
+
+    </package>
+</struts>
