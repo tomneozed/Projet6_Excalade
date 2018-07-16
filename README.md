@@ -1,9 +1,13 @@
 # Projet6_Excalade
 Projet 6 du parcours OpenClassrooms "Developpeur Java EE"
 
+# Prérequis
+
 Base de données : PostgreSQL
 JDK : v1.8
 Tomcat 9
+
+# Scripts SQL
 
 Le projet comprend un dossier scriptsSQL comprenant :
 
@@ -11,6 +15,8 @@ Le projet comprend un dossier scriptsSQL comprenant :
   
   - jeuDonneesDemo qui permet de remplir la BDD 
  
+ 
+ # Run
  
  Le dossier mpd comprend le modèle physique de données créé via SQL Power Architect
  
@@ -20,17 +26,13 @@ Le projet comprend un dossier scriptsSQL comprenant :
   
   - Dézipper le projet
   
-  - Lancer IntelliJ
+  - Récupérer le fichier Projet6_Excalade > target > excalade-1.0-SNAPSHOT.war
   
-  - Configuration de Tomcat : 
+  - Le copier dans {tomcat}/webapps
   
-      - Créer un nouveau serveur Tomcat (Local) 
-      
-      - Adresse : http://localhost:8080/excalade
-      
-      - Onglet Deployment : add(+) -> artifact -> excalade puis Apply
+  - Lancer tomcat
   
-  - Lancer le projet : Run
+  - Adresse sur navigateur : http://localhost:8080/excalade
   
 (pour tester les sessions utilisateurs, on peut utiliser : marieCurry@email.com    mdp: motDePasse)
       
