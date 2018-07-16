@@ -4,7 +4,9 @@ Projet 6 du parcours OpenClassrooms "Developpeur Java EE"
 # Prérequis
 
 Base de données : PostgreSQL
+
 JDK : v1.8
+
 Tomcat 9
 
 # Scripts SQL
